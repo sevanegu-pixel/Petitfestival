@@ -13,5 +13,5 @@ window.FESTIVAL = {
   ],
   contact: "petitfestival.ge@gmail.com",
   // Adresse de l'application de réservation (Apps Script, se termine par /exec). Vide = « Le programme et les réservations ouvrent bientôt ».
-  api: ""
+  api: "https://script.google.com/macros/s/AKfycbwWdo5fOb68E1Civ7ToZe5EDYxvq_9GDl97nmEwv7aPYHtQn-vSN_uhZgsjmjZIrLph/exec"
 };
