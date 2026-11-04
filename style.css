@@ -1,0 +1,56 @@
+:root{--fond:#0d0b12;--carte:#1a1623;--ligne:#2f2940;--texte:#f6f2ff;--doux:#bdb4d0;--accent:#ff5a5f;--accent2:#ff8f92;--titre:"Bricolage Grotesque",system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--fond);color:var(--texte);font:17px/1.55 Barlow,system-ui,sans-serif}
+a{color:var(--accent2)}
+.haut{position:sticky;top:0;z-index:5;background:rgba(13,11,18,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--ligne)}
+.haut{display:flex;align-items:center;gap:16px;padding:12px 16px;max-width:none}
+.marque{font:800 20px/1 var(--titre);color:var(--texte);text-decoration:none;margin-right:auto}
+.haut nav{display:flex;gap:14px;white-space:nowrap;font-size:15px}
+.haut nav a{color:var(--doux);text-decoration:none;font-weight:500}
+.haut nav a:hover{color:var(--texte)}
+main{max-width:1000px;margin:0 auto;padding:0 16px 80px}
+.hero{padding:clamp(48px,10vw,110px) 0 40px;border-bottom:1px solid var(--ligne)}
+.hero .edition{color:var(--accent);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:14px;margin:0}
+.hero h1{font:800 clamp(44px,10vw,104px)/.95 var(--titre);margin:10px 0 18px;letter-spacing:-.02em}
+.hero .quand{font:600 clamp(20px,3.4vw,28px)/1.2 var(--titre);margin:0}
+.hero .ou{color:var(--doux);margin:6px 0 22px}
+.hero .accroche{max-width:620px;font-size:19px}
+.btn{display:inline-block;font:600 16px Barlow,sans-serif;background:var(--accent);color:#1a0607;border:0;border-radius:999px;padding:11px 24px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--accent2)}
+.btn:disabled{opacity:.6;cursor:default}
+.btn.contour{background:transparent;color:var(--accent2);border:1px solid var(--accent)}
+h2.section{font:800 clamp(30px,5vw,44px)/1.05 var(--titre);margin:56px 0 18px}
+.jourTitre{font:600 15px Barlow,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin:30px 0 4px}
+.ev{display:grid;grid-template-columns:76px 1fr auto;gap:20px;align-items:center;padding:18px 0;border-top:1px solid var(--ligne)}
+.heure{font:600 22px/1 var(--titre)}
+.ev h3{font:600 23px/1.15 var(--titre);margin:0 0 4px}
+.ev h3 a{color:inherit;text-decoration:none}
+.ev p{margin:0;color:var(--doux)}
+.etat{font-size:15px;color:var(--doux);white-space:nowrap;display:block;margin-top:6px;text-align:right}
+.complet{color:var(--accent2);font-weight:600}
+.vide{color:var(--doux);font-style:italic;padding:16px 0}
+.infos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.infos div{background:var(--carte);border:1px solid var(--ligne);border-radius:14px;padding:18px}
+.infos h3{font:600 19px var(--titre);margin:0 0 6px}
+.infos p{margin:0;color:var(--doux)}
+.retour{display:inline-block;margin:28px 0 0;text-decoration:none}
+.fiche h1{font:800 clamp(34px,6vw,58px)/1.02 var(--titre);margin:10px 0 6px}
+.fiche .cie{color:var(--doux);font-size:19px;margin:0 0 24px}
+.fiche .cols{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:start}
+.fiche dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0 0 20px}
+.fiche dt{color:var(--doux)}
+.fiche dd{margin:0}
+.fiche img{width:100%;border-radius:10px;margin-bottom:18px}
+.desc{white-space:pre-line}
+form,.merci{background:var(--carte);border:1px solid var(--ligne);border-radius:14px;padding:22px}
+.merci{border-color:var(--accent)}
+form h3,.merci h3{font:600 24px var(--titre);margin:0 0 12px}
+label{display:block;font-size:14px;color:var(--doux);margin:12px 0 4px}
+input,select,textarea{width:100%;font:inherit;color:var(--texte);background:var(--fond);border:1px solid var(--ligne);border-radius:8px;padding:10px 12px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+textarea{min-height:80px;resize:vertical}
+.piege{position:absolute;left:-5000px}
+.erreur{color:var(--accent2);margin:12px 0 0}
+.petit{font-size:14px;color:var(--doux)}
+footer{border-top:1px solid var(--ligne);color:var(--doux);font-size:15px;padding:28px 16px;text-align:center}
+@media (max-width:720px){.ev{grid-template-columns:60px 1fr}.ev .action{grid-column:2}.etat{text-align:left}.fiche .cols{grid-template-columns:1fr;gap:20px}}
