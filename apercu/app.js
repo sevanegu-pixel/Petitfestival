@@ -65,10 +65,10 @@
   // Options de l'aperçu (thème, typos, mise en page)
   if (OPTS && APERCU) {
     var GROUPES = [
-      ['theme', 'Couleurs', [['nuit', 'Nuit'], ['clair', 'Clair']]],
+      ['theme', 'Couleurs', [['clair', 'Clair'], ['nuit', 'Nuit']]],
       ['texture', 'Texture', [['argentique', 'Argentique'], ['nette', 'Nette']]],
       ['titre', 'Typo des titres', [['archivo', 'Archivo Black'], ['fraunces', 'Fraunces'], ['shoulders', 'Big Shoulders'], ['syne', 'Syne (avant)']]],
-      ['texte', 'Typo des textes', [['barlow', 'Barlow (avant)'], ['figtree', 'Figtree'], ['atkinson', 'Atkinson']]],
+      ['texte', 'Typo des textes', [['newsreader', 'Newsreader (journal)'], ['franklin', 'Libre Franklin (presse)'], ['atkinson', 'Atkinson'], ['barlow', 'Barlow (avant)']]],
       ['prog', 'Programme', [['grand', 'Grand format'], ['liste', 'Liste (avant)']]]
     ];
     var opt = document.createElement('div'); opt.className = 'opt';
@@ -150,9 +150,17 @@
     pr.innerHTML = '<p class="vide">Chargement du programme…</p>';
     charger(function () {
       if (!evenements.length) { pr.innerHTML = messageVide(); return; }
-      var auj = new Date().toISOString().slice(0, 10);
-      var futurs = evenements.filter(function (e) { return e.date >= auj; });
-      pr.innerHTML = (futurs.length ? futurs : evenements).slice(0, 6).map(carteSpectacle).join('');
+      var h = '', jour = '';
+      evenements.forEach(function (e) {
+        if (e.date !== jour) {
+          jour = e.date; var p = parties(jour), n = evenements.filter(function (x) { return x.date === jour; }).length;
+          h += (h ? '</div></section>' : '') + '<section class="jourA"><header><a href="' + lienJour(jour) + '"><span class="num">' + p.j + '</span><span class="nomJour">' + esc(JOURS[p.js] + ' ' + MOIS[p.m - 1]) + '</span></a>' +
+            '<span class="resume">' + pluriel(n, 'spectacle') + '</span><a class="btn petitbtn contour" href="' + lienJour(jour) + '">Voir la journée</a></header><div class="grilleA">';
+        }
+        var s = fiche(e);
+        h += '<a class="carteA" href="' + lienFiche(e) + '">' + visuel(e, s) + '<div class="corps"><span class="heure">' + esc(e.debut || '') + '</span><h3>' + esc(e.titre) + '</h3>' + (s.compagnie ? '<p class="cie">' + esc(s.compagnie) + '</p>' : '') + (etat(e) ? '<p class="etatA">' + etat(e) + '</p>' : '') + '</div></a>';
+      });
+      pr.innerHTML = h + '</div></section>';
       jsonLd(evenements);
     });
   }
@@ -185,10 +193,10 @@
 
   // ----- Programme, pages par jour et fiches
   if (page === 'programme') {
-    var vue = document.getElementById('vue'), filtreActif = '';
+    var vue = document.getElementById('vue'), filtreActif = '', vueActuelle = '';
     function dates() { var d = []; evenements.forEach(function (e) { if (d.indexOf(e.date) < 0) d.push(e.date); }); return d; }
     function barreJours(active) {
-      return '<nav class="jours" aria-label="Aller à une journée">' + dates().map(function (d) { var p = parties(d); return '<a href="' + (active === undefined ? '#jour-' + d : lienJour(d)) + '" class="' + (active === d ? 'on' : '') + '"><b>' + p.j + '</b>' + esc(JOURS[p.js].slice(0, 3) + '. ' + MOIS_COURT[p.m - 1]) + '</a>'; }).join('') + '</nav>';
+      return '<nav class="jours" aria-label="Aller à une journée"><div class="pellicule">' + dates().map(function (d) { var p = parties(d); return '<a href="' + (active === undefined ? '#jour-' + d : lienJour(d)) + '" class="' + (active === d ? 'on' : '') + '"><b>' + p.j + '</b>' + esc(JOURS[p.js].slice(0, 3) + '.') + '</a>'; }).join('') + '</div></nav>';
     }
     function enteteJour(d, lien) {
       var p = parties(d), evs = evenements.filter(function (e) { return e.date === d; });
@@ -201,8 +209,6 @@
       if (evenements === null) return h + '</div></section><section class="bande pres"><div class="int large"><p class="vide">Chargement du programme…</p></div></section>';
       if (!evenements.length) return h + '</div></section><section class="bande pres"><div class="int large">' + messageVide() + '</div></section>';
       h += barreJours() + '</div></section><section class="bande pres"><div class="int large">';
-      var disciplines = []; evenements.forEach(function (e) { var d = fiche(e).discipline; if (d && disciplines.indexOf(d) < 0) disciplines.push(d); });
-      if (disciplines.length > 1) h += '<div class="filtre" role="group" aria-label="Filtrer par genre"><button class="' + (filtreActif ? '' : 'on') + '" data-f="">Tout</button>' + disciplines.map(function (d) { return '<button class="' + (filtreActif === d ? 'on' : '') + '" data-f="' + esc(d) + '">' + esc(d) + '</button>'; }).join('') + '</div>';
       var grand = !OPTS || OPTS.get('prog') !== 'liste';
       var jour = '', ouvert = false, n = 0;
       evenements.forEach(function (e, i) {
@@ -224,7 +230,7 @@
     }
     function afficherProgramme() {
       document.title = 'Programme · ' + (F.nom || 'Festival');
-      vue.innerHTML = programme();
+      vue.innerHTML = programme(); vueActuelle = 'programme';
       vue.querySelectorAll('.filtre button').forEach(function (b) { b.onclick = function () { filtreActif = b.getAttribute('data-f'); afficherProgramme(); }; });
       vue.querySelectorAll('.jours a').forEach(function (a) { a.onclick = function (ev) { var el = document.getElementById(a.getAttribute('href').slice(1)); if (el) { ev.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }; });
     }
@@ -236,7 +242,7 @@
       var ouverts = evs.filter(function (e) { return e.reservable; });
       var h = '<section class="entete"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a><p class="sur">Journée</p><h1>' + esc(maj(dateLongue(d))) + '</h1>' +
         '<p class="chapo">' + pluriel(evs.length, 'spectacle') + (evs[0].debut ? ' à partir de ' + esc(evs[0].debut) : '') + '. ' + (ouverts.length ? 'Réservez vos places pour plusieurs spectacles d\'un coup, en bas de page.' : 'Les réservations de cette journée ouvriront prochainement.') + '</p>' +
-        '<div class="actions">' + (ouverts.length ? '<a class="btn" href="#resaJour">Réserver la journée</a>' : '') + '<a class="btn contour" href="#programmeJour">Les spectacles</a></div>' + barreJours(d) + '</div></section>' +
+        '<div class="actions">' + (ouverts.length ? '<a class="btn" href="#resaJour">Réserver la journée</a>' : '') + (i > 0 ? '<a class="btn contour" href="' + lienJour(ds[i - 1]) + '">← Jour précédent</a>' : '') + (i < ds.length - 1 ? '<a class="btn contour" href="' + lienJour(ds[i + 1]) + '">Jour suivant →</a>' : '') + '</div>' + barreJours(d) + '</div></section>' +
         '<section class="bande pres"><div class="int large" id="programmeJour"><div class="grilleG n' + evs.length + '">' + evs.map(carteGrande).join('') + '</div>' +
         '<div class="jourNav">' + (i > 0 ? '<a href="' + lienJour(ds[i - 1]) + '">← ' + esc(maj(dateLongue(ds[i - 1]))) + '</a>' : '<span></span>') + (i < ds.length - 1 ? '<a href="' + lienJour(ds[i + 1]) + '">' + esc(maj(dateLongue(ds[i + 1]))) + ' →</a>' : '') + '</div>' +
         '<div class="resaJour" id="resaJour"><h2>Réserver la journée</h2>';
@@ -257,8 +263,12 @@
       } else {
         h += '<div class="merci"><h3>Réservations bientôt ouvertes</h3><p>Les réservations pour les spectacles de cette journée ouvriront prochainement.' + (F.contact ? ' Une question ? Écrivez-nous à ' + contact() + '.' : '') + '</p></div>';
       }
+      var y = scrollY, memeVue = vueActuelle === 'jour';
       vue.innerHTML = h + '</div></div></section>';
-      if (!/#resaJour$/.test(location.href)) scrollTo(0, 0);
+      vueActuelle = 'jour';
+      if (memeVue) scrollTo(0, Math.min(y, document.body.scrollHeight - innerHeight));
+      else if (!/#resaJour$/.test(location.href)) scrollTo(0, 0);
+      var actif = vue.querySelector('.jours a.on'); if (actif && actif.scrollIntoView) actif.scrollIntoView({ block: 'nearest', inline: 'center' });
       var f = document.getElementById('resa');
       if (f) f.onsubmit = function (ev) { ev.preventDefault(); envoyerJour(ouverts, f); };
     }
@@ -340,7 +350,7 @@
           (prec ? '<a class="precedent" href="' + lienFiche(prec) + '">' + visuel(prec, fiche(prec)) + '<div><p class="sens">← Spectacle précédent</p><p class="titre">' + esc(prec.titre) + '</p><p class="quand">' + esc(dateCourte(prec.date)) + (prec.debut ? ' · ' + esc(prec.debut) : '') + '</p></div></a>' : '<span></span>') +
           (suiv ? '<a class="suivant" href="' + lienFiche(suiv) + '"><div><p class="sens">Spectacle suivant →</p><p class="titre">' + esc(suiv.titre) + '</p><p class="quand">' + esc(dateCourte(suiv.date)) + (suiv.debut ? ' · ' + esc(suiv.debut) : '') + '</p></div>' + visuel(suiv, fiche(suiv)) + '</a>' : '') + '</nav>';
       }
-      vue.innerHTML = h + '</div></div>';
+      vue.innerHTML = h + '</div></div>'; vueActuelle = 'fiche';
       scrollTo(0, 0);
       var lire = document.getElementById('lire');
       if (lire) lire.onclick = function () { var o = document.getElementById('suite').classList.toggle('ouvert'); lire.textContent = o ? 'Réduire' : 'Lire la suite'; lire.setAttribute('aria-expanded', o); };

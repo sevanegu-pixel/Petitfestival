@@ -2,7 +2,7 @@
 (function () {
   var d = document.documentElement, o = {};
   try { o = JSON.parse(localStorage.getItem('pf_opts') || '{}') || {}; } catch (e) { o = {}; }
-  var def = { theme: 'nuit', titre: 'archivo', texte: 'barlow', prog: 'grand', texture: 'argentique' };
+  var def = { theme: 'clair', titre: 'archivo', texte: 'newsreader', prog: 'grand', texture: 'argentique' };
   Object.keys(def).forEach(function (k) { d.setAttribute('data-' + k, o[k] || def[k]); });
   window.PF_OPTS = {
     def: def,
