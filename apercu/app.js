@@ -16,6 +16,7 @@
   function paras(t) { return String(t || '').split(/\n\s*\n/).map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; }).join(''); }
   function etat(e) {
     if (e.complet) return '<span class="etat complet">Complet</span>';
+    if (e.essai) return '<span class="etat">Bientôt</span>';
     if (!e.reservable) return '<span class="etat">Réservation fermée</span>';
     return e.restantes != null && e.restantes <= 10 ? '<span class="etat">Plus que ' + e.restantes + ' place' + (e.restantes > 1 ? 's' : '') + '</span>' : '';
   }
@@ -54,7 +55,15 @@
   function charger(cb) {
     if (!F.api) { evenements = []; cb(); return; }
     fetch(F.api + '?api=evenements').then(function (r) { return r.json(); }).then(function (d) {
-      evenements = (d.evenements || []).slice().sort(function (a, b) { return (a.date + a.debut).localeCompare(b.date + b.debut); }); cb();
+      evenements = (d.evenements || []).slice();
+      if (window.PROGRAMME_ESSAI && /\/apercu\//.test(location.pathname)) {
+        var deja = {}; evenements.forEach(function (e) { deja[e.date + ' ' + e.debut] = 1; });
+        window.PROGRAMME_ESSAI.forEach(function (r, i) {
+          if (deja[r[0] + ' ' + r[1]]) return;
+          evenements.push({ id: 'essai' + i, titre: r[2], spectacle: r[2], date: r[0], debut: r[1], lieu: 'Théâtricul', adresse: 'Chêne-Bourg', places: 45, restantes: 45, reservable: false, complet: false, essai: true });
+        });
+      }
+      evenements.sort(function (a, b) { return (a.date + a.debut).localeCompare(b.date + b.debut); }); cb();
     }).catch(function () { evenements = []; erreurChargement = true; cb(); });
   }
   function messageVide() {
@@ -171,8 +180,8 @@
           '<p class="erreur" id="err" role="alert" hidden></p><p style="margin:18px 0 0"><button class="btn" type="submit">Réserver</button></p>' +
           '<p class="petit">Vous recevrez un e-mail de confirmation. Le paiement se fait sur place.</p></form>';
       } else {
-        h += '<div class="merci"><h3>' + (e.complet ? 'C\'est complet' : 'Réservation fermée') + '</h3><p>' +
-          (F.contact ? 'Écrivez-nous à ' + contact() + ' : une place se libère parfois.' : 'Une place se libère parfois : revenez voir un peu plus tard.') + '</p></div>';
+        h += '<div class="merci"><h3>' + (e.complet ? 'C\'est complet' : e.essai ? 'Réservations bientôt ouvertes' : 'Réservation fermée') + '</h3><p>' +
+          (e.essai ? 'Les réservations pour ce spectacle ouvriront prochainement.' : F.contact ? 'Écrivez-nous à ' + contact() + ' : une place se libère parfois.' : 'Une place se libère parfois : revenez voir un peu plus tard.') + '</p></div>';
       }
       vue.innerHTML = h + '</div></div></div></div>';
       scrollTo(0, 0);

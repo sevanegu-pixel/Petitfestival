@@ -154,3 +154,34 @@ window.SPECTACLES = {
   },
   "Formation artistique": { discipline: "Rencontre" }
 };
+
+// Programme d'essai (essai 4) affiché seulement dans l'aperçu (/apercu/), pour les dates pas encore ouvertes dans l'appli. Sans réservation.
+window.PROGRAMME_ESSAI = [
+  ["2026-12-03", "20:00", "Ma vie tout simplement"],
+  ["2026-12-04", "19:45", "Hurler sous l'eau"],
+  ["2026-12-04", "21:00", "L'Invitation"],
+  ["2026-12-05", "18:00", "Hurler sous l'eau"],
+  ["2026-12-05", "19:30", "Mise à Mâle"],
+  ["2026-12-05", "20:30", "Pâtes au Ketchup"],
+  ["2026-12-06", "16:00", "Corde et cordes"],
+  ["2026-12-06", "16:30", "I.A Ma Chère"],
+  ["2026-12-06", "18:00", "Mise à Mâle"],
+  ["2026-12-06", "19:00", "L'Invitation"],
+  ["2026-12-10", "17:45", "Pâtes au Ketchup"],
+  ["2026-12-10", "18:35", "I.A Ma Chère"],
+  ["2026-12-10", "20:00", "Les 12 lettres du facteur Cheval"],
+  ["2026-12-11", "18:00", "Hans l'Heureux"],
+  ["2026-12-11", "18:55", "Corde et cordes"],
+  ["2026-12-11", "20:00", "Les 12 lettres du facteur Cheval"],
+  ["2026-12-11", "21:10", "MERCALM"],
+  ["2026-12-12", "17:00", "Ici sont les dragons"],
+  ["2026-12-12", "20:00", "Formation artistique"],
+  ["2026-12-13", "15:00", "Formation artistique"],
+  ["2026-12-15", "20:00", "Sur le rivage de Gaza"],
+  ["2026-12-16", "19:30", "Partir vers l'est"],
+  ["2026-12-17", "19:30", "Partir vers l'est"],
+  ["2026-12-18", "20:00", "Sur le rivage de Gaza"],
+  ["2026-12-19", "17:00", "Ici sont les dragons"],
+  ["2026-12-19", "20:00", "El Cabaret du festival"],
+  ["2026-12-20", "17:00", "Ma vie tout simplement"]
+];
