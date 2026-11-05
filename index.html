@@ -3,74 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Le Petit Festival au Théâtricul · 3–20 décembre 2026, Chêne-Bourg</title>
-<meta name="description" content="Cirque, théâtre, marionnette, musique et performance sur la petite scène du Théâtricul à Chêne-Bourg (Genève), du 3 au 20 décembre 2026. Programme et réservations.">
-<link rel="canonical" href="https://petit-festival.ch/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Le Petit Festival au Théâtricul · 3–20 décembre 2026, Chêne-Bourg">
-<meta property="og:description" content="Cirque, théâtre, marionnette, musique et performance sur la petite scène du Théâtricul à Chêne-Bourg (Genève), du 3 au 20 décembre 2026. Programme et réservations.">
-<meta property="og:url" content="https://petit-festival.ch/">
-<meta property="og:image" content="https://petit-festival.ch/partage.png">
-<meta property="og:locale" content="fr_CH">
-<meta name="twitter:card" content="summary_large_image">
+<title>Le Petit Festival au Théâtricul · 3–20 décembre 2026</title>
+<meta name="description" content="Le Petit Festival au Théâtricul, du 3 au 20 décembre 2026 à Chêne-Bourg (Genève). Le site arrive bientôt.">
+<meta property="og:title" content="Le Petit Festival au Théâtricul · 3–20 décembre 2026">
+<meta property="og:description" content="Cirque, théâtre, marionnette, musique et performance sur la petite scène du Théâtricul. Le site arrive bientôt.">
+<meta property="og:image" content="https://petit-festival.ch/apercu/partage.png">
 <meta name="theme-color" content="#120f24">
 <link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Barlow:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="festival.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Barlow:wght@400;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{background:radial-gradient(900px 500px at 85% 110%,rgba(255,62,165,.28),transparent 60%),radial-gradient(700px 420px at 10% -10%,rgba(63,214,255,.22),transparent 60%),#120f24;color:#f7f3ff;font:18px/1.6 Barlow,system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:40px 20px;overflow-x:hidden}
+.boite{max-width:720px;width:100%;position:relative}
+.sur{font:700 13px/1.4 "Space Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#3fd6ff;margin:0 0 12px}
+h1{font:800 clamp(42px,8vw,84px)/.95 Syne,sans-serif;margin:0 0 18px;max-width:11ch}
+.quand{font:700 clamp(20px,3vw,28px)/1.2 "Space Mono",monospace;color:#ffd23f;margin:0 0 4px}
+.ou{color:#c3b9dd;margin:0 0 30px}
+.etat{display:inline-flex;align-items:center;gap:14px;background:#211b3d;border:1px solid #3a3160;padding:14px 20px;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
+.etat img{width:48px;height:48px}
+.etat b{display:block;font-family:Syne,sans-serif;font-size:20px}
+.etat span{color:#c3b9dd;font-size:15px}
+.contact{margin:30px 0 0;color:#c3b9dd;font-size:16px}
+a{color:#ff8a8d}
+.rayures{position:absolute;left:-6%;bottom:-70px;width:70%;height:18px;background:repeating-linear-gradient(90deg,#3fd6ff 0 12px,transparent 12px 26px);transform:skewX(-30deg);opacity:.45}
+</style>
 </head>
-<body data-page="accueil">
-<a class="saut" href="#contenu">Aller au contenu</a>
-<header class="haut">
-  <a class="marque" href="./" id="marque"><span class="pastille"></span><span id="marqueTexte">Le Petit Festival</span></a>
-  <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
-  <nav id="menu">
-    <a href="./" data-nav="accueil">Accueil</a>
-    <a href="programme.html" data-nav="programme">Programme</a>
-    <a href="festival.html" data-nav="festival">Le festival</a>
-    <a href="infos.html" data-nav="infos">Infos pratiques</a>
-    <a class="btn petitbtn" href="programme.html">Réserver</a>
-  </nav>
-</header>
-<main id="contenu">
-<section class="hero" id="hero">
-  <div class="soleil" aria-hidden="true"></div>
-  <div class="int">
-    <p class="sur" id="heroEdition"></p>
-    <h1 id="heroTitre"></h1>
-    <p class="quand" id="heroDates"></p>
-    <p class="ou" id="heroLieu"></p>
-    <p class="actions"><a class="btn" href="programme.html">Voir le programme</a> <a class="btn contour" href="festival.html">Découvrir le festival</a></p>
-  </div>
-</section>
-<section class="bande pres" id="presentation">
-  <div class="int cols2">
-    <div><p class="sur">Le festival</p><h2>Petite salle, grande programmation</h2></div>
-    <div id="presTexte"></div>
-  </div>
-</section>
-<section class="bande affiche" id="affiche">
-  <div class="int">
-    <p class="sur">À l'affiche</p>
-    <h2>Les prochains spectacles</h2>
-    <div id="prochains" class="grille"></div>
-    <p class="actions"><a class="btn" href="programme.html">Tout le programme</a></p>
-  </div>
-</section>
-<section class="bande pratique" id="pratique">
-  <div class="int cols2">
-    <div>
-      <p class="sur">Infos pratiques</p>
-      <h2>Venir au Théâtricul</h2>
-      <div id="accesCourt"></div>
-      <p class="actions"><a class="btn contour" href="infos.html">Toutes les infos pratiques</a></p>
-    </div>
-    <div class="carte" id="carte"></div>
-  </div>
-</section></main>
-<footer id="pied"></footer>
-<script src="app.js"></script>
+<body>
+<div class="boite">
+  <p class="sur">1re édition · cirque · danse · théâtre · musique</p>
+  <h1>Le Petit Festival au Théâtricul</h1>
+  <p class="quand">Du 3 au 20 décembre 2026</p>
+  <p class="ou">Théâtricul, rue de Genève 64, Chêne-Bourg (Genève)</p>
+  <div class="etat"><img src="ticket.png" alt=""><div><b>Site en construction</b><span>Le programme et les réservations arrivent très bientôt.</span></div></div>
+  <p class="contact">Une question ? <a href="mailto:petitfestival.ge@gmail.com">petitfestival.ge@gmail.com</a></p>
+  <div class="rayures" aria-hidden="true"></div>
+</div>
 </body>
 </html>

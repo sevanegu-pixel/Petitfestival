@@ -3,16 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Programme · Le Petit Festival au Théâtricul</title>
-<meta name="description" content="Tous les spectacles du Petit Festival au Théâtricul, jour par jour, du 3 au 20 décembre 2026 : horaires, durées, âges et réservation en ligne.">
-<link rel="canonical" href="https://petit-festival.ch/programme.html">
+<title>Le festival · Le Petit Festival au Théâtricul</title>
+<meta name="description" content="L'esprit du Petit Festival au Théâtricul : une scène ouverte aux artistes de toutes les disciplines, pros, en voie de professionnalisation et élèves des écoles d'arts.">
+<link rel="canonical" href="https://petit-festival.ch/festival.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Programme · Le Petit Festival au Théâtricul">
-<meta property="og:description" content="Tous les spectacles du Petit Festival au Théâtricul, jour par jour, du 3 au 20 décembre 2026 : horaires, durées, âges et réservation en ligne.">
-<meta property="og:url" content="https://petit-festival.ch/programme.html">
+<meta property="og:title" content="Le festival · Le Petit Festival au Théâtricul">
+<meta property="og:description" content="L'esprit du Petit Festival au Théâtricul : une scène ouverte aux artistes de toutes les disciplines, pros, en voie de professionnalisation et élèves des écoles d'arts.">
+<meta property="og:url" content="https://petit-festival.ch/festival.html">
 <meta property="og:image" content="https://petit-festival.ch/partage.png">
 <meta property="og:locale" content="fr_CH">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#120f24">
 <link rel="icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +22,7 @@
 <link rel="stylesheet" href="style.css">
 <script src="festival.js"></script>
 </head>
-<body data-page="programme">
+<body data-page="festival">
 <a class="saut" href="#contenu">Aller au contenu</a>
 <header class="haut">
   <a class="marque" href="./" id="marque"><span class="pastille"></span><span id="marqueTexte">Le Petit Festival</span></a>
@@ -34,7 +35,11 @@
     <a class="btn petitbtn" href="programme.html">Réserver</a>
   </nav>
 </header>
-<main id="contenu"><div id="vue"></div></main>
+<main id="contenu">
+<section class="entete"><div class="int"><p class="sur">Le festival</p><h1>Une scène ouverte, dix-huit jours durant</h1><p class="chapo" id="festAccroche"></p></div></section>
+<section class="bande pres"><div class="int cols2"><div><h2>L'esprit</h2></div><div id="festTexte"></div></div></section>
+<section class="bande affiche"><div class="int cols2"><div><h2>Le Théâtricul</h2></div><div><p id="festLieu"></p><p id="festOrga"></p><p><a id="festLienTheatricul" href="#" rel="noopener">Le site du Théâtricul</a></p></div></div></section>
+<section class="bande pratique"><div class="int"><p class="sur">Les artistes</p><h2>Qui joue cette année</h2><div id="artistes" class="grille"></div></div></section></main>
 <footer id="pied"></footer>
 <script src="app.js"></script>
 </body>
