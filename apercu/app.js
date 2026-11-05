@@ -31,7 +31,10 @@
     var s = INDEX[norm(e.spectacle || e.titre)] || INDEX[norm(e.titre)] || {};
     var photos = (s.photos || []).slice();
     if (s.photo && !photos.some(function (p) { return p.src === s.photo; })) photos.unshift({ src: s.photo, credit: s.credit || '' });
-    String(e.image || '').split(/\s*[,\n]\s*/).filter(Boolean).reverse().forEach(function (u) { photos.unshift({ src: u, credit: '' }); });
+    String(e.image || '').split(/\s*[,\n]\s*/).filter(Boolean).reverse().forEach(function (u) {
+      var nomF = u.split('/').pop(), deja = photos.findIndex(function (p) { return p.src.split('/').pop() === nomF; });
+      if (deja >= 0) photos.unshift(photos.splice(deja, 1)[0]); else photos.unshift({ src: u, credit: '' });
+    });
     var videos = (s.videos || []).slice(); if (s.video) videos.push({ url: s.video });
     return {
       compagnie: e.compagnie || s.compagnie || '', discipline: s.discipline || '', duree: e.duree || s.duree || '', age: e.age || s.age || '',
