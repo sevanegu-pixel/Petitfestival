@@ -16,6 +16,23 @@ html[data-theme=clair]{
   --hautFond:rgba(251,247,238,.9);--pied:#1b1733;--piedTexte:#d9d3ea;--btnTexte:#fff;--tagTexte:#fff;
   --lueur1:rgba(255,62,165,.16);--lueur2:rgba(63,214,255,.22);--videTexte:rgba(27,23,51,.12);--rayure:rgba(14,127,156,.1);--ombre:rgba(27,23,51,.18);
 }
+/* Texture « argentique » : grain, vignettage, couleurs passées, bords de tirage */
+html[data-texture=argentique]{--grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");--corail:#f4635f;--corail2:#ff8f8b;--cyan:#62c9e6;--jaune:#f2cf62;--magenta:#ef4ea4;--cyanVif:#62c9e6;--jauneVif:#f2cf62;--bordPhoto:#1c1733}
+html[data-texture=argentique][data-theme=clair]{--fond:#f7f0e1;--fond2:#efe6d2;--carte:#fcf7ec;--ligne:#dccfb4;--corail:#d9463f;--corail2:#b8322c;--cyan:#1a7f98;--jaune:#9c6d06;--magenta:#b82370;--bordPhoto:#fbf6ea}
+html[data-texture=argentique] body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:998;background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(10,6,20,.42) 100%);mix-blend-mode:multiply}
+html[data-texture=argentique][data-theme=clair] body:before{background:radial-gradient(ellipse at 50% 45%,transparent 58%,rgba(90,60,20,.22) 100%)}
+html[data-texture=argentique] body:after{content:"";position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:999;background:var(--grain) 0 0/240px 240px;opacity:.16;mix-blend-mode:overlay;animation:grain 1.2s steps(4) infinite}
+html[data-texture=argentique][data-theme=clair] body:after{opacity:.14}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}
+html[data-texture=argentique] .visuel img,html[data-texture=argentique] .galerie img,html[data-texture=argentique] .vignettes img{filter:contrast(.94) saturate(.8) sepia(.2)}
+html[data-texture=argentique] .visuel:not(.vide):before,html[data-texture=argentique] .galerie .principal:before,html[data-texture=argentique] .video:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 62%,rgba(20,10,30,.38) 100%),linear-gradient(160deg,rgba(255,220,170,.12),rgba(60,30,80,.1));box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 0 0 7px var(--bordPhoto)}
+html[data-texture=argentique] .visuel:not(.vide):after,html[data-texture=argentique] .galerie .principal:after,html[data-texture=argentique] .video:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:var(--grain) 0 0/200px 200px;mix-blend-mode:overlay;opacity:.45}
+html[data-texture=argentique] .carteSp .visuel,html[data-texture=argentique] .carteG .visuel,html[data-texture=argentique] .galerie .principal,html[data-texture=argentique] .ev .visuel{background:var(--bordPhoto)}
+html[data-texture=argentique] .hero{background-image:radial-gradient(900px 500px at 85% 115%,var(--lueur1),transparent 60%),radial-gradient(700px 420px at 10% -10%,var(--lueur2),transparent 60%),linear-gradient(rgba(255,230,190,.04),rgba(255,230,190,.04))}
+html[data-texture=argentique] .soleil{opacity:.78;filter:drop-shadow(0 0 40px rgba(255,90,95,.3)) blur(.3px)}
+html[data-texture=argentique] .carteSp,html[data-texture=argentique] .carteG,html[data-texture=argentique] .infos>div,html[data-texture=argentique] form,html[data-texture=argentique] .merci,html[data-texture=argentique] .encadre,html[data-texture=argentique] .artiste{box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 10px 30px rgba(0,0,0,.18)}
+@media (prefers-reduced-motion:reduce){html[data-texture=argentique] body:after{animation:none}}
+
 /* Typos de titres */
 html[data-titre=syne]{--titre:"Syne",system-ui,sans-serif;--gras:800}
 html[data-titre=archivo]{--titre:"Archivo Black","Syne",system-ui,sans-serif;--gras:400}

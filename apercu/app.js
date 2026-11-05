@@ -66,6 +66,7 @@
   if (OPTS && APERCU) {
     var GROUPES = [
       ['theme', 'Couleurs', [['nuit', 'Nuit'], ['clair', 'Clair']]],
+      ['texture', 'Texture', [['argentique', 'Argentique'], ['nette', 'Nette']]],
       ['titre', 'Typo des titres', [['archivo', 'Archivo Black'], ['fraunces', 'Fraunces'], ['shoulders', 'Big Shoulders'], ['syne', 'Syne (avant)']]],
       ['texte', 'Typo des textes', [['barlow', 'Barlow (avant)'], ['figtree', 'Figtree'], ['atkinson', 'Atkinson']]],
       ['prog', 'Programme', [['grand', 'Grand format'], ['liste', 'Liste (avant)']]]
