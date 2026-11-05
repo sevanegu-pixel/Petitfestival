@@ -40,6 +40,8 @@ window.FESTIVAL = {
 // court = 1 à 2 phrases (programme) ; long = texte complet (fiche, derrière « Lire la suite ») ; photo = fichier dans photos/.
 window.SPECTACLES = {
   "Hurler sous l'eau": {
+    photo: "photos/hurler.webp",
+    credit: "Photo : Compagnie Sémaphore",
     compagnie: "Compagnie Sémaphore",
     discipline: "Théâtre",
     duree: "55 min",
@@ -59,6 +61,8 @@ window.SPECTACLES = {
     distribution: "De et avec Julian Bellini, artiste de cirque et performeur formé au Théâtre-Cirqule."
   },
   "Mise à Mâle": {
+    photo: "photos/mise-a-male.webp",
+    credit: "Photo : Antonio Anguiano",
     compagnie: "Antonio Anguiano",
     discipline: "Cirque et théâtre physique",
     duree: "40 min",
@@ -86,6 +90,8 @@ window.SPECTACLES = {
     distribution: "De et avec Léa Gase et Céline Martin. Accompagnement musical : Benoît Gautier."
   },
   "I.A Ma Chère": {
+    photo: "photos/ia-ma-chere.webp",
+    credit: "Photo : Jordan Fraser Emery",
     compagnie: "Jordan Fraser Emery",
     discipline: "Performance et art numérique",
     duree: "15 min",
@@ -96,6 +102,8 @@ window.SPECTACLES = {
     video: "https://youtu.be/w1-ZoSAk0B4"
   },
   "Les 12 lettres du facteur Cheval": {
+    photo: "photos/facteur-cheval.webp",
+    credit: "Photo : Les Enfants du Paradigme",
     compagnie: "Didier Hugon · Les Enfants du Paradigme",
     discipline: "Poème théâtral et musical",
     duree: "48 min",
@@ -105,6 +113,8 @@ window.SPECTACLES = {
     distribution: "Écriture, jeu et musique : Didier Hugon. Mise en scène et écriture : Daniel Haspala. Composition : David Mathieu. Lutherie de brouette musicale : Marc Boutron. Costume : Maryline Gerbet."
   },
   "Hans l'Heureux": {
+    photo: "photos/hans.webp",
+    credit: "Photo : Compagnie Etourderie",
     compagnie: "Compagnie Etourderie",
     discipline: "Marionnette et théâtre",
     duree: "40 min",
@@ -114,6 +124,8 @@ window.SPECTACLES = {
     distribution: "Écriture et jeu : Delphine Tschopp. Regard extérieur : Amélie Chérubin Soulières. Conseil marionnettique : Émilie Bender. La compagnie fribourgeoise Etourderie joue pour le tout public depuis huit ans ; elle était déjà au Théâtricul en décembre 2024 avec « Sur mon chemin, des pierres »."
   },
   "MERCALM": {
+    photo: "photos/mercalm.webp",
+    credit: "Photo : MERCALM",
     compagnie: "Mona Creisson et Benoît Gautier",
     discipline: "Concert",
     duree: "45 min",
@@ -123,6 +135,8 @@ window.SPECTACLES = {
     distribution: "Mona Creisson : violon alto, chant, effets. Benoît Gautier : basse électrique, effets."
   },
   "Ici sont les dragons": {
+    photo: "photos/dragons.webp",
+    credit: "Photo : Marc Chabourlin",
     compagnie: "Circo Nagual",
     discipline: "Clown",
     duree: "45 min",
