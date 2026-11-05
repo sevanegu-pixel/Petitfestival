@@ -67,9 +67,10 @@
     var GROUPES = [
       ['theme', 'Couleurs', [['clair', 'Clair'], ['nuit', 'Nuit']]],
       ['texture', 'Texture', [['argentique', 'Argentique'], ['nette', 'Nette']]],
-      ['titre', 'Typo des titres', [['archivo', 'Archivo Black'], ['fraunces', 'Fraunces'], ['shoulders', 'Big Shoulders'], ['syne', 'Syne (avant)']]],
+      ['titre', 'Typo des titres', [['fraunces', 'Fraunces'], ['archivo', 'Archivo Black'], ['shoulders', 'Big Shoulders'], ['syne', 'Syne (avant)']]],
       ['texte', 'Typo des textes', [['newsreader', 'Newsreader (journal)'], ['franklin', 'Libre Franklin (presse)'], ['atkinson', 'Atkinson'], ['barlow', 'Barlow (avant)']]],
-      ['prog', 'Programme', [['grand', 'Grand format'], ['liste', 'Liste (avant)']]]
+      ['prog', 'Programme', [['grand', 'Grand format'], ['liste', 'Liste (avant)']]],
+      ['menu', 'Menu', [['centre', 'Centré, dans la page'], ['barre', 'Barre en haut (avant)']]]
     ];
     var opt = document.createElement('div'); opt.className = 'opt';
     opt.innerHTML = '<button type="button" aria-expanded="false">Options de l\'aperçu</button><div class="panneau">' + GROUPES.map(function (g) {
@@ -127,7 +128,7 @@
   }
   function carteGrande(e) {
     var s = fiche(e);
-    return '<article class="carteG">' + visuel(e, s, '', lienFiche(e)) + '<div class="corps"><p class="heure"><small>Séance</small>' + esc(heure(e)) + '</p><h3><a href="' + lienFiche(e) + '">' + esc(e.titre) + '</a></h3>' +
+    return '<article class="carteG">' + visuel(e, s, '', lienFiche(e)) + '<div class="corps"><p class="heure">' + esc(heure(e)) + '</p><h3><a href="' + lienFiche(e) + '">' + esc(e.titre) + '</a></h3>' +
       '<p class="meta">' + esc([s.compagnie, meta(s)].filter(Boolean).join(' · ')) + '</p>' + (s.court ? '<p class="court">' + esc(s.court) + '</p>' : '') +
       '<div class="pied">' + (e.reservable ? '<a class="btn" href="' + lienFiche(e) + '">Réserver</a>' : '') + '<a class="lien" href="' + lienFiche(e) + '">' + (s.long || s.photos.length > 1 || s.videos.length ? 'Photos, vidéo et texte complet' : 'En savoir plus') + '</a>' + etat(e) + '</div></div></article>';
   }
@@ -158,7 +159,7 @@
             '<span class="resume">' + pluriel(n, 'spectacle') + '</span><a class="btn petitbtn contour" href="' + lienJour(jour) + '">Voir la journée</a></header><div class="grilleA">';
         }
         var s = fiche(e);
-        h += '<a class="carteA" href="' + lienFiche(e) + '">' + visuel(e, s) + '<div class="corps"><span class="heure"><small>Séance</small>' + esc(e.debut || '') + '</span><h3>' + esc(e.titre) + '</h3>' + (s.compagnie ? '<p class="cie">' + esc(s.compagnie) + '</p>' : '') + (etat(e) ? '<p class="etatA">' + etat(e) + '</p>' : '') + '</div></a>';
+        h += '<a class="carteA" href="' + lienFiche(e) + '">' + visuel(e, s) + '<div class="corps"><span class="heure">' + esc(e.debut || '') + '</span><h3>' + esc(e.titre) + '</h3>' + (s.compagnie ? '<p class="cie">' + esc(s.compagnie) + '</p>' : '') + (etat(e) ? '<p class="etatA">' + etat(e) + '</p>' : '') + '</div></a>';
       });
       pr.innerHTML = h + '</div></section>';
       jsonLd(evenements);
