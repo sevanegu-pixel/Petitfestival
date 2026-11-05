@@ -33,6 +33,19 @@ html[data-texture=argentique] .soleil{opacity:.78;filter:drop-shadow(0 0 40px rg
 html[data-texture=argentique] .carteSp,html[data-texture=argentique] .carteG,html[data-texture=argentique] .infos>div,html[data-texture=argentique] form,html[data-texture=argentique] .merci,html[data-texture=argentique] .encadre,html[data-texture=argentique] .artiste{box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 10px 30px rgba(0,0,0,.18)}
 @media (prefers-reduced-motion:reduce){html[data-texture=argentique] body:after{animation:none}}
 
+/* Touche cinéma : billets perforés, enseignes à ampoules, cadres d'affiche */
+.btn:not(.contour){padding-left:30px;padding-right:30px;-webkit-mask:radial-gradient(circle at 0 50%,transparent 7px,#000 7.5px),radial-gradient(circle at 100% 50%,transparent 7px,#000 7.5px);-webkit-mask-composite:source-in;mask:radial-gradient(circle at 0 50%,transparent 7px,#000 7.5px),radial-gradient(circle at 100% 50%,transparent 7px,#000 7.5px);mask-composite:intersect;background-image:repeating-linear-gradient(180deg,rgba(0,0,0,.35) 0 4px,transparent 4px 8px);background-size:1px 100%;background-repeat:no-repeat;background-position:calc(100% - 18px) 0;border-radius:3px}
+.btn:not(.contour):hover{box-shadow:none;transform:translate(-1px,-1px)}
+.btn.petitbtn:not(.contour){padding-left:22px;padding-right:22px;background-position:calc(100% - 12px) 0}
+.ampoules{position:relative}
+.jourTete:before,.jourA header:before{content:"";position:absolute;left:0;right:0;top:-14px;height:8px;background:radial-gradient(circle at 4px 4px,var(--jauneVif) 2.6px,rgba(255,210,63,.25) 3px,transparent 4.2px) 0 0/18px 8px repeat-x;opacity:.95}
+.jourTete,.jourA header{margin-top:14px}
+.jourTete .num,.jourA .num{text-shadow:0 0 18px rgba(255,210,63,.25)}
+.carteG,.carteSp,.carteA{outline:1px solid var(--ligne);outline-offset:-7px}
+.heure small,.carteA .heure small,.ev .heure small{display:inline-block;font:700 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--doux);margin-right:6px;vertical-align:2px}
+.fiche dl{background:var(--carte);border:1px dashed var(--ligne);padding:18px 22px;position:relative;-webkit-mask:radial-gradient(circle at 0 50%,transparent 9px,#000 9.5px),radial-gradient(circle at 100% 50%,transparent 9px,#000 9.5px);-webkit-mask-composite:source-in;mask:radial-gradient(circle at 0 50%,transparent 9px,#000 9.5px),radial-gradient(circle at 100% 50%,transparent 9px,#000 9.5px);mask-composite:intersect}
+.sur:before{content:"★ ";color:var(--jaune)}
+
 /* Typos de titres */
 html[data-titre=syne]{--titre:"Syne",system-ui,sans-serif;--gras:800}
 html[data-titre=archivo]{--titre:"Archivo Black","Syne",system-ui,sans-serif;--gras:400}
