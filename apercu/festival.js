@@ -37,9 +37,17 @@ window.FESTIVAL = {
 };
 
 // Fiches des spectacles. La clé = le titre tel qu'il est écrit dans l'appli de réservation (majuscules et accents sans importance).
-// court = 1 à 2 phrases (programme) ; long = texte complet (fiche, derrière « Lire la suite ») ; photo = fichier dans photos/.
+// court = 1 à 2 phrases (programme) ; long = texte complet (fiche, derrière « Lire la suite »).
+// photo = fichier dans photos/ (ou photos = liste [{ src, credit }] pour une galerie) ; videos = liste [{ url: YouTube/Vimeo }] ou [{ src: fichier .mp4, poster }].
 window.SPECTACLES = {
   "Hurler sous l'eau": {
+    photos: [
+      { src: "photos/hurler.webp", credit: "Photo : Compagnie Sémaphore" },
+      { src: "photos/hurler-2.webp", credit: "Photo : Compagnie Sémaphore" },
+      { src: "photos/hurler-3.webp", credit: "Photo : Compagnie Sémaphore" },
+      { src: "photos/hurler-4.webp", credit: "Photo : Compagnie Sémaphore" }
+    ],
+    videos: [{ src: "videos/hurler.mp4", poster: "videos/hurler.webp", titre: "Extraits de la reprise à FriScènes, octobre 2026" }],
     photo: "photos/hurler.webp",
     credit: "Photo : Compagnie Sémaphore",
     compagnie: "Compagnie Sémaphore",
@@ -90,6 +98,13 @@ window.SPECTACLES = {
     distribution: "De et avec Léa Gase et Céline Martin. Accompagnement musical : Benoît Gautier."
   },
   "I.A Ma Chère": {
+    photos: [
+      { src: "photos/ia-ma-chere.webp", credit: "Photo : Jordan Fraser Emery" },
+      { src: "photos/ia-ma-chere-2.webp", credit: "Photo : Jordan Fraser Emery" },
+      { src: "photos/ia-ma-chere-3.webp", credit: "Photo : Jordan Fraser Emery" },
+      { src: "photos/ia-ma-chere-4.webp", credit: "Photo : Jordan Fraser Emery" }
+    ],
+    videos: [{ url: "https://youtu.be/w1-ZoSAk0B4", titre: "Extrait vidéo" }],
     photo: "photos/ia-ma-chere.webp",
     credit: "Photo : Jordan Fraser Emery",
     compagnie: "Jordan Fraser Emery",
@@ -98,10 +113,10 @@ window.SPECTACLES = {
     age: "Tout public",
     court: "Au centre de trois caméras 360°, un performeur joue avec une intelligence artificielle projetée devant le public, jusqu'à se rendre invisible pour la perturber.",
     long: "Au centre de trois caméras 360° connectées, le performeur joue avec une intelligence artificielle projetée pour le public, et questionne notre usage de ce nouvel outil numérique.\n\nD'abord, l'IA transforme son corps en avatar 3D et l'oblige à des actions de plus en plus sportives pour récupérer des données. Puis, par un rituel chamanique et punk, il se rend invisible aux caméras pour la perturber. Une version de la pièce a été produite à Séoul.",
-    distribution: "De et avec Jordan Fraser Emery, créateur et chercheur en création numérique.",
-    video: "https://youtu.be/w1-ZoSAk0B4"
+    distribution: "De et avec Jordan Fraser Emery, créateur et chercheur en création numérique."
   },
   "Les 12 lettres du facteur Cheval": {
+    videos: [{ url: "https://www.youtube.com/watch?v=IHF0_6G28Qo", titre: "Les 12 lettres du facteur Cheval, en musique et en public" }],
     photo: "photos/facteur-cheval.webp",
     credit: "Photo : Les Enfants du Paradigme",
     compagnie: "Didier Hugon · Les Enfants du Paradigme",
@@ -113,6 +128,12 @@ window.SPECTACLES = {
     distribution: "Écriture, jeu et musique : Didier Hugon. Mise en scène et écriture : Daniel Haspala. Composition : David Mathieu. Lutherie de brouette musicale : Marc Boutron. Costume : Maryline Gerbet."
   },
   "Hans l'Heureux": {
+    photos: [
+      { src: "photos/hans.webp", credit: "Photo : Compagnie Etourderie" },
+      { src: "photos/hans-2.webp", credit: "Photo : Compagnie Etourderie" },
+      { src: "photos/hans-3.webp", credit: "Photo : Compagnie Etourderie" },
+      { src: "photos/hans-4.webp", credit: "Photo : Compagnie Etourderie" }
+    ],
     photo: "photos/hans.webp",
     credit: "Photo : Compagnie Etourderie",
     compagnie: "Compagnie Etourderie",
@@ -124,6 +145,11 @@ window.SPECTACLES = {
     distribution: "Écriture et jeu : Delphine Tschopp. Regard extérieur : Amélie Chérubin Soulières. Conseil marionnettique : Émilie Bender. La compagnie fribourgeoise Etourderie joue pour le tout public depuis huit ans ; elle était déjà au Théâtricul en décembre 2024 avec « Sur mon chemin, des pierres »."
   },
   "MERCALM": {
+    photos: [
+      { src: "photos/mercalm.webp", credit: "Photo : MERCALM" },
+      { src: "photos/mercalm-2.webp", credit: "Photo : MERCALM, en Norvège" }
+    ],
+    videos: [{ url: "https://www.youtube.com/watch?v=aUMH9B6UjXo", titre: "Concert à la Brasserie du Mât, Genève" }],
     photo: "photos/mercalm.webp",
     credit: "Photo : MERCALM",
     compagnie: "Mona Creisson et Benoît Gautier",
@@ -135,6 +161,12 @@ window.SPECTACLES = {
     distribution: "Mona Creisson : violon alto, chant, effets. Benoît Gautier : basse électrique, effets."
   },
   "Ici sont les dragons": {
+    photos: [
+      { src: "photos/dragons.webp", credit: "Photo : Marc Chabourlin" },
+      { src: "photos/dragons-2.webp", credit: "Photo : Circo Nagual" },
+      { src: "photos/dragons-3.webp", credit: "Photo : Marc Chabourlin" },
+      { src: "photos/dragons-4.webp", credit: "Photo : Circo Nagual" }
+    ],
     photo: "photos/dragons.webp",
     credit: "Photo : Marc Chabourlin",
     compagnie: "Circo Nagual",

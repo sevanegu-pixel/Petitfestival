@@ -1,16 +1,19 @@
 (function () {
-  var F = window.FESTIVAL || {}, SP = window.SPECTACLES || {};
+  var F = window.FESTIVAL || {}, SP = window.SPECTACLES || {}, OPTS = window.PF_OPTS;
   var MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
   var MOIS_COURT = ['jan','fév','mars','avr','mai','juin','juil','août','sept','oct','nov','déc'];
   var JOURS = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
   var page = document.body.getAttribute('data-page');
   var evenements = null, erreurChargement = false;
+  var APERCU = /\/apercu\//.test(location.pathname);
+  var CACHE = 'pf_evenements';
 
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function norm(t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); }
   function parties(iso) { var p = iso.split('-').map(Number); return { a: p[0], m: p[1], j: p[2], js: new Date(Date.UTC(p[0], p[1] - 1, p[2])).getUTCDay() }; }
   function dateLongue(iso) { var d = parties(iso); return JOURS[d.js] + ' ' + (d.j === 1 ? '1er' : d.j) + ' ' + MOIS[d.m - 1]; }
   function dateCourte(iso) { var d = parties(iso); return JOURS[d.js].slice(0, 3) + ' ' + d.j + ' ' + MOIS_COURT[d.m - 1]; }
+  function maj(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
   function heure(e) { return e.debut ? e.debut + (e.fin ? ' – ' + e.fin : '') : ''; }
   function contact() { return F.contact ? '<a href="mailto:' + esc(F.contact) + '">' + esc(F.contact) + '</a>' : ''; }
   function paras(t) { return String(t || '').split(/\n\s*\n/).map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; }).join(''); }
@@ -20,25 +23,32 @@
     if (!e.reservable) return '<span class="etat">Réservation fermée</span>';
     return e.restantes != null && e.restantes <= 10 ? '<span class="etat">Plus que ' + e.restantes + ' place' + (e.restantes > 1 ? 's' : '') + '</span>' : '';
   }
+  function pluriel(n, mot) { return n + ' ' + mot + (n > 1 ? 's' : ''); }
 
   // Fusionne une représentation (feuille) avec sa fiche (festival.js) : la feuille gagne si elle est remplie.
   var INDEX = {}; Object.keys(SP).forEach(function (k) { INDEX[norm(k)] = SP[k]; });
   function fiche(e) {
     var s = INDEX[norm(e.spectacle || e.titre)] || INDEX[norm(e.titre)] || {};
-    var cie = e.compagnie || s.compagnie || '';
+    var photos = (s.photos || []).slice();
+    if (s.photo && !photos.some(function (p) { return p.src === s.photo; })) photos.unshift({ src: s.photo, credit: s.credit || '' });
+    String(e.image || '').split(/\s*[,\n]\s*/).filter(Boolean).reverse().forEach(function (u) { photos.unshift({ src: u, credit: '' }); });
+    var videos = (s.videos || []).slice(); if (s.video) videos.push({ url: s.video });
     return {
-      compagnie: cie, discipline: s.discipline || '', duree: e.duree || s.duree || '', age: e.age || s.age || '',
+      compagnie: e.compagnie || s.compagnie || '', discipline: s.discipline || '', duree: e.duree || s.duree || '', age: e.age || s.age || '',
       court: s.court || e.description || '', long: s.long || '', distribution: s.distribution || '', citation: s.citation || '',
-      photo: e.image || s.photo || '', credit: s.credit || '', video: s.video || '', lien: s.lien || ''
+      photos: photos, photo: photos.length ? photos[0].src : '', credit: photos.length ? photos[0].credit : '', videos: videos, lien: s.lien || ''
     };
   }
-  function visuel(e, s, classe) {
-    if (s.photo) return '<div class="visuel ' + (classe || '') + '"><img src="' + esc(s.photo) + '" alt="' + esc(e.titre) + '" loading="lazy"></div>';
+  function visuel(e, s, classe, href) {
+    var tag = href ? 'a' : 'div', h = href ? ' href="' + href + '"' : '';
+    if (s.photo) return '<' + tag + h + ' class="visuel ' + (classe || '') + '"><img src="' + esc(s.photo) + '" alt="' + esc(e.titre) + '" loading="lazy"></' + tag + '>';
     var t = (norm(e.titre).length % 3);
-    return '<div class="visuel vide t' + t + ' ' + (classe || '') + '" aria-hidden="true">' + esc((e.titre || '?').charAt(0).toUpperCase()) + '</div>';
+    return '<' + tag + h + ' class="visuel vide t' + t + ' ' + (classe || '') + '" aria-hidden="true">' + esc((e.titre || '?').charAt(0).toUpperCase()) + '</' + tag + '>';
   }
   function meta(s) { return [s.discipline, s.duree, s.age].filter(Boolean).join(' · '); }
   function lienFiche(e) { return 'programme.html#' + encodeURIComponent(e.id); }
+  function lienJour(d) { return 'programme.html#jour-' + d; }
+  function memeJour(e) { return evenements.filter(function (x) { return x.date === e.date; }); }
 
   // Commun à toutes les pages
   document.getElementById('marqueTexte').textContent = F.nomCourt || F.nom || 'Festival';
@@ -52,19 +62,55 @@
     el.innerHTML = '<iframe src="' + esc(F.carte) + '" loading="lazy" title="Carte : le Théâtricul" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><span class="legende">' + esc(F.adresse || '') + '</span>';
   }
 
+  // Options de l'aperçu (thème, typos, mise en page)
+  if (OPTS && APERCU) {
+    var GROUPES = [
+      ['theme', 'Couleurs', [['nuit', 'Nuit'], ['clair', 'Clair']]],
+      ['titre', 'Typo des titres', [['archivo', 'Archivo Black'], ['fraunces', 'Fraunces'], ['shoulders', 'Big Shoulders'], ['syne', 'Syne (avant)']]],
+      ['texte', 'Typo des textes', [['barlow', 'Barlow (avant)'], ['figtree', 'Figtree'], ['atkinson', 'Atkinson']]],
+      ['prog', 'Programme', [['grand', 'Grand format'], ['liste', 'Liste (avant)']]]
+    ];
+    var opt = document.createElement('div'); opt.className = 'opt';
+    opt.innerHTML = '<button type="button" aria-expanded="false">Options de l\'aperçu</button><div class="panneau">' + GROUPES.map(function (g) {
+      return '<h4>' + g[1] + '</h4><div class="choixOpt">' + g[2].map(function (c) { return '<button type="button" data-k="' + g[0] + '" data-v="' + c[0] + '" class="' + (OPTS.get(g[0]) === c[0] ? 'on' : '') + '">' + c[1] + '</button>'; }).join('') + '</div>';
+    }).join('') + '<p class="note">Ces choix ne concernent que cet aperçu. Dites-moi lesquels garder.</p></div>';
+    document.body.appendChild(opt);
+    opt.firstChild.onclick = function () { var o = opt.classList.toggle('ouvert'); opt.firstChild.setAttribute('aria-expanded', o); };
+    opt.querySelectorAll('.choixOpt button').forEach(function (b) {
+      b.onclick = function () {
+        OPTS.set(b.getAttribute('data-k'), b.getAttribute('data-v'));
+        opt.querySelectorAll('[data-k="' + b.getAttribute('data-k') + '"]').forEach(function (x) { x.classList.toggle('on', x === b); });
+        if (b.getAttribute('data-k') === 'prog' && window.PF_RAFRAICHIR) window.PF_RAFRAICHIR();
+      };
+    });
+  }
+
+  // Chargement : copie locale affichée tout de suite, puis mise à jour depuis l'appli de réservation.
+  function preparer(liste) {
+    var evs = liste.slice();
+    if (window.PROGRAMME_ESSAI && APERCU) {
+      var deja = {}; evs.forEach(function (e) { deja[e.date + ' ' + e.debut] = 1; });
+      window.PROGRAMME_ESSAI.forEach(function (r, i) {
+        if (deja[r[0] + ' ' + r[1]]) return;
+        evs.push({ id: 'essai' + i, titre: r[2], spectacle: r[2], date: r[0], debut: r[1], lieu: 'Théâtricul', adresse: 'Chêne-Bourg', places: 45, restantes: 45, reservable: false, complet: false, essai: true });
+      });
+    }
+    evs.sort(function (a, b) { return (a.date + a.debut).localeCompare(b.date + b.debut); });
+    return evs;
+  }
   function charger(cb) {
     if (!F.api) { evenements = []; cb(); return; }
+    var brut = null;
+    try { var c = JSON.parse(localStorage.getItem(CACHE) || 'null'); if (c && c.evenements && Date.now() - c.t < 7 * 86400e3) brut = c.evenements; } catch (e) {}
+    if (brut) { evenements = preparer(brut); cb(); }
+    else if (window.PROGRAMME_ESSAI && APERCU) { evenements = preparer([]); cb(); }
     fetch(F.api + '?api=evenements').then(function (r) { return r.json(); }).then(function (d) {
-      evenements = (d.evenements || []).slice();
-      if (window.PROGRAMME_ESSAI && /\/apercu\//.test(location.pathname)) {
-        var deja = {}; evenements.forEach(function (e) { deja[e.date + ' ' + e.debut] = 1; });
-        window.PROGRAMME_ESSAI.forEach(function (r, i) {
-          if (deja[r[0] + ' ' + r[1]]) return;
-          evenements.push({ id: 'essai' + i, titre: r[2], spectacle: r[2], date: r[0], debut: r[1], lieu: 'Théâtricul', adresse: 'Chêne-Bourg', places: 45, restantes: 45, reservable: false, complet: false, essai: true });
-        });
-      }
-      evenements.sort(function (a, b) { return (a.date + a.debut).localeCompare(b.date + b.debut); }); cb();
-    }).catch(function () { evenements = []; erreurChargement = true; cb(); });
+      var liste = d.evenements || [];
+      var texte = JSON.stringify(liste);
+      try { localStorage.setItem(CACHE, JSON.stringify({ t: Date.now(), evenements: liste })); } catch (e) {}
+      if (brut && JSON.stringify(brut) === texte) return;
+      evenements = preparer(liste); cb(true);
+    }).catch(function () { if (evenements === null) { evenements = []; erreurChargement = true; cb(); } });
   }
   function messageVide() {
     if (!F.api) return '<p class="vide">Le programme et les réservations ouvrent bientôt.</p>';
@@ -77,6 +123,16 @@
     return '<a class="carteSp" href="' + lienFiche(e) + '">' + visuel(e, s) + '<div class="corps"><span class="quand">' + esc(dateCourte(e.date)) + (e.debut ? ' · ' + esc(e.debut) : '') + '</span>' +
       '<h3>' + esc(e.titre) + '</h3>' + (s.compagnie ? '<p class="cie">' + esc(s.compagnie) + '</p>' : '') + (s.court ? '<p class="court">' + esc(s.court) + '</p>' : '') +
       '<div class="pied">' + (s.discipline ? '<span class="tag">' + esc(s.discipline) + '</span>' : '<span></span>') + etat(e) + '</div></div></a>';
+  }
+  function carteGrande(e) {
+    var s = fiche(e);
+    return '<article class="carteG">' + visuel(e, s, '', lienFiche(e)) + '<div class="corps"><p class="heure">' + esc(heure(e)) + '</p><h3><a href="' + lienFiche(e) + '">' + esc(e.titre) + '</a></h3>' +
+      '<p class="meta">' + esc([s.compagnie, meta(s)].filter(Boolean).join(' · ')) + '</p>' + (s.court ? '<p class="court">' + esc(s.court) + '</p>' : '') +
+      '<div class="pied">' + (e.reservable ? '<a class="btn" href="' + lienFiche(e) + '">Réserver</a>' : '') + '<a class="lien" href="' + lienFiche(e) + '">' + (s.long || s.photos.length > 1 || s.videos.length ? 'Photos, vidéo et texte complet' : 'En savoir plus') + '</a>' + etat(e) + '</div></div></article>';
+  }
+  function boutonJour(d, classe) {
+    var ouverts = evenements.filter(function (x) { return x.date === d && x.reservable; }).length;
+    return '<a class="btn ' + (ouverts ? '' : 'contour ') + (classe || '') + '" href="' + lienJour(d) + '#resaJour">' + (ouverts ? 'Réserver la journée' : 'Voir la journée') + '</a>';
   }
 
   // ----- Accueil
@@ -111,6 +167,7 @@
     art.innerHTML = Object.keys(SP).filter(function (k) { return SP[k].court; }).map(function (k) {
       var s = SP[k]; return '<div class="artiste"><h3>' + esc(s.compagnie || k) + '</h3><p>' + esc(k) + (s.discipline ? ' · ' + esc(s.discipline) : '') + '</p></div>';
     }).join('');
+    charger(function () {});
   }
 
   // ----- Infos pratiques
@@ -122,52 +179,142 @@
     carte(document.getElementById('carte'));
     var cm = document.getElementById('contactMail'); cm.href = 'mailto:' + F.contact; cm.textContent = F.contact;
     document.getElementById('infosTheatricul').innerHTML = F.theatriculSite ? 'Le lieu : <a href="' + esc(F.theatriculSite) + '" rel="noopener">theatricul.net</a>.' : '';
+    charger(function () {});
   }
 
-  // ----- Programme + fiches
+  // ----- Programme, pages par jour et fiches
   if (page === 'programme') {
     var vue = document.getElementById('vue'), filtreActif = '';
+    function dates() { var d = []; evenements.forEach(function (e) { if (d.indexOf(e.date) < 0) d.push(e.date); }); return d; }
+    function barreJours(active) {
+      return '<nav class="jours" aria-label="Aller à une journée">' + dates().map(function (d) { var p = parties(d); return '<a href="' + (active === undefined ? '#jour-' + d : lienJour(d)) + '" class="' + (active === d ? 'on' : '') + '"><b>' + p.j + '</b>' + esc(JOURS[p.js].slice(0, 3) + '. ' + MOIS_COURT[p.m - 1]) + '</a>'; }).join('') + '</nav>';
+    }
+    function enteteJour(d, lien) {
+      var p = parties(d), evs = evenements.filter(function (e) { return e.date === d; });
+      var titre = '<span class="nomJour">' + esc(JOURS[p.js] + ' ' + MOIS[p.m - 1]) + '</span><span class="num">' + p.j + '</span>';
+      return '<header class="jourTete"><div>' + (lien ? '<a href="' + lienJour(d) + '" style="text-decoration:none;color:inherit">' + titre + '</a>' : titre) + '</div>' +
+        '<p class="resume">' + pluriel(evs.length, 'spectacle') + (evs[0].debut ? ' · dès ' + esc(evs[0].debut) : '') + '</p><div class="jourActions">' + boutonJour(d) + '</div></header>';
+    }
     function programme() {
-      var h = '<section class="entete"><div class="int"><p class="sur">Programme</p><h1>Dix-huit jours, tous les genres</h1><p class="chapo">Chaque spectacle a son tarif, souvent au chapeau. Réservez vos places depuis la fiche du spectacle : la salle est petite.</p></div></section><section class="bande pres"><div class="int">';
-      if (evenements === null) return h + '<p class="vide">Chargement du programme…</p></div></section>';
-      if (!evenements.length) return h + messageVide() + '</div></section>';
+      var h = '<section class="entete"><div class="int large"><p class="sur">Programme</p><h1>Dix-huit jours, tous les genres</h1><p class="chapo">Chaque spectacle a son tarif, souvent au chapeau. Réservez spectacle par spectacle, ou toute une journée d\'un coup : la salle est petite.</p>';
+      if (evenements === null) return h + '</div></section><section class="bande pres"><div class="int large"><p class="vide">Chargement du programme…</p></div></section>';
+      if (!evenements.length) return h + '</div></section><section class="bande pres"><div class="int large">' + messageVide() + '</div></section>';
+      h += barreJours() + '</div></section><section class="bande pres"><div class="int large">';
       var disciplines = []; evenements.forEach(function (e) { var d = fiche(e).discipline; if (d && disciplines.indexOf(d) < 0) disciplines.push(d); });
       if (disciplines.length > 1) h += '<div class="filtre" role="group" aria-label="Filtrer par genre"><button class="' + (filtreActif ? '' : 'on') + '" data-f="">Tout</button>' + disciplines.map(function (d) { return '<button class="' + (filtreActif === d ? 'on' : '') + '" data-f="' + esc(d) + '">' + esc(d) + '</button>'; }).join('') + '</div>';
-      var jour = '', ouvert = false;
-      evenements.forEach(function (e) {
+      var grand = !OPTS || OPTS.get('prog') !== 'liste';
+      var jour = '', ouvert = false, n = 0;
+      evenements.forEach(function (e, i) {
         var s = fiche(e);
         if (filtreActif && s.discipline !== filtreActif) return;
         if (e.date !== jour) {
-          jour = e.date; var d = parties(jour);
-          h += (ouvert ? '</div></div>' : '') + '<div class="jour"><div class="date"><span class="num">' + d.j + '</span><span class="nomJour">' + esc(JOURS[d.js] + ' ' + MOIS[d.m - 1]) + '</span></div><div class="liste">'; ouvert = true;
+          jour = e.date; var d = parties(jour); n = evenements.filter(function (x) { return x.date === jour && (!filtreActif || fiche(x).discipline === filtreActif); }).length;
+          if (grand) h += (ouvert ? '</div></section>' : '') + '<section class="jourG" id="jour-' + jour + '">' + enteteJour(jour, true) + '<div class="grilleG n' + n + '">';
+          else h += (ouvert ? '</div></div>' : '') + '<div class="jour" id="jour-' + jour + '"><div class="date"><span class="num">' + d.j + '</span><span class="nomJour">' + esc(JOURS[d.js] + ' ' + MOIS[d.m - 1]) + '</span>' + boutonJour(jour, 'petitbtn') + '</div><div class="liste">';
+          ouvert = true;
         }
-        h += '<article class="ev">' + visuel(e, s) + '<div><p class="heure">' + esc(e.debut || '') + (e.fin ? ' – ' + esc(e.fin) : '') + '</p><h3><a href="' + lienFiche(e) + '">' + esc(e.titre) + '</a></h3>' +
+        if (grand) h += carteGrande(e);
+        else h += '<article class="ev">' + visuel(e, s) + '<div><p class="heure">' + esc(heure(e)) + '</p><h3><a href="' + lienFiche(e) + '">' + esc(e.titre) + '</a></h3>' +
           '<p class="meta">' + esc([s.compagnie, meta(s)].filter(Boolean).join(' · ')) + '</p>' + (s.court ? '<p class="court">' + esc(s.court) + '</p>' : '') + '</div>' +
           '<div class="action">' + (e.reservable ? '<a class="btn" href="' + lienFiche(e) + '">Réserver</a>' : '<a class="btn contour" href="' + lienFiche(e) + '">Voir</a>') + etat(e) + '</div></article>';
       });
-      if (ouvert) h += '</div></div>';
+      if (ouvert) h += grand ? '</div></section>' : '</div></div>';
       return h + '</div></section>';
     }
     function afficherProgramme() {
       document.title = 'Programme · ' + (F.nom || 'Festival');
       vue.innerHTML = programme();
       vue.querySelectorAll('.filtre button').forEach(function (b) { b.onclick = function () { filtreActif = b.getAttribute('data-f'); afficherProgramme(); }; });
+      vue.querySelectorAll('.jours a').forEach(function (a) { a.onclick = function (ev) { var el = document.getElementById(a.getAttribute('href').slice(1)); if (el) { ev.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }; });
     }
+
+    // Page d'une journée : tous les spectacles du jour + réservation groupée
+    function afficherJour(d) {
+      var evs = evenements.filter(function (e) { return e.date === d; }), ds = dates(), i = ds.indexOf(d);
+      document.title = maj(dateLongue(d)) + ' · ' + (F.nom || 'Festival');
+      var ouverts = evs.filter(function (e) { return e.reservable; });
+      var h = '<section class="entete"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a><p class="sur">Journée</p><h1>' + esc(maj(dateLongue(d))) + '</h1>' +
+        '<p class="chapo">' + pluriel(evs.length, 'spectacle') + (evs[0].debut ? ' à partir de ' + esc(evs[0].debut) : '') + '. ' + (ouverts.length ? 'Réservez vos places pour plusieurs spectacles d\'un coup, en bas de page.' : 'Les réservations de cette journée ouvriront prochainement.') + '</p>' +
+        '<div class="actions">' + (ouverts.length ? '<a class="btn" href="#resaJour">Réserver la journée</a>' : '') + '<a class="btn contour" href="#programmeJour">Les spectacles</a></div>' + barreJours(d) + '</div></section>' +
+        '<section class="bande pres"><div class="int large" id="programmeJour"><div class="grilleG n' + evs.length + '">' + evs.map(carteGrande).join('') + '</div>' +
+        '<div class="jourNav">' + (i > 0 ? '<a href="' + lienJour(ds[i - 1]) + '">← ' + esc(maj(dateLongue(ds[i - 1]))) + '</a>' : '<span></span>') + (i < ds.length - 1 ? '<a href="' + lienJour(ds[i + 1]) + '">' + esc(maj(dateLongue(ds[i + 1]))) + ' →</a>' : '') + '</div>' +
+        '<div class="resaJour" id="resaJour"><h2>Réserver la journée</h2>';
+      if (ouverts.length) {
+        var max = Math.min(10, Math.max.apply(null, ouverts.map(function (e) { return e.restantes != null ? e.restantes : 10; }))), opts = '';
+        for (var k = 1; k <= max; k++) opts += '<option>' + k + '</option>';
+        h += '<form id="resa" novalidate><div class="cols"><div><h3>Quels spectacles ?</h3><ul class="choix">' + ouverts.map(function (e) {
+          return '<li><input type="checkbox" id="ev' + esc(e.id) + '" name="ev" value="' + esc(e.id) + '" checked><label for="ev' + esc(e.id) + '"><b>' + esc(e.debut || '') + '</b>' + esc(e.titre) + '</label>' + etat(e) + '</li>';
+        }).join('') + '</ul>' + (ouverts.length < evs.length ? '<p class="petit">Les autres spectacles de la journée ne sont pas encore ouverts à la réservation.</p>' : '') + '</div><div>' +
+          '<h3>Vos coordonnées</h3><label for="nom">Prénom et nom *</label><input id="nom" name="nom" autocomplete="name" required>' +
+          '<label for="email">E-mail *</label><input id="email" name="email" type="email" autocomplete="email" required>' +
+          '<label for="telephone">Téléphone</label><input id="telephone" name="telephone" type="tel" autocomplete="tel">' +
+          '<label for="places">Nombre de places (pour chaque spectacle coché) *</label><select id="places" name="places">' + opts + '</select>' +
+          '<label for="message">Message</label><textarea id="message" name="message"></textarea>' +
+          '<input class="piege" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+          '<p class="erreur" id="err" role="alert" hidden></p><p style="margin:18px 0 0"><button class="btn" type="submit">Réserver</button></p>' +
+          '<p class="petit">Une réservation par spectacle coché. Vous recevrez un e-mail de confirmation pour chacune. Le paiement se fait sur place.</p></div></div></form>';
+      } else {
+        h += '<div class="merci"><h3>Réservations bientôt ouvertes</h3><p>Les réservations pour les spectacles de cette journée ouvriront prochainement.' + (F.contact ? ' Une question ? Écrivez-nous à ' + contact() + '.' : '') + '</p></div>';
+      }
+      vue.innerHTML = h + '</div></div></section>';
+      if (!/#resaJour$/.test(location.href)) scrollTo(0, 0);
+      var f = document.getElementById('resa');
+      if (f) f.onsubmit = function (ev) { ev.preventDefault(); envoyerJour(ouverts, f); };
+    }
+    function envoyerJour(ouverts, f) {
+      var err = document.getElementById('err'), bt = f.querySelector('button[type=submit]');
+      var d = {}; new FormData(f).forEach(function (v, k) { if (k !== 'ev') d[k] = v; });
+      var choisis = ouverts.filter(function (e) { return f.querySelector('[name=ev][value="' + e.id + '"]').checked; });
+      err.hidden = true;
+      if (!choisis.length) return montrer('Cochez au moins un spectacle.');
+      if (!d.nom.trim()) return montrer('Indiquez votre nom.');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email.trim())) return montrer('L\'adresse e-mail ne semble pas correcte.');
+      bt.disabled = true; bt.textContent = 'Envoi…';
+      var resultats = [];
+      (function suivant(i) {
+        if (i >= choisis.length) return fin();
+        var e = choisis[i], corps = Object.assign({ api: 'reserver', evenement: e.id }, d);
+        fetch(F.api, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(corps) })
+          .then(function (r) { return r.json(); })
+          .then(function (r) {
+            resultats.push({ e: e, ok: !!r.ok, erreur: r.erreur });
+            if (r.ok && r.restantes != null) { e.restantes = r.restantes; e.complet = r.restantes <= 0; e.reservable = !e.complet; }
+            suivant(i + 1);
+          })
+          .catch(function () { resultats.push({ e: e, ok: false, erreur: 'problème de connexion' }); suivant(i + 1); });
+      })(0);
+      function fin() {
+        var ok = resultats.filter(function (r) { return r.ok; }), ko = resultats.filter(function (r) { return !r.ok; });
+        f.outerHTML = '<div class="merci"><h3>' + (ok.length ? 'Merci !' : 'Ça n\'a pas marché') + '</h3>' +
+          (ok.length ? '<p>' + esc(d.places) + ' place' + (d.places > 1 ? 's' : '') + ' réservée' + (d.places > 1 ? 's' : '') + ' pour :</p><ul class="resultats">' + ok.map(function (r) { return '<li><b>' + esc(r.e.debut || '') + '</b> ' + esc(r.e.titre) + '</li>'; }).join('') + '</ul><p>Un e-mail de confirmation vient de partir à <b>' + esc(d.email) + '</b> pour chaque spectacle.</p>' : '') +
+          (ko.length ? '<p class="erreur">Pas de réservation pour : ' + ko.map(function (r) { return esc(r.e.titre) + (r.erreur ? ' (' + esc(r.erreur) + ')' : ''); }).join(', ') + '.</p>' : '') +
+          '<p><a href="programme.html">Voir les autres spectacles</a></p></div>';
+      }
+      function montrer(t) { err.textContent = t; err.hidden = false; }
+    }
+
     function afficherFiche(e) {
-      var s = fiche(e);
+      var s = fiche(e), i = evenements.indexOf(e), prec = evenements[i - 1], suiv = evenements[i + 1];
       document.title = e.titre + ' · ' + (F.nom || 'Festival');
       var max = e.restantes != null ? Math.min(10, e.restantes) : 10, opts = '';
-      for (var i = 1; i <= max; i++) opts += '<option>' + i + '</option>';
-      var h = '<div class="fiche"><div class="int"><a class="retour" href="programme.html">← Tout le programme</a>' + (s.discipline ? '<p><span class="tag">' + esc(s.discipline) + '</span></p>' : '') + '<h1>' + esc(e.titre) + '</h1>' +
-        (s.compagnie ? '<p class="cie">' + esc(s.compagnie) + '</p>' : '') + '<div class="cols"><div>' +
-        (s.photo ? visuel(e, s) + (s.credit ? '<p class="credit">' + esc(s.credit) + '</p>' : '') : '') +
+      for (var k = 1; k <= max; k++) opts += '<option>' + k + '</option>';
+      var autres = memeJour(e).filter(function (x) { return x !== e; });
+      var h = '<div class="fiche"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a>' + (s.discipline ? '<p><span class="tag">' + esc(s.discipline) + '</span></p>' : '') + '<h1>' + esc(e.titre) + '</h1>' +
+        (s.compagnie ? '<p class="cie">' + esc(s.compagnie) + '</p>' : '');
+      if (s.photos.length) {
+        h += '<div class="galerie" id="galerie"><div class="visuel principal"><img src="' + esc(s.photos[0].src) + '" alt="' + esc(e.titre) + '"></div>' +
+          (s.photos.length > 1 ? '<div class="vignettes" role="group" aria-label="Autres photos">' + s.photos.map(function (p, n) { return '<button type="button" class="' + (n ? '' : 'on') + '" data-n="' + n + '" aria-label="Photo ' + (n + 1) + '"><img src="' + esc(p.src) + '" alt="" loading="lazy"></button>'; }).join('') + '</div>' : '') +
+          '<p class="credit" id="credit">' + esc(s.photos[0].credit || '') + '</p></div>';
+      }
+      h += '<div class="cols"><div>' +
         '<dl><dt>Date</dt><dd>' + esc(dateLongue(e.date)) + '</dd>' + (heure(e) ? '<dt>Heure</dt><dd>' + esc(heure(e)) + '</dd>' : '') +
         (s.duree ? '<dt>Durée</dt><dd>' + esc(s.duree) + '</dd>' : '') + (s.age ? '<dt>Public</dt><dd>' + esc(s.age) + '</dd>' : '') +
         '<dt>Lieu</dt><dd>' + esc([e.lieu || 'Théâtricul', e.adresse || F.adresse].filter(Boolean).join(', ')) + '</dd>' +
         (e.tarif ? '<dt>Tarif</dt><dd>' + esc(e.tarif) + '</dd>' : '') + '</dl>' +
         (s.court ? '<div class="desc court">' + esc(s.court) + '</div>' : (s.long ? '' : '<p class="vide">Présentation à venir.</p>')) +
         (s.long ? '<button class="lire" id="lire" aria-expanded="false">Lire la suite</button><div class="suite" id="suite">' + paras(s.long) + (s.citation ? '<p class="citation">' + esc(s.citation) + '</p>' : '') + '</div>' : '') +
-        (s.video ? '<p><a href="' + esc(s.video) + '" rel="noopener">Voir un extrait vidéo</a></p>' : '') + (s.lien ? '<p><a href="' + esc(s.lien) + '" rel="noopener">Le site de la compagnie</a></p>' : '') +
+        (s.videos.length ? '<div class="videos"><h2>En vidéo</h2>' + s.videos.map(video).join('') + '</div>' : '') +
+        (s.lien ? '<p><a href="' + esc(s.lien) + '" rel="noopener">Le site de la compagnie</a></p>' : '') +
         (s.distribution ? '<p class="distribution">' + esc(s.distribution) + '</p>' : '') + '</div><div class="colle">';
       if (e.reservable) {
         h += '<form id="resa" novalidate><h3>Réserver</h3>' + (etat(e) ? '<p class="petit">' + etat(e) + '</p>' : '') +
@@ -183,12 +330,36 @@
         h += '<div class="merci"><h3>' + (e.complet ? 'C\'est complet' : e.essai ? 'Réservations bientôt ouvertes' : 'Réservation fermée') + '</h3><p>' +
           (e.essai ? 'Les réservations pour ce spectacle ouvriront prochainement.' : F.contact ? 'Écrivez-nous à ' + contact() + ' : une place se libère parfois.' : 'Une place se libère parfois : revenez voir un peu plus tard.') + '</p></div>';
       }
-      vue.innerHTML = h + '</div></div></div></div>';
+      h += '<div class="encadre"><h3>' + (autres.length ? 'Le même jour, ' + esc(dateLongue(e.date)) : 'Ce jour-là : ' + esc(dateLongue(e.date))) + '</h3>' +
+        (autres.length ? '<ul>' + autres.map(function (x) { return '<li><b>' + esc(x.debut || '') + '</b><a href="' + lienFiche(x) + '">' + esc(x.titre) + '</a></li>'; }).join('') + '</ul>' : '<p class="petit">C\'est le seul spectacle de la journée.</p>') +
+        '<div class="liensJour"><a href="' + lienJour(e.date) + '">Voir la journée</a>' + (memeJour(e).some(function (x) { return x.reservable; }) && autres.length ? '<a href="' + lienJour(e.date) + '#resaJour">Réserver la journée</a>' : '') + '</div></div>';
+      h += '</div></div>';
+      if (prec || suiv) {
+        h += '<nav class="navSp" aria-label="Autres spectacles">' +
+          (prec ? '<a class="precedent" href="' + lienFiche(prec) + '">' + visuel(prec, fiche(prec)) + '<div><p class="sens">← Spectacle précédent</p><p class="titre">' + esc(prec.titre) + '</p><p class="quand">' + esc(dateCourte(prec.date)) + (prec.debut ? ' · ' + esc(prec.debut) : '') + '</p></div></a>' : '<span></span>') +
+          (suiv ? '<a class="suivant" href="' + lienFiche(suiv) + '"><div><p class="sens">Spectacle suivant →</p><p class="titre">' + esc(suiv.titre) + '</p><p class="quand">' + esc(dateCourte(suiv.date)) + (suiv.debut ? ' · ' + esc(suiv.debut) : '') + '</p></div>' + visuel(suiv, fiche(suiv)) + '</a>' : '') + '</nav>';
+      }
+      vue.innerHTML = h + '</div></div>';
       scrollTo(0, 0);
       var lire = document.getElementById('lire');
       if (lire) lire.onclick = function () { var o = document.getElementById('suite').classList.toggle('ouvert'); lire.textContent = o ? 'Réduire' : 'Lire la suite'; lire.setAttribute('aria-expanded', o); };
+      vue.querySelectorAll('.vignettes button').forEach(function (b) {
+        b.onclick = function () {
+          var p = s.photos[+b.getAttribute('data-n')];
+          document.querySelector('#galerie .principal img').src = p.src; document.getElementById('credit').textContent = p.credit || '';
+          vue.querySelectorAll('.vignettes button').forEach(function (x) { x.classList.toggle('on', x === b); });
+        };
+      });
       var f = document.getElementById('resa');
       if (f) f.onsubmit = function (ev) { ev.preventDefault(); envoyer(e, f); };
+    }
+    function video(v) {
+      var h = '', m;
+      if (v.src) h = '<div class="video"><video controls preload="metadata"' + (v.poster ? ' poster="' + esc(v.poster) + '"' : '') + ' src="' + esc(v.src) + '"></video></div>';
+      else if ((m = String(v.url || '').match(/(?:youtu\.be\/|v=|\/shorts\/|\/embed\/)([\w-]{11})/))) h = '<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/' + m[1] + '" title="' + esc(v.titre || 'Vidéo') + '" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>';
+      else if ((m = String(v.url || '').match(/vimeo\.com\/(?:video\/)?(\d+)/))) h = '<div class="video"><iframe src="https://player.vimeo.com/video/' + m[1] + '?dnt=1" title="' + esc(v.titre || 'Vidéo') + '" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
+      else if (v.url) return '<p><a href="' + esc(v.url) + '" rel="noopener">' + esc(v.titre || 'Voir la vidéo') + '</a></p>';
+      return h + (v.titre ? '<p class="legende">' + esc(v.titre) + '</p>' : '');
     }
     function envoyer(e, f) {
       var err = document.getElementById('err'), bt = f.querySelector('button[type=submit]');
@@ -211,13 +382,16 @@
       function montrer(t) { err.textContent = t; err.hidden = false; }
     }
     function route() {
-      var id = decodeURIComponent(location.hash.slice(1));
+      var id = decodeURIComponent(location.hash.slice(1)).replace(/#.*$/, '');
+      if (evenements && /^jour-\d{4}-\d\d-\d\d$/.test(id) && evenements.some(function (x) { return x.date === id.slice(5); })) { afficherJour(id.slice(5)); if (/#resaJour$/.test(location.hash)) { var r = document.getElementById('resaJour'); if (r) r.scrollIntoView(); } return; }
       var e = id && evenements && evenements.filter(function (x) { return x.id === id; })[0];
       if (e) afficherFiche(e); else afficherProgramme();
     }
+    function enSaisie() { var f = document.getElementById('resa'); return f && Array.prototype.some.call(f.querySelectorAll('input,textarea'), function (i) { return i.value && !i.classList.contains('piege'); }); }
+    window.PF_RAFRAICHIR = route;
     addEventListener('hashchange', route);
     route();
-    charger(function () { route(); jsonLd(evenements); });
+    charger(function (miseAJour) { if (miseAJour && enSaisie()) return; route(); jsonLd(evenements); });
   }
 
   // Données structurées pour Google (événements)
