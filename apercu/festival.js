@@ -94,8 +94,13 @@ window.SPECTACLES = {
     citation: "« Tant qu'il me reste ma voix, je continuerai. À crier, à crier, jusqu'à ce que le béton des murs se fissure. »"
   },
   "Mise à Mâle": {
-    photo: "photos/mise-a-male.webp",
-    credit: "Photo : Antonio Anguiano",
+    photos: [
+      { src: "photos/mise-a-male-1.webp", credit: "Photo : Antonio Anguiano" },
+      { src: "photos/mise-a-male.webp", credit: "Photo : Antonio Anguiano" },
+      { src: "photos/mise-a-male-2.webp", credit: "Photo : Antonio Anguiano" },
+      { src: "photos/mise-a-male-4.webp", credit: "Photo : Antonio Anguiano" },
+      { src: "photos/mise-a-male-3.webp", credit: "Photo : Antonio Anguiano" }
+    ],
     compagnie: "Antonio Anguiano",
     discipline: "Cirque et théâtre physique",
     duree: "30 min",
