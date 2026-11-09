@@ -98,19 +98,55 @@ html[data-texte=newsreader] .btn{font-family:Barlow,system-ui,sans-serif}
 .burger span{display:block;width:24px;height:2px;background:var(--texte);margin:5px 0;transition:.2s}
 
 /* Menu centré dans la page */
-html[data-menu=centre] .haut{position:static;flex-direction:column;align-items:center;gap:14px;padding:30px 20px 22px;background:transparent;backdrop-filter:none;border-bottom:0}
-html[data-menu=centre] .marque{margin:0;font-size:26px}
-html[data-menu=centre] .haut nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;font-size:16px}
-html[data-menu=centre] .haut nav a{padding:6px 0}
-html[data-menu=centre] .haut nav a.btn{padding:9px 16px;margin-left:8px}
-html[data-menu=centre] .burger{display:none}
-html[data-menu=centre] .hero{padding-top:clamp(30px,6vw,70px)}
-html[data-menu=centre] .haut:after{content:"";display:block;width:min(420px,70vw);height:1px;margin-top:8px;background:var(--texte);opacity:.7}
+html[data-menu^=centre] .haut{position:static;flex-direction:column;align-items:center;gap:14px;padding:30px 20px 22px;background:transparent;backdrop-filter:none;border-bottom:0}
+html[data-menu^=centre] .marque{margin:0;font-size:26px}
+html[data-menu^=centre] .haut nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;font-size:16px}
+html[data-menu^=centre] .haut nav a{padding:6px 0}
+html[data-menu^=centre] .haut nav a.btn{padding:9px 16px;margin-left:8px}
+html[data-menu^=centre] .burger{display:none}
+html[data-menu^=centre] .hero{padding-top:clamp(30px,6vw,70px)}
+html[data-menu^=centre] .haut:after{content:"";display:block;width:min(420px,70vw);height:1px;margin-top:8px;background:var(--texte);opacity:.7}
 @media (max-width:720px){
-  html[data-menu=centre] .haut nav{display:flex;position:static;flex-direction:row;background:none;border:0;padding:0;gap:6px 18px}
-  html[data-menu=centre] .haut nav a{border-bottom:2px solid transparent;padding:6px 0}
-  html[data-menu=centre] .haut nav a.btn{margin:0}
+  html[data-menu^=centre] .haut nav{display:flex;position:static;flex-direction:row;background:none;border:0;padding:0;gap:6px 18px}
+  html[data-menu^=centre] .haut nav a{border-bottom:2px solid transparent;padding:6px 0}
+  html[data-menu^=centre] .haut nav a.btn{margin:0}
 }
+
+/* Variantes du menu centré (options de l'aperçu) */
+html[data-menu=centre-cadre] .haut:after{display:none}
+html[data-menu=centre-cadre] .haut nav{border:2px solid var(--texte);background:var(--carte);padding:8px 22px;box-shadow:calc(3px + 3px*var(--ok)) calc(3px + 3px*var(--ok)) 0 var(--texte);gap:6px 24px}
+html[data-menu=centre-cadre] .haut nav a.btn{margin-left:4px}
+html[data-menu=centre-pastilles] .haut:after{display:none}
+html[data-menu=centre-pastilles] .haut nav{gap:10px}
+html[data-menu=centre-pastilles] .haut nav a{border:2px solid var(--texte);border-radius:999px;padding:7px 16px;color:var(--texte);background:var(--carte);transition:background .15s,color .15s,transform .15s}
+html[data-menu=centre-pastilles] .haut nav a:hover,html[data-menu=centre-pastilles] .haut nav a.actif{background:var(--texte);color:var(--fond);border-color:var(--texte);transform:translateY(-2px)}
+html[data-menu=centre-pastilles] .haut nav a.btn{border-color:var(--magenta);margin-left:0}
+html[data-menu=centre-affiche] .marque{font-size:clamp(30px,5vw,46px);letter-spacing:-.01em}
+html[data-menu=centre-affiche] .marque .pastille{width:18px;height:18px}
+html[data-menu=centre-affiche] .haut:before{content:"3 – 20 décembre 2026  ·  Théâtricul, Chêne-Bourg";order:2;font:700 12px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-top:-6px;text-align:center}
+html[data-menu=centre-affiche] .marque{order:1}
+html[data-menu=centre-affiche] .haut nav{order:3;gap:6px 0}
+html[data-menu=centre-affiche] .haut nav a:not(.btn)+a:not(.btn):before{content:"★";color:var(--magenta);font-size:11px;margin:0 14px;vertical-align:2px}
+html[data-menu=centre-affiche] .haut:after{order:4;width:min(560px,80vw);height:3px;background:repeating-linear-gradient(90deg,var(--texte) 0 14px,transparent 14px 20px);opacity:1}
+html[data-menu=centre-bande] .haut{padding-bottom:30px}
+html[data-menu=centre-bande] .haut:after{display:none}
+html[data-menu=centre-bande] .haut nav{background:var(--violet);padding:10px 34px;clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);gap:6px 26px}
+html[data-menu=centre-bande] .haut nav a{color:#fff;opacity:.85}
+html[data-menu=centre-bande] .haut nav a:hover,html[data-menu=centre-bande] .haut nav a.actif{opacity:1;color:#fff;border-color:var(--cyanVif)}
+html[data-menu=centre-bande] .haut nav a.btn{background:var(--magenta);color:#fff;opacity:1;box-shadow:none}
+@media (max-width:720px){
+  html[data-menu=centre-affiche] .haut nav a:not(.btn)+a:not(.btn):before{margin:0 8px}
+  html[data-menu=centre-bande] .haut nav,html[data-menu=centre-cadre] .haut nav{padding:8px 16px;gap:4px 16px}
+}
+
+/* Fonds de l'en-tête (options de l'aperçu) */
+html[data-entete=papier] .haut{background:linear-gradient(180deg,rgba(214,190,150,.35),rgba(214,190,150,.12)),var(--grain,none) 0 0/200px 200px,var(--fond2)}
+html[data-entete=rayures] .haut{background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(107,44,255,.10) 14px 16px),var(--fond)}
+html[data-entete=aurore] .haut{background:radial-gradient(ellipse 60% 120% at 15% 0%,var(--lueur1,rgba(255,31,180,.22)),transparent 70%),radial-gradient(ellipse 60% 120% at 85% 0%,var(--lueur2,rgba(25,200,255,.3)),transparent 70%),var(--fond)}
+html[data-entete=nuit] .haut{--texte:#f6efe2;--doux:#d6cde6;--carte:#221c40;--fond:#120f24;background:radial-gradient(2px 2px at 8% 22%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 19% 64%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 31% 30%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 42% 78%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 53% 16%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 61% 52%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 72% 28%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 79% 70%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 88% 40%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 95% 18%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 4% 74%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 36% 55%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 67% 85%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 47% 40%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 25% 12%,#fff 50%,transparent 51%),linear-gradient(180deg,#120f24,#2a1b52);color:var(--texte)}
+html[data-entete=nuit] .haut .burger span{background:#f6efe2}
+html[data-entete=diagonale] .haut{background:linear-gradient(to top left,transparent 50%,var(--fond) 50.5%) left bottom/100% 30px no-repeat,linear-gradient(100deg,var(--magenta),var(--violet) 55%,var(--cyanVif)) left bottom/100% 30px no-repeat,var(--fond);padding-bottom:44px}
+html[data-entete=diagonale][data-menu^=centre] .haut:after{display:none}
 
 /* Héros */
 .hero{position:relative;padding:clamp(70px,13vw,150px) 0 clamp(90px,14vw,170px);overflow:hidden;background:
@@ -147,7 +183,7 @@ html[data-menu=centre] .haut:after{content:"";display:block;width:min(420px,70vw
 .carteSp{display:flex;flex-direction:column;background:var(--carte);border:1px solid var(--ligne);text-decoration:none;color:inherit;overflow:hidden;transition:transform .15s,box-shadow .15s;clip-path:polygon(0 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%)}
 .carteSp:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--magenta)}
 .visuel{aspect-ratio:3/2;background:var(--fond2);position:relative;overflow:hidden}
-.visuel img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.visuel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
 .visuel.vide{display:flex;align-items:flex-end;padding:14px;font:var(--gras) 64px/1 var(--titre);color:var(--videTexte);background:linear-gradient(160deg,var(--fond2),var(--carte))}
 .visuel.vide:after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:linear-gradient(180deg,var(--jauneVif),var(--corail) 60%,var(--magenta));opacity:.35;mask:repeating-linear-gradient(180deg,#000 0 70%,transparent 70% 100%) 0 0/100% 18px}
 .visuel.vide.t1:after{background:linear-gradient(180deg,var(--cyanVif),var(--magenta))}
@@ -163,7 +199,7 @@ html[data-menu=centre] .haut:after{content:"";display:block;width:min(420px,70vw
 .tag{display:inline-block;font:700 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tagTexte);background:var(--violet);padding:5px 8px;clip-path:polygon(0 0,100% 0,100% 100%,6px 100%,0 calc(100% - 6px))}
 
 /* Programme : barre des jours, sur une seule ligne */
-.jours{margin:26px 0 0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:4px 0 10px}
+.jours{margin:26px 0 0 -6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:6px 6px 10px}
 .jours::-webkit-scrollbar{display:none}
 .pellicule{display:inline-flex;gap:10px;min-width:100%}
 .jours a{flex:none;width:66px;text-align:center;font:700 12px/1.2 var(--mono);text-decoration:none;color:var(--texte);background:var(--carte);border:2px solid var(--texte);padding:8px 4px;text-transform:uppercase;letter-spacing:.04em;box-shadow:3px 3px 0 var(--texte);transition:transform .15s,box-shadow .15s}
@@ -236,7 +272,7 @@ html[data-menu=centre] .haut:after{content:"";display:block;width:min(420px,70vw
 .carteG .pied{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px}
 .carteG .pied .lien{font-weight:600}
 .grilleG.n1 .carteG{flex-direction:row}
-.grilleG.n1 .carteG>a.visuel{flex:0 0 58%;aspect-ratio:auto;min-height:360px}
+.grilleG.n1 .carteG>a.visuel{flex:0 0 52%;aspect-ratio:3/2;min-height:0;align-self:flex-start}
 .grilleG.n1 .carteG .corps{justify-content:center;padding:34px 36px}
 .grilleG.n1 .carteG h3{font-size:clamp(28px,3.4vw,40px)}
 
@@ -367,7 +403,7 @@ footer .liens{display:flex;gap:18px;flex-wrap:wrap}
 
 @media (max-width:960px){
   .grilleG.n1 .carteG{flex-direction:column}
-  .grilleG.n1 .carteG>a.visuel{flex:none;aspect-ratio:3/2;min-height:0}
+  .grilleG.n1 .carteG>a.visuel{flex:none;aspect-ratio:3/2;min-height:0;align-self:stretch}
   .grilleG.n1 .carteG .corps{padding:18px 22px 22px}
 }
 @media (max-width:860px){

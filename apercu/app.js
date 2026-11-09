@@ -90,7 +90,8 @@
       ['titre', 'Typo des titres', [['fraunces', 'Fraunces'], ['archivo', 'Archivo Black'], ['shoulders', 'Big Shoulders'], ['syne', 'Syne (avant)']]],
       ['texte', 'Typo des textes', [['newsreader', 'Newsreader (journal)'], ['franklin', 'Libre Franklin (presse)'], ['atkinson', 'Atkinson'], ['barlow', 'Barlow (avant)']]],
       ['prog', 'Programme', [['grand', 'Grand format'], ['liste', 'Liste (avant)']]],
-      ['menu', 'Menu', [['centre', 'Centré, dans la page'], ['barre', 'Barre en haut (avant)']]],
+      ['menu', 'Menu', [['centre', 'Centré, ligne fine (actuel)'], ['centre-cadre', 'Centré, encadré'], ['centre-pastilles', 'Centré, pastilles'], ['centre-affiche', 'Centré, façon affiche'], ['centre-bande', 'Centré, bande violette'], ['barre', 'Barre en haut (avant)']]],
+      ['entete', 'Fond de l\'en-tête', [['aucun', 'Aucun (actuel)'], ['papier', 'Papier kraft'], ['rayures', 'Rayures fines'], ['aurore', 'Aurore (lueurs)'], ['nuit', 'Nuit étoilée'], ['diagonale', 'Diagonale colorée']]],
       ['ombre', 'Ombres (quantité)', 'curseur'],
       ['lueur', 'Lueurs colorées (accueil, bords des sections)', 'curseur'],
       ['sections', 'Couleurs des sections', [['unies', 'Unies (actuel)'], ['papiers', 'Papiers (crème, ivoire, kraft)'], ['rosee', 'Rosée (rose poudré, lavande)'], ['nuit', 'Dernière section nuit']]]
