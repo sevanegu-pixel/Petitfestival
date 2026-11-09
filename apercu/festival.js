@@ -7,7 +7,7 @@ window.FESTIVAL = {
   dates: "Du 3 au 20 décembre 2026",
   lieu: "Théâtricul, Chêne-Bourg (Genève)",
   adresse: "Rue de Genève 64, 1225 Chêne-Bourg",
-  site: "https://petit-festival.ch",
+  site: "https://ptit-festival.ch",
   accroche: "Dix-huit jours de spectacles sur la petite scène du Théâtricul : cirque, théâtre, marionnette, musique, performance… Des artistes d'ici et d'ailleurs, des formes courtes et des grandes, et un cabaret pour finir.",
   presentation: [
     "Le Théâtricul ouvre ses portes aux artistes de toutes les disciplines qui peuvent se produire sur sa petite scène : artistes professionnel·les, en voie de professionnalisation et élèves des écoles d'arts, sans limite d'âge. Le Petit Festival veut mettre en lumière et propulser leurs projets, avec une programmation éclectique et ouverte à tous les genres.",

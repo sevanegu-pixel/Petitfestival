@@ -1,3 +1,3 @@
 User-agent: *
 Disallow: /apercu/
-Sitemap: https://petit-festival.ch/sitemap.xml
+Sitemap: https://ptit-festival.ch/sitemap.xml
