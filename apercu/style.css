@@ -289,6 +289,9 @@ html[data-menu=centre] .haut:after{content:"";display:block;width:min(420px,70vw
 .desc{white-space:pre-line;font-size:18px}
 .desc.court{font-size:20px;color:var(--texte)}
 .suite{display:none}
+.suite h3{font:var(--gras) 22px/1.2 var(--titre);margin:22px 0 8px}
+.suite ul{padding-left:22px}
+.suite li{margin:4px 0}
 .suite.ouvert{display:block}
 .lire{background:none;border:0;color:var(--corail2);font:600 16px var(--corps);cursor:pointer;padding:0;margin:0 0 18px;text-decoration:underline;text-underline-offset:4px}
 .distribution{color:var(--doux);font-size:15px;border-top:1px solid var(--ligne);padding-top:14px;margin-top:10px}

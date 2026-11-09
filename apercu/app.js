@@ -4,7 +4,8 @@
   var MOIS_COURT = ['jan','fév','mars','avr','mai','juin','juil','août','sept','oct','nov','déc'];
   var JOURS = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
   var page = document.body.getAttribute('data-page');
-  var evenements = null, erreurChargement = false;
+  var evenements = null, erreurChargement = false, BROUILLON = false;
+  var FRAIS = /[?&]frais=/.test(location.search); // ?frais=1 : ignorer la copie locale (aperçu depuis l'appli)
   var APERCU = /\/apercu\//.test(location.pathname);
   var CACHE = 'pf_evenements';
 
@@ -16,7 +17,17 @@
   function maj(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
   function heure(e) { return e.debut ? e.debut + (e.fin ? ' – ' + e.fin : '') : ''; }
   function contact() { return F.contact ? '<a href="mailto:' + esc(F.contact) + '">' + esc(F.contact) + '</a>' : ''; }
-  function paras(t) { return String(t || '').split(/\n\s*\n/).map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; }).join(''); }
+  // Mise en forme simple des textes : **gras**, *italique*, « ## Sous-titre », « > citation », « - liste », lignes vides = paragraphes.
+  function enrichir(p) { return esc(p).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/(^|[^*])\*([^*\n]+?)\*/g, '$1<em>$2</em>'); }
+  function paras(t) {
+    return String(t || '').replace(/\r/g, '').split(/\n\s*\n/).map(function (p) {
+      p = p.trim(); if (!p) return '';
+      if (/^##\s*/.test(p)) return '<h3>' + enrichir(p.replace(/^##\s*/, '')) + '</h3>';
+      if (/^>\s*/.test(p)) return '<p class="citation">' + enrichir(p.replace(/^>\s*/gm, '')).replace(/\n/g, '<br>') + '</p>';
+      if (/^[-•]\s+/.test(p)) return '<ul>' + p.split(/\n/).map(function (l) { return '<li>' + enrichir(l.replace(/^[-•]\s+/, '')) + '</li>'; }).join('') + '</ul>';
+      return '<p>' + enrichir(p).replace(/\n/g, '<br>') + '</p>';
+    }).join('');
+  }
   function etat(e) {
     if (e.complet) return '<span class="etat complet">Complet</span>';
     if (e.essai) return '<span class="etat">Bientôt</span>';
@@ -38,7 +49,7 @@
     var videos = (s.videos || []).slice(); if (s.video) videos.push({ url: s.video });
     return {
       compagnie: e.compagnie || s.compagnie || '', discipline: s.discipline || '', duree: e.duree || s.duree || '', age: e.age || s.age || '',
-      court: s.court || e.description || '', long: s.long || '', tarif: e.tarif || s.tarif || '', banque: s.banque || [], distribution: s.distribution || '', citation: s.citation || '',
+      court: e.description || s.court || '', long: e.long || s.long || '', tarif: e.tarif || s.tarif || '', banque: s.banque || [], distribution: e.distribution || s.distribution || '', citation: s.citation || '',
       photos: photos, photo: photos.length ? photos[0].src : '', credit: photos.length ? photos[0].credit : '', videos: videos, lien: s.lien || ''
     };
   }
@@ -106,7 +117,7 @@
   function charger(cb) {
     if (!F.api) { evenements = []; cb(); return; }
     var brut = null;
-    try { var c = JSON.parse(localStorage.getItem(CACHE) || 'null'); if (c && c.evenements && Date.now() - c.t < 7 * 86400e3) brut = c.evenements; } catch (e) {}
+    try { var c = JSON.parse(localStorage.getItem(CACHE) || 'null'); if (!FRAIS && c && c.evenements && Date.now() - c.t < 7 * 86400e3) brut = c.evenements; } catch (e) {}
     if (brut) { evenements = preparer(brut); cb(); }
     else if (window.PROGRAMME_ESSAI && APERCU) { evenements = preparer([]); cb(); }
     fetch(F.api + '?api=evenements').then(function (r) { return r.json(); }).then(function (d) {
@@ -311,7 +322,8 @@
     function afficherFiche(e) {
       var s = fiche(e), i = evenements.indexOf(e), prec = evenements[i - 1], suiv = evenements[i + 1];
       document.title = e.titre + ' · ' + (F.nom || 'Festival');
-      var max = e.restantes != null ? Math.min(10, e.restantes) : 10, opts = '';
+      var attente = !!(e.complet && e.attente && !e.reservable);
+      var max = attente ? 10 : e.restantes != null ? Math.min(10, e.restantes) : 10, opts = '';
       for (var k = 1; k <= max; k++) opts += '<option>' + k + '</option>';
       var autres = memeJour(e).filter(function (x) { return x !== e; });
       var h = '<div class="fiche"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a>' + (s.discipline ? '<p><span class="tag">' + esc(s.discipline) + '</span></p>' : '') + '<h1>' + esc(e.titre) + '</h1>' +
@@ -326,21 +338,21 @@
         (s.duree ? '<dt>Durée</dt><dd>' + esc(s.duree) + '</dd>' : '') + (s.age ? '<dt>Public</dt><dd>' + esc(s.age) + '</dd>' : '') +
         '<dt>Lieu</dt><dd>' + esc([e.lieu || 'Théâtricul', e.adresse || F.adresse].filter(Boolean).join(', ')) + '</dd>' +
         (s.tarif ? '<dt>Tarif</dt><dd>' + esc(s.tarif) + '</dd>' : '') + '</dl>' +
-        (s.court ? '<div class="desc court">' + esc(s.court) + '</div>' : (s.long ? '' : '<p class="vide">Présentation à venir.</p>')) +
+        (s.court ? '<div class="desc court">' + enrichir(s.court) + '</div>' : (s.long ? '' : '<p class="vide">Présentation à venir.</p>')) +
         (s.long ? '<button class="lire" id="lire" aria-expanded="false">Lire la suite</button><div class="suite" id="suite">' + paras(s.long) + (s.citation ? '<p class="citation">' + esc(s.citation) + '</p>' : '') + '</div>' : '') +
         (s.videos.length ? '<div class="videos"><h2>En vidéo</h2>' + s.videos.map(video).join('') + '</div>' : '') +
         (s.lien ? '<p><a href="' + esc(s.lien) + '" rel="noopener">Le site de la compagnie</a></p>' : '') +
         (s.distribution ? '<p class="distribution">' + esc(s.distribution) + '</p>' : '') + '</div><div class="colle">';
-      if (e.reservable) {
-        h += '<form id="resa" novalidate><h3>Réserver</h3>' + (etat(e) ? '<p class="petit">' + etat(e) + '</p>' : '') +
+      if (e.reservable || attente) {
+        h += '<form id="resa" novalidate' + (attente ? ' data-attente="1"' : '') + '><h3>' + (attente ? 'Liste d\'attente' : 'Réserver') + '</h3>' + (attente ? '<p class="petit">C\'est complet, mais des places se libèrent souvent : inscrivez-vous, nous vous écrivons dès qu\'il y en a.</p>' : etat(e) ? '<p class="petit">' + etat(e) + '</p>' : '') +
           '<label for="nom">Prénom et nom *</label><input id="nom" name="nom" autocomplete="name" required>' +
           '<label for="email">E-mail *</label><input id="email" name="email" type="email" autocomplete="email" required>' +
           '<label for="telephone">Téléphone</label><input id="telephone" name="telephone" type="tel" autocomplete="tel">' +
           '<label for="places">Nombre de places *</label><select id="places" name="places">' + opts + '</select>' +
           '<label for="message">Message</label><textarea id="message" name="message"></textarea>' +
           '<input class="piege" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">' +
-          '<p class="erreur" id="err" role="alert" hidden></p><p style="margin:18px 0 0"><button class="btn" type="submit">Réserver</button></p>' +
-          '<p class="petit">Vous recevrez un e-mail de confirmation. Le paiement se fait sur place.</p></form>';
+          '<p class="erreur" id="err" role="alert" hidden></p><p style="margin:18px 0 0"><button class="btn" type="submit">' + (attente ? 'M\'inscrire sur la liste d\'attente' : 'Réserver') + '</button></p>' +
+          '<p class="petit">' + (attente ? 'Vous recevrez un e-mail quand une place se libère ; rien n\'est réservé tant que nous ne vous avons pas confirmé.' : 'Vous recevrez un e-mail de confirmation. Le paiement se fait sur place.') + '</p></form>';
       } else {
         h += '<div class="merci"><h3>' + (e.complet ? 'C\'est complet' : e.essai ? 'Réservations bientôt ouvertes' : 'Réservation fermée') + '</h3><p>' +
           (e.essai ? 'Les réservations pour ce spectacle ouvriront prochainement.' : F.contact ? 'Écrivez-nous à ' + contact() + ' : une place se libère parfois.' : 'Une place se libère parfois : revenez voir un peu plus tard.') + '</p></div>';
@@ -378,8 +390,9 @@
     }
     function envoyer(e, f) {
       var err = document.getElementById('err'), bt = f.querySelector('button[type=submit]');
-      var d = { api: 'reserver', evenement: e.id };
+      var d = { api: 'reserver', evenement: e.id }, attente = f.getAttribute('data-attente') === '1', libelle = bt.textContent;
       new FormData(f).forEach(function (v, k) { d[k] = v; });
+      if (attente) d.attente = true;
       err.hidden = true;
       if (!d.nom.trim()) return montrer('Indiquez votre nom.');
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email.trim())) return montrer('L\'adresse e-mail ne semble pas correcte.');
@@ -387,13 +400,14 @@
       fetch(F.api, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(d) })
         .then(function (r) { return r.json(); })
         .then(function (r) {
-          if (!r.ok) { bt.disabled = false; bt.textContent = 'Réserver'; return montrer(r.erreur || 'La réservation n\'a pas pu être enregistrée.'); }
-          f.outerHTML = '<div class="merci"><h3>Merci !</h3><p>Votre réservation de ' + esc(d.places) + ' place' + (d.places > 1 ? 's' : '') +
+          if (!r.ok) { bt.disabled = false; bt.textContent = libelle; return montrer(r.erreur || 'La réservation n\'a pas pu être enregistrée.'); }
+          if (r.attente) f.outerHTML = '<div class="merci"><h3>C\'est noté</h3><p>Vous êtes sur la liste d\'attente pour « ' + esc(e.titre) + ' » (' + esc(d.places) + ' place' + (d.places > 1 ? 's' : '') + '). Dès qu\'une place se libère, nous vous écrivons à <b>' + esc(d.email) + '</b>.</p><p><a href="programme.html">Voir les autres spectacles</a></p></div>';
+          else f.outerHTML = '<div class="merci"><h3>Merci !</h3><p>Votre réservation de ' + esc(d.places) + ' place' + (d.places > 1 ? 's' : '') +
             ' pour « ' + esc(e.titre) + ' » est confirmée.</p><p>' + (r.mailEnvoye === false ? 'Nous vous écrirons à ' : 'Un e-mail de confirmation vient de partir à ') +
             '<b>' + esc(d.email) + '</b>.</p><p><a href="programme.html">Voir les autres spectacles</a></p></div>';
           if (r.restantes != null) { e.restantes = r.restantes; e.complet = r.restantes <= 0; e.reservable = !e.complet; }
         })
-        .catch(function () { bt.disabled = false; bt.textContent = 'Réserver'; montrer('Problème de connexion. Réessayez dans un instant.'); });
+        .catch(function () { bt.disabled = false; bt.textContent = libelle; montrer('Problème de connexion. Réessayez dans un instant.'); });
       function montrer(t) { err.textContent = t; err.hidden = false; }
     }
     function route() {
@@ -405,8 +419,18 @@
     function enSaisie() { var f = document.getElementById('resa'); return f && Array.prototype.some.call(f.querySelectorAll('input,textarea'), function (i) { return i.value && !i.classList.contains('piege'); }); }
     window.PF_RAFRAICHIR = route;
     addEventListener('hashchange', route);
+    // Aperçu en direct depuis l'appli de gestion : elle envoie l'événement en cours de modification (même pas enregistré).
+    addEventListener('message', function (ev) {
+      if (!/^https:\/\/sevanegu-pixel\.github\.io$|^https?:\/\/localhost(:\d+)?$/.test(ev.origin) && ev.origin !== location.origin) return;
+      var d = ev.data; if (!d || d.type !== 'pf-brouillon' || !d.evenement) return;
+      var b = d.evenement, places = Number(b.places) || 0;
+      b.id = b.id || 'brouillon'; b.places = places; b.restantes = places || null; b.complet = false; b.reservable = b.statut === 'Ouvert'; b.attente = b.attente === 'Oui' || b.attente === true;
+      BROUILLON = true; evenements = preparer((evenements || []).filter(function (x) { return x.id !== b.id; }).concat([b]));
+      var h = decodeURIComponent(location.hash.slice(1)).replace(/#.*$/, '');
+      if (h && !/^jour-/.test(h) && !evenements.some(function (x) { return x.id === h; })) location.hash = b.id; else route();
+    });
     route();
-    charger(function (miseAJour) { if (miseAJour && enSaisie()) return; route(); jsonLd(evenements); });
+    charger(function (miseAJour) { if (miseAJour && (enSaisie() || BROUILLON)) return; route(); jsonLd(evenements); });
   }
 
   // Données structurées pour Google (événements)
