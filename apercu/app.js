@@ -42,8 +42,14 @@
     var s = INDEX[norm(e.spectacle || e.titre)] || INDEX[norm(e.titre)] || {};
     var photos = (s.photos || []).slice();
     if (s.photo && !photos.some(function (p) { return p.src === s.photo; })) photos.unshift({ src: s.photo, credit: s.credit || '' });
-    String(e.image || '').split(/\s*[,\n]\s*/).filter(Boolean).reverse().forEach(function (u) {
-      var nomF = u.split('/').pop(), deja = photos.findIndex(function (p) { return p.src.split('/').pop() === nomF; });
+    // Visuels de la feuille : placés en tête. Si la feuille contient un visuel de la fiche (ou « #seules »),
+    // c'est la liste complète choisie dans l'appli : on n'ajoute pas les autres.
+    var liste = String(e.image || '').split(/\s*[,\n]\s*/).filter(Boolean), nomDe = function (u) { return String(u).split('?')[0].split('/').pop(); };
+    var seules = liste.indexOf('#seules') >= 0 || liste.some(function (u) { return photos.some(function (p) { return nomDe(p.src) === nomDe(u); }); });
+    liste = liste.filter(function (u) { return u.charAt(0) !== '#'; });
+    if (seules) photos = liste.map(function (u) { return photos.filter(function (p) { return nomDe(p.src) === nomDe(u); })[0] || { src: u, credit: '' }; });
+    else liste.reverse().forEach(function (u) {
+      var nomF = nomDe(u), deja = photos.findIndex(function (p) { return nomDe(p.src) === nomF; });
       if (deja >= 0) photos.unshift(photos.splice(deja, 1)[0]); else photos.unshift({ src: u, credit: '' });
     });
     var videos = (s.videos || []).slice(); if (s.video) videos.push({ url: s.video }); if (e.video) videos.unshift({ url: e.video });
