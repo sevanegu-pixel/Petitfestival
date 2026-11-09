@@ -38,24 +38,35 @@ window.FESTIVAL = {
 
 // Fiches des spectacles. La clé = le titre tel qu'il est écrit dans l'appli de réservation (majuscules et accents sans importance).
 // court = 1 à 2 phrases (programme) ; long = texte complet (fiche, derrière « Lire la suite »).
-// photo = fichier dans photos/ (ou photos = liste [{ src, credit }] pour une galerie) ; videos = liste [{ url: YouTube/Vimeo }] ou [{ src: fichier .mp4, poster }].
+// photo = fichier dans photos/ (ou photos = liste [{ src, credit }] pour une galerie) ; banque = autres photos disponibles dans la galerie de l'appli, pas affichées ; tarif = texte si la feuille n'en donne pas ; videos = liste [{ url: YouTube/Vimeo }] ou [{ src: fichier .mp4, poster }].
 window.SPECTACLES = {
   "Hurler sous l'eau": {
     photos: [
+      { src: "photos/hurler-z3.webp", credit: "Photo : Compagnie Sémaphore" },
+      { src: "photos/hurler-z2.webp", credit: "Photo : Compagnie Sémaphore" },
+      { src: "photos/hurler-z7.webp", credit: "Photo : Compagnie Sémaphore" },
+      { src: "photos/hurler-z8.webp", credit: "Photo : Compagnie Sémaphore" },
+      { src: "photos/hurler-z4.webp", credit: "Photo : Compagnie Sémaphore" },
+      { src: "photos/hurler-z6.webp", credit: "Photo : Compagnie Sémaphore" },
+      { src: "photos/hurler-z1.webp", credit: "Photo : Compagnie Sémaphore" },
+      { src: "photos/hurler-z5.webp", credit: "Photo : Compagnie Sémaphore" }
+    ],
+    banque: [
       { src: "photos/hurler.webp", credit: "Photo : Compagnie Sémaphore" },
       { src: "photos/hurler-2.webp", credit: "Photo : Compagnie Sémaphore" },
       { src: "photos/hurler-3.webp", credit: "Photo : Compagnie Sémaphore" },
       { src: "photos/hurler-4.webp", credit: "Photo : Compagnie Sémaphore" }
     ],
     videos: [{ src: "videos/hurler.mp4", poster: "videos/hurler.webp", titre: "Extraits de la reprise à FriScènes, octobre 2026" }],
-    photo: "photos/hurler.webp",
+    photo: "photos/hurler-z3.webp",
     credit: "Photo : Compagnie Sémaphore",
     compagnie: "Compagnie Sémaphore",
     discipline: "Théâtre",
     duree: "55 min",
     age: "Ados et adultes",
-    court: "Trois jeunes femmes prennent la parole, et la colère avec. Un long cri, tantôt drôle, tantôt émouvant, en monologues, dialogues et moments de chœur.",
-    long: "Hurler sous l'eau, ce n'est pas une histoire qui se raconte ni des personnages bien écrits que l'on suit tout au long du spectacle. C'est une position sociale et militante prise par trois jeunes femmes artistes polyvalentes. C'est un long cri, tantôt drôle, tantôt émouvant.\n\nCe cri est composé de différents tableaux et alterne monologues, dialogues, moments de chœur et de corps. Il dit la colère. Il la sonde, la pétrit et l'ausculte sous tous ses aspects : ce qu'elle fait au corps, à la voix, ce qui arrive quand on la tait ou au contraire quand elle déborde au dehors, au-delà de soi. C'est une exploration intime de la rage et une réappropriation de celle-ci, parce que, socialement, cette émotion a toujours été le lot des hommes. Les femmes, lorsqu'elles s'énervent, sont bien vite qualifiées d'hystériques et remises à leur place.\n\nAvec Hurler sous l'eau, nous jouons avec le curseur de la colère, bousculant ses extrêmes avec humour et sensibilité pour présenter au public toute la beauté et la complexité de cette émotion que nous partageons toutes et tous.\n\nLa création est née en 2025 au festival Emergence, puis a été reprise à FriScènes en octobre 2026 dans une version plus développée.",
+    tarif: "Prix libre, 10 francs conseillés",
+    court: "Hurler sous l'eau dit la colère : il la sonde, la pétrit et l'ausculte. Trois comédiennes jouent avec le curseur de la rage, avec humour et sensibilité.",
+    long: "Hurler sous l'eau dit la colère. Il la sonde, la pétrit et l'ausculte sous tous ses aspects ; ce qu'elle fait au corps, à la voix, ce qui arrive quand on la tait ou au contraire quand elle déborde au dehors, au-delà de soi. C'est une exploration intime de la rage et une réappropriation de celle-ci, parce que, socialement, cette émotion a toujours été le lot des hommes.\n\nAvec Hurler sous l'eau, les trois comédiennes jouent avec le curseur de la colère, bousculant ses extrêmes avec humour et sensibilité pour présenter au public toute la beauté et la complexité de cette émotion que nous partageons toustes.\n\nHurler sous l'eau, ce n'est pas une histoire qui se raconte ni des personnages bien écrits que l'on suit tout au long du spectacle. C'est une position sociale et militante prise par trois jeunes femmes artistes polyvalentes. C'est un long cri, tantôt drôle, tantôt émouvant.\n\nCe cri est composé de différents tableaux et alterne monologues, dialogues, moments de chœur et de corps. Il dit la colère. Il la sonde, la pétrit et l'ausculte sous tous ses aspects : ce qu'elle fait au corps, à la voix, ce qui arrive quand on la tait ou au contraire quand elle déborde au dehors, au-delà de soi. C'est une exploration intime de la rage et une réappropriation de celle-ci, parce que, socialement, cette émotion a toujours été le lot des hommes. Les femmes, lorsqu'elles s'énervent, sont bien vite qualifiées d'hystériques et remises à leur place.\n\nAvec Hurler sous l'eau, nous jouons avec le curseur de la colère, bousculant ses extrêmes avec humour et sensibilité pour présenter au public toute la beauté et la complexité de cette émotion que nous partageons toutes et tous.\n\nLa création est née en 2025 au festival Emergence, puis a été reprise à FriScènes en octobre 2026 dans une version plus développée.",
     distribution: "De et avec Sarah Othenin-Girard, Emilie de Carvalho Ferreira et Zoé Spycher.",
     citation: "« Tant qu'il me reste ma voix, je continuerai. À crier, à crier, jusqu'à ce que le béton des murs se fissure. »"
   },
@@ -66,7 +77,7 @@ window.SPECTACLES = {
     age: "Tout public",
     court: "Un duo théâtral joué avec un·e volontaire du public, qui lit les didascalies et sa part du dialogue. L'artiste répond, et ponctue la mini-pièce de moments jonglés.",
     long: "Tentative de jouer un duo théâtral avec un·e bénévole du public, qui lit les didascalies et sa part du dialogue. L'artiste répond et ponctue la mini-pièce de moments jonglés. Une forme courte, fragile et joueuse, où personne ne sait tout à fait ce qui va se passer.",
-    distribution: "De et avec Julian Bellini, artiste de cirque et performeur formé au Théâtre-Cirqule."
+    distribution: "De et avec Julian Bellini, artiste de cirque et performeur formé au Théâtre-Cirqule. Ce numéro se joue dans le cadre d'El Cabaret du festival, le 19 décembre."
   },
   "Mise à Mâle": {
     photo: "photos/mise-a-male.webp",
@@ -117,6 +128,14 @@ window.SPECTACLES = {
   },
   "Les 12 lettres du facteur Cheval": {
     videos: [{ url: "https://www.youtube.com/watch?v=IHF0_6G28Qo", titre: "Les 12 lettres du facteur Cheval, en musique et en public" }],
+    photos: [
+      { src: "photos/facteur-cheval.webp", credit: "Photo : Les Enfants du Paradigme" },
+      { src: "photos/facteur-cheval-3.webp", credit: "Photo : Les Enfants du Paradigme" },
+      { src: "photos/facteur-cheval-6.webp", credit: "Photo : Les Enfants du Paradigme" },
+      { src: "photos/facteur-cheval-2.webp", credit: "Photo : Les Enfants du Paradigme" },
+      { src: "photos/facteur-cheval-4.webp", credit: "Photo : Les Enfants du Paradigme" },
+      { src: "photos/facteur-cheval-5.webp", credit: "Photo : Les Enfants du Paradigme" }
+    ],
     photo: "photos/facteur-cheval.webp",
     credit: "Photo : Les Enfants du Paradigme",
     compagnie: "Didier Hugon · Les Enfants du Paradigme",
@@ -129,20 +148,32 @@ window.SPECTACLES = {
   },
   "Hans l'Heureux": {
     photos: [
-      { src: "photos/hans.webp", credit: "Photo : Compagnie Etourderie" },
-      { src: "photos/hans-2.webp", credit: "Photo : Compagnie Etourderie" },
-      { src: "photos/hans-3.webp", credit: "Photo : Compagnie Etourderie" },
-      { src: "photos/hans-4.webp", credit: "Photo : Compagnie Etourderie" }
+      { src: "photos/hans-visuel-2.webp", credit: "Visuel : Compagnie Étourderie" },
+      { src: "photos/hans-visuel.webp", credit: "Visuel : Compagnie Étourderie" }
     ],
-    photo: "photos/hans.webp",
-    credit: "Photo : Compagnie Etourderie",
-    compagnie: "Compagnie Etourderie",
-    discipline: "Marionnette et théâtre",
+    banque: [
+      { src: "photos/hans-affiche.webp", credit: "Affiche : Compagnie Étourderie" },
+      { src: "photos/hans-boude.webp", credit: "Photo : Compagnie Étourderie" },
+      { src: "photos/hans-pepite.webp", credit: "Photo : Compagnie Étourderie" },
+      { src: "photos/hans-naissance.webp", credit: "Photo : Compagnie Étourderie" },
+      { src: "photos/hans-public.webp", credit: "Photo : Compagnie Étourderie" },
+      { src: "photos/hans-cheval.webp", credit: "Photo : Compagnie Étourderie" },
+      { src: "photos/hans-cochon-vache.webp", credit: "Photo : Compagnie Étourderie" },
+      { src: "photos/hans.webp", credit: "Photo : Compagnie Étourderie" },
+      { src: "photos/hans-2.webp", credit: "Photo : Compagnie Étourderie" },
+      { src: "photos/hans-3.webp", credit: "Photo : Compagnie Étourderie" },
+      { src: "photos/hans-4.webp", credit: "Photo : Compagnie Étourderie" }
+    ],
+    photo: "photos/hans-visuel-2.webp",
+    credit: "Visuel : Compagnie Étourderie",
+    compagnie: "Compagnie Étourderie",
+    discipline: "Marionnettes et conte",
     duree: "40 min",
-    age: "Dès 3 ans, en famille",
-    court: "Pimprenelle vient étendre sa lessive et découvre un public dans sa buanderie. Alors elle raconte, avec un bout de tissu et les animaux qui apparaissent sur la corde à linge, l'histoire de Hans l'Heureux.",
-    long: "D'après le conte des frères Grimm « Hans im Glück ».\n\nPimprenelle vient étendre sa lessive sur scène et tombe, très surprise, sur tout un public présent dans la salle. Après avoir compris qu'ils viennent écouter un spectacle, elle négocie de pouvoir juste ranger son linge avant d'écouter, elle aussi, l'histoire. Mais au moment de retirer le linge de la corde, les habits s'animent. Pimprenelle se dit alors qu'elle pourrait elle-même raconter l'histoire de Hans l'Heureux. Elle fabrique une marionnette avec un bout de tissu : c'est Hans !\n\nLes animaux de l'histoire apparaissent sur la corde à linge, et Hans traverse toutes les péripéties du conte en y mettant son grain de sel : il échange son lingot d'or, reçu pour ses sept bonnes années de travail, contre un cheval, puis une vache, puis un cochon, puis une oie… qu'il finit par relâcher, préférant la savoir libre et heureuse. Hans n'est pas juste chanceux : il est heureux, glücklich.\n\nAvec des matériaux de tous les jours, le spectacle suscite l'imagination et l'élan créatif des enfants. L'idée des tissus sur une corde à linge vient du travail de l'artiste Helga Stentzel.",
-    distribution: "Écriture et jeu : Delphine Tschopp. Regard extérieur : Amélie Chérubin Soulières. Conseil marionnettique : Émilie Bender. La compagnie fribourgeoise Etourderie joue pour le tout public depuis huit ans ; elle était déjà au Théâtricul en décembre 2024 avec « Sur mon chemin, des pierres »."
+    age: "Tout public dès 3 ans",
+    tarif: "15 francs, prix unique",
+    court: "Adaptation du conte traditionnel des frères Grimm. Vous ne ferez plus jamais votre lessive de la même manière ! Pimprenelle se fait surprendre par les habits qu'elle étend et se voit raconter, malgré elle, l'histoire de Hans l'Heureux.",
+    long: "D'après le conte « Hans im Glück » des frères Grimm.\n\nPimprenelle vient étendre sa lessive sur scène mais tombe, très surprise, sur tout un public présent dans la salle. Elle interagit pour savoir ce que tous ces gens sont venus faire dans son espace buanderie. Après avoir compris qu'ils viennent pour écouter un spectacle, Pimprenelle négocie de pouvoir juste ranger son linge avant d'écouter, elle aussi, l'histoire. Au moment de retirer le linge de la corde, les habits font comme appel à elle. Ils s'animent. Pimprenelle se dit alors qu'elle pourrait elle-même raconter l'histoire de « Hans l'Heureux »…\n\nInspiré du travail de l'artiste Helga Stentzel, ce spectacle fait apparaître les animaux de l'histoire au travers des vêtements étendus sur la corde à linge. Il suscite ainsi, avec des matériaux communs, l'imagination et l'élan créatif des enfants.\n\nVenez découvrir ce conte traditionnel, revisité par le regard de Delphine Tschopp, assistée d'Amélie Chérubin Soulières à la mise en scène et d'Emilie Bender à la manipulation des marionnettes.\n\nLa Compagnie Étourderie crée des spectacles se produisant proche des gens, avec une volonté d'interaction avec le public. Les histoires sont présentées avec humour et sincérité et s'adressent aux tout petits comme aux tout grands.",
+    distribution: "Écriture et jeu : Delphine Tschopp. Mise en scène : Amélie Chérubin Soulières. Manipulation des marionnettes : Emilie Bender. La compagnie fribourgeoise Étourderie était déjà au Théâtricul en décembre 2024 avec « Sur mon chemin »."
   },
   "MERCALM": {
     photos: [
@@ -177,35 +208,75 @@ window.SPECTACLES = {
     long: "Un voyage clownesque pour renouer avec notre âme d'enfant. Le titre vient d'une ancienne coutume des cartographes : sur les cartes de navigation d'antan, « Ici sont les dragons » signalait les terres inexplorées, un avertissement énigmatique qui invitait aussi à l'aventure.\n\n« Avez-vous déjà rencontré mon ami incroyable, l'Ornitoplexus ? Il est grand, énorme, magnifique… du moins, je crois ! Vous voyez, j'ai un léger oubli, mais il reste très cher à mon cœur. Pouvez-vous m'aider à le retrouver ? »\n\nAbra, clown venu de Terra Draconis, la planète des dragons, débarque sur Terre avec sa malle magique en quête de son ami disparu, qui a laissé quelques pistes. L'imagination des humains est la clé du mystère : Abra arrivera-t-il à réveiller son dragon intérieur ? Au fil du spectacle, il nous rappelle avec une douceur poétique qu'un adulte créatif est simplement un enfant qui a survécu.\n\nŒufs de dragon en céramique, cartographie à l'aquarelle, bois de cerf, plumes et coquillages : le spectacle mêle l'art du clown et les arts plastiques pour faire naître une planète entière sur la scène.",
     distribution: "De et avec Jabber Daniel Bonfil. Regards extérieurs : Marie Broche et Clara Aumann. Costumes : Pascale Nedjar de Roma. Illustrations : Jonas Duvergé. Circo Nagual est une compagnie franco-mexicaine installée dans le Gard, nourrie des contes, de la mythologie et des savoirs du Mexique."
   },
-  "Ma vie tout simplement": { discipline: "Théâtre" },
-  "Sur le rivage de Gaza": { discipline: "Théâtre" },
+  "Ma vie tout simplement": {
+    photos: [
+      { src: "photos/ma-vie-2.webp", credit: "Photo : DR" },
+      { src: "photos/ma-vie-3.webp", credit: "Photo : DR" },
+      { src: "photos/ma-vie-1.webp", credit: "Photo : DR" }
+    ],
+    banque: [
+      { src: "photos/ma-vie-affiche.webp", credit: "Affiche du spectacle" },
+      { src: "photos/gerard-1.webp", credit: "Dessin : Gérard Challande" },
+      { src: "photos/gerard-2.webp", credit: "Dessin : Gérard Challande" },
+      { src: "photos/gerard-3.webp", credit: "Dessin : Gérard Challande" },
+      { src: "photos/gerard-4.webp", credit: "Dessin : Gérard Challande" },
+      { src: "photos/gerard-5.webp", credit: "Dessin : Gérard Challande" },
+      { src: "photos/gerard-6.webp", credit: "Dessin : Gérard Challande" },
+      { src: "photos/gerard-7.webp", credit: "Photo : archives Challande" },
+      { src: "photos/gerard-8.webp", credit: "Photo : archives Challande" },
+      { src: "photos/gerard-9.webp", credit: "Photo : archives Challande" },
+      { src: "photos/gerard-10.webp", credit: "Photo : archives Challande" },
+      { src: "photos/gerard-11.webp", credit: "Photo : archives Challande" },
+      { src: "photos/gerard-12.webp", credit: "Photo : archives Challande" },
+      { src: "photos/gerard-13.webp", credit: "Photo : archives Challande" },
+      { src: "photos/gerard-14.webp", credit: "Photo : archives Challande" }
+    ],
+    photo: "photos/ma-vie-2.webp",
+    credit: "Photo : DR",
+    compagnie: "Yvette Challande",
+    discipline: "Théâtre · seule en scène",
+    age: "Ados et adultes",
+    tarif: "Entrée libre",
+    court: "Petite-fille de chiffonnier, fille de récupérateur, Yvette Challande évoque avec un humour sarcastique et légèrement féministe des moments de sa vie qui sortent de l'ordinaire. En hommage à Gérard Challande.",
+    long: "Petite-fille de chiffonnier, fille de récupérateur, elle aurait pu être agent de traitement des déchets si elle n'avait pas préféré se lancer dans la vie artistique.\n\nDans son spectacle, la comédienne évoque avec un humour sarcastique et légèrement féministe des moments de sa vie qui sortent de l'ordinaire… Une famille italienne au passé un peu trouble… Une enfance dans l'entreprise de récupération familiale lui offre un terrain de jeu et d'aventures où l'imaginaire est roi… Mais l'argent rare…\n\n« Si tu es sage, tu auras un homme… mais si tu n'es pas sage, tu en auras plusieurs », lui avait dit son père. Alors, elle a choisi de ne pas être sage…\n\n« J'ai rencontré une vraie femme », lui a dit son ex-mari, et depuis elle se pose cette question : c'est quoi, une vraie femme ? Elle tente de le trouver en devenant femme au foyer, femme soumise, dominatrice, coquette, etc.\n\nElle vous parlera aussi de son deuxième mari qui est, à lui seul, tout un programme.",
+    distribution: "De et par Yvette Challande, en hommage à Gérard Challande. Technique : Christine Demaeyer."
+  },
+  "Sur le rivage de Gaza": {
+    photos: [{ src: "photos/gaza-plage.webp", credit: "Visuel : Plage de Gaza" }],
+    banque: [{ src: "photos/gaza-affiche.webp", credit: "Affiche du spectacle" }],
+    photo: "photos/gaza-plage.webp",
+    credit: "Visuel : Plage de Gaza",
+    compagnie: "Maulde Coutau, Nicolas Reichel et Thomas Delclaud",
+    discipline: "Poésie palestinienne",
+    age: "Ados et adultes",
+    tarif: "25 francs (tarif réduit 20 francs)",
+    court: "Une soirée de poésie palestinienne, portée par trois comédien·nes sur le rivage de Gaza.",
+    distribution: "Avec Maulde Coutau, Nicolas Reichel et Thomas Delclaud. Lumière : Martin Leu. Décor : Mani Berclaz."
+  },
   "Partir vers l'est": { discipline: "Théâtre" },
   "El Cabaret du festival": {
     discipline: "Cabaret",
-    court: "La soirée de clôture : des numéros d'une dizaine de minutes, de tous les genres, par les artistes du festival et leurs invité·es."
+    court: "La soirée de clôture : des numéros d'une dizaine de minutes, de tous les genres, par les artistes du festival et leurs invité·es. Avec, entre autres, Julian Bellini et son Invitation jonglée."
   },
   "Formation artistique": { discipline: "Rencontre" }
 };
 
-// Programme d'essai (essai 4) affiché seulement dans l'aperçu (/apercu/), pour les dates pas encore ouvertes dans l'appli. Sans réservation.
+// Programme d'essai (essai 4, mis à jour le 9 nov. : L'Invitation rejoint le cabaret du 19, MERCALM attend une nouvelle date) affiché seulement dans l'aperçu (/apercu/), pour les dates pas encore ouvertes dans l'appli. Sans réservation.
 window.PROGRAMME_ESSAI = [
   ["2026-12-03", "20:00", "Ma vie tout simplement"],
   ["2026-12-04", "19:45", "Hurler sous l'eau"],
-  ["2026-12-04", "21:00", "L'Invitation"],
   ["2026-12-05", "18:00", "Hurler sous l'eau"],
   ["2026-12-05", "19:30", "Mise à Mâle"],
   ["2026-12-05", "20:30", "Pâtes au Ketchup"],
   ["2026-12-06", "16:00", "Corde et cordes"],
   ["2026-12-06", "16:30", "I.A Ma Chère"],
   ["2026-12-06", "18:00", "Mise à Mâle"],
-  ["2026-12-06", "19:00", "L'Invitation"],
   ["2026-12-10", "17:45", "Pâtes au Ketchup"],
   ["2026-12-10", "18:35", "I.A Ma Chère"],
   ["2026-12-10", "20:00", "Les 12 lettres du facteur Cheval"],
   ["2026-12-11", "18:00", "Hans l'Heureux"],
   ["2026-12-11", "18:55", "Corde et cordes"],
   ["2026-12-11", "20:00", "Les 12 lettres du facteur Cheval"],
-  ["2026-12-11", "21:10", "MERCALM"],
   ["2026-12-12", "17:00", "Ici sont les dragons"],
   ["2026-12-12", "20:00", "Formation artistique"],
   ["2026-12-13", "15:00", "Formation artistique"],

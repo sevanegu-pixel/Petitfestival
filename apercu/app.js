@@ -38,7 +38,7 @@
     var videos = (s.videos || []).slice(); if (s.video) videos.push({ url: s.video });
     return {
       compagnie: e.compagnie || s.compagnie || '', discipline: s.discipline || '', duree: e.duree || s.duree || '', age: e.age || s.age || '',
-      court: s.court || e.description || '', long: s.long || '', distribution: s.distribution || '', citation: s.citation || '',
+      court: s.court || e.description || '', long: s.long || '', tarif: e.tarif || s.tarif || '', banque: s.banque || [], distribution: s.distribution || '', citation: s.citation || '',
       photos: photos, photo: photos.length ? photos[0].src : '', credit: photos.length ? photos[0].credit : '', videos: videos, lien: s.lien || ''
     };
   }
@@ -325,7 +325,7 @@
         '<dl><dt>Date</dt><dd>' + esc(dateLongue(e.date)) + '</dd>' + (heure(e) ? '<dt>Heure</dt><dd>' + esc(heure(e)) + '</dd>' : '') +
         (s.duree ? '<dt>Durée</dt><dd>' + esc(s.duree) + '</dd>' : '') + (s.age ? '<dt>Public</dt><dd>' + esc(s.age) + '</dd>' : '') +
         '<dt>Lieu</dt><dd>' + esc([e.lieu || 'Théâtricul', e.adresse || F.adresse].filter(Boolean).join(', ')) + '</dd>' +
-        (e.tarif ? '<dt>Tarif</dt><dd>' + esc(e.tarif) + '</dd>' : '') + '</dl>' +
+        (s.tarif ? '<dt>Tarif</dt><dd>' + esc(s.tarif) + '</dd>' : '') + '</dl>' +
         (s.court ? '<div class="desc court">' + esc(s.court) + '</div>' : (s.long ? '' : '<p class="vide">Présentation à venir.</p>')) +
         (s.long ? '<button class="lire" id="lire" aria-expanded="false">Lire la suite</button><div class="suite" id="suite">' + paras(s.long) + (s.citation ? '<p class="citation">' + esc(s.citation) + '</p>' : '') + '</div>' : '') +
         (s.videos.length ? '<div class="videos"><h2>En vidéo</h2>' + s.videos.map(video).join('') + '</div>' : '') +
