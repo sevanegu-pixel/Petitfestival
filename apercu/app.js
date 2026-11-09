@@ -84,7 +84,9 @@
       ['titre', 'Typo des titres', [['fraunces', 'Fraunces'], ['archivo', 'Archivo Black'], ['shoulders', 'Big Shoulders'], ['syne', 'Syne (avant)']]],
       ['texte', 'Typo des textes', [['newsreader', 'Newsreader (journal)'], ['franklin', 'Libre Franklin (presse)'], ['atkinson', 'Atkinson'], ['barlow', 'Barlow (avant)']]],
       ['prog', 'Programme', [['grand', 'Grand format'], ['liste', 'Liste (avant)']]],
-      ['menu', 'Menu', [['centre', 'Centré, dans la page'], ['barre', 'Barre en haut (avant)']]]
+      ['menu', 'Menu', [['centre', 'Centré, dans la page'], ['barre', 'Barre en haut (avant)']]],
+      ['ombre', 'Ombres', [['fortes', 'Accentuées'], ['douces', 'Douces (avant)']]],
+      ['sections', 'Couleurs des sections', [['unies', 'Unies (actuel)'], ['teintes', 'Teintes légères'], ['affirmees', 'Teintes affirmées']]]
     ];
     var opt = document.createElement('div'); opt.className = 'opt';
     opt.innerHTML = '<button type="button" aria-expanded="false">Options de l\'aperçu</button><div class="panneau">' + GROUPES.map(function (g) {

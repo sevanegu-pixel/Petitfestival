@@ -3,7 +3,7 @@
   --fond:#120f24;--fond2:#1a1533;--carte:#211b3d;--ligne:#3a3160;
   --texte:#f7f3ff;--doux:#c3b9dd;
   --corail:#ff5a5f;--corail2:#ff8a8d;--cyan:#3fd6ff;--jaune:#ffd23f;--magenta:#ff3ea5;
-  --cyanVif:#3fd6ff;--jauneVif:#ffd23f;
+  --cyanVif:#3fd6ff;--jauneVif:#ffd23f;--pointille:var(--magenta);--pointille2:rgba(255,62,165,.25);
   --hautFond:rgba(18,15,36,.86);--pied:#0b0918;--piedTexte:#c3b9dd;--btnTexte:#1a0607;--tagTexte:#120f24;
   --lueur1:rgba(255,62,165,.28);--lueur2:rgba(63,214,255,.22);--videTexte:rgba(255,255,255,.14);--rayure:rgba(63,214,255,.08);--ombre:rgba(0,0,0,.35);
   --titre:"Archivo Black","Syne",system-ui,sans-serif;--gras:400;--corps:Barlow,system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace;
@@ -36,7 +36,7 @@ html[data-texture=argentique] .carteSp,html[data-texture=argentique] .carteG,htm
 
 /* Touche cinéma : billets perforés, enseignes à ampoules, cadres d'affiche */
 .ampoules{position:relative}
-.jourTete:before,.jourA header:before{content:"";position:absolute;left:0;right:0;top:-14px;height:8px;background:radial-gradient(circle at 4px 4px,var(--jauneVif) 2.6px,rgba(255,210,63,.25) 3px,transparent 4.2px) 0 0/18px 8px repeat-x;opacity:.95}
+.jourTete:before,.jourA header:before{content:"";position:absolute;left:0;right:0;top:-14px;height:8px;background:radial-gradient(circle at 4px 4px,var(--pointille) 2.6px,var(--pointille2) 3px,transparent 4.2px) 0 0/18px 8px repeat-x;opacity:.95}
 .jourTete,.jourA header{margin-top:14px}
 .jourTete .num,.jourA .num{text-shadow:0 0 18px rgba(255,210,63,.25)}
 .carteG,.carteSp,.carteA{outline:1px solid var(--ligne);outline-offset:-7px;transition:transform .15s,box-shadow .15s}
@@ -105,7 +105,7 @@ html[data-menu=centre] .haut nav a{padding:6px 0}
 html[data-menu=centre] .haut nav a.btn{padding:9px 16px;margin-left:8px}
 html[data-menu=centre] .burger{display:none}
 html[data-menu=centre] .hero{padding-top:clamp(30px,6vw,70px)}
-html[data-menu=centre] .haut:after{content:"";display:block;width:min(420px,70vw);height:4px;margin-top:6px;background:linear-gradient(90deg,var(--magenta),var(--jauneVif),var(--bleu),var(--violet))}
+html[data-menu=centre] .haut:after{content:"";display:block;width:min(420px,70vw);height:1px;margin-top:8px;background:var(--texte);opacity:.7}
 @media (max-width:720px){
   html[data-menu=centre] .haut nav{display:flex;position:static;flex-direction:row;background:none;border:0;padding:0;gap:6px 18px}
   html[data-menu=centre] .haut nav a{border-bottom:2px solid transparent;padding:6px 0}
@@ -395,3 +395,32 @@ footer .liens{display:flex;gap:18px;flex-wrap:wrap}
   .vignettes button{width:80px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.carteSp,.carteG,.carteG .visuel img{transition:none}}
+
+/* Ombres accentuées : bords portés, un peu « ancien » (option Ombres) */
+html[data-ombre=fortes]{--ombre:rgba(27,23,51,.3)}
+html[data-ombre=fortes][data-theme=nuit],html[data-ombre=fortes]:not([data-theme=clair]){--ombre:rgba(0,0,0,.55)}
+html[data-ombre=fortes] .carteSp,html[data-ombre=fortes] .carteG,html[data-ombre=fortes] .carteA,html[data-ombre=fortes] .infos>div,html[data-ombre=fortes] form,html[data-ombre=fortes] .encadre,html[data-ombre=fortes] .artiste,html[data-ombre=fortes] .merci{box-shadow:5px 5px 0 var(--texte),12px 16px 30px var(--ombre)}
+html[data-ombre=fortes] .carteSp:hover{box-shadow:9px 9px 0 var(--magenta),16px 22px 36px var(--ombre)}
+html[data-ombre=fortes] .carteA:hover{box-shadow:8px 8px 0 var(--bleu),14px 20px 32px var(--ombre)}
+html[data-ombre=fortes] .fiche dl{box-shadow:7px 7px 0 var(--violet),14px 18px 34px var(--ombre)}
+html[data-ombre=fortes] .btn{box-shadow:4px 4px 0 var(--texte),6px 10px 18px var(--ombre)}
+html[data-ombre=fortes] .btn:hover{box-shadow:7px 7px 0 var(--violet),10px 16px 24px var(--ombre)}
+html[data-ombre=fortes] .jours a{box-shadow:4px 4px 0 var(--texte),6px 9px 16px var(--ombre)}
+html[data-ombre=fortes] .jours a.on{box-shadow:4px 4px 0 var(--violet),6px 9px 16px var(--ombre)}
+html[data-ombre=fortes] .visuel img,html[data-ombre=fortes] .galerie img{filter:saturate(.9) contrast(1.04)}
+html[data-ombre=fortes] .bande:after{content:"";position:absolute;left:-2%;right:-2%;height:70px;pointer-events:none;z-index:0;background:linear-gradient(180deg,var(--ombre),transparent)}
+html[data-ombre=fortes] .bande:nth-of-type(odd):after{top:var(--pente);transform:skewY(-2.3deg);transform-origin:left top}
+html[data-ombre=fortes] .bande:nth-of-type(even):after{top:0;transform:skewY(2.3deg);transform-origin:left top}
+html[data-ombre=fortes] .hero:after{box-shadow:none}
+html[data-ombre=fortes] .haut:after{box-shadow:0 2px 6px var(--ombre)}
+html[data-ombre=fortes] .bande>.int{z-index:1}
+/* Teintes des sections (option Sections) */
+html[data-sections=teintes][data-theme=clair]{--presFond:#f6e4de;--afficheFond:#e3eff0;--pratiqueFond:#ebe4f4}
+html[data-sections=teintes]:not([data-theme=clair]){--presFond:#261a2f;--afficheFond:#15202d;--pratiqueFond:#1e1a30}
+html[data-sections=affirmees][data-theme=clair]{--presFond:#f1d8c8;--afficheFond:#d6e6e0;--pratiqueFond:#e9dcc3}
+html[data-sections=affirmees]:not([data-theme=clair]){--presFond:#2e1d2a;--afficheFond:#122a2c;--pratiqueFond:#2b2318}
+html[data-sections=teintes] .pres,html[data-sections=affirmees] .pres{background:var(--presFond)}
+html[data-sections=teintes] .affiche,html[data-sections=affirmees] .affiche{background:var(--afficheFond)}
+html[data-sections=teintes] .pratique,html[data-sections=affirmees] .pratique{background:var(--pratiqueFond)}
+html[data-sections=teintes] .hero:after,html[data-sections=affirmees] .hero:after{background:var(--presFond)}
+html[data-sections=teintes] .pres .carteSp,html[data-sections=affirmees] .pres .carteSp,html[data-sections=teintes] .pratique .carteG,html[data-sections=affirmees] .pratique .carteG{background:var(--carte)}
