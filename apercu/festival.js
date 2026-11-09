@@ -36,7 +36,7 @@ window.FESTIVAL = {
     ["Enfants", "Plusieurs spectacles sont pensés pour les familles ; l'âge conseillé est indiqué sur chaque fiche. Les tout-petits sont les bienvenus aux spectacles « dès 3 ans »."]
   ],
   acces: [
-    ["Tram et bus", "Tram 12 ou bus 61, arrêt Peillonnex : le théâtre est à deux minutes à pied."],
+    ["Tram", "Tram 12 ou 17, arrêt Peillonnex : le théâtre est à deux minutes à pied."],
     ["Train", "Léman Express, gare de Chêne-Bourg, puis 7 minutes à pied par la rue de Genève."],
     ["Vélo", "Le théâtre est à deux pas de la Voie verte, qui longe le Léman Express de Genève à Annemasse."],
     ["Voiture", "Le stationnement dans le quartier est limité : privilégiez les transports publics. Parking public de la gare de Chêne-Bourg à 7 minutes."]
@@ -83,15 +83,6 @@ window.SPECTACLES = {
     distribution: "De et avec Sarah Othenin-Girard, Emilie de Carvalho Ferreira et Zoé Spycher.",
     citation: "« Tant qu'il me reste ma voix, je continuerai. À crier, à crier, jusqu'à ce que le béton des murs se fissure. »"
   },
-  "L'Invitation": {
-    compagnie: "Julian Bellini",
-    discipline: "Théâtre et jonglage",
-    duree: "20 min",
-    age: "Tout public",
-    court: "Un duo théâtral joué avec un·e volontaire du public, qui lit les didascalies et sa part du dialogue. L'artiste répond, et ponctue la mini-pièce de moments jonglés.",
-    long: "Tentative de jouer un duo théâtral avec un·e bénévole du public, qui lit les didascalies et sa part du dialogue. L'artiste répond et ponctue la mini-pièce de moments jonglés. Une forme courte, fragile et joueuse, où personne ne sait tout à fait ce qui va se passer.",
-    distribution: "De et avec Julian Bellini, artiste de cirque et performeur formé au Théâtre-Cirqule. Ce numéro se joue dans le cadre d'El Cabaret du festival, le 19 décembre."
-  },
   "Mise à Mâle": {
     photo: "photos/mise-a-male.webp",
     credit: "Photo : Antonio Anguiano",
@@ -99,6 +90,7 @@ window.SPECTACLES = {
     discipline: "Cirque et théâtre physique",
     duree: "40 min",
     age: "Ados et adultes",
+    tarif: "Prix libre, 15 francs conseillés",
     court: "Un solo absurde, politique, tendre et brutal, au mât pendulaire, sur la masculinité et ce qu'elle fait aux corps.",
     long: "Mise à Mâle est un solo absurde, politique, tendre et brutal. Il parle de masculinité, de vulnérabilité, de santé mentale et d'identité, avec les outils de l'artiste multidisciplinaire : mât pendulaire, clown, danse, théâtre physique et objets crochetés.\n\nDes fleurs, une serpillière, la virilité, la chute, la renaissance : autant de symboles qu'Antonio Anguiano manipule, détourne et laisse tomber, pour voir ce qui reste d'un homme quand on lui enlève ce qu'on lui a appris.",
     distribution: "De et avec Antonio Anguiano."
@@ -108,6 +100,7 @@ window.SPECTACLES = {
     discipline: "Théâtre d'objet",
     duree: "40 min",
     age: "Ados et adultes",
+    tarif: "Au chapeau",
     court: "Une artiste présente sa famille et sa relation avec son père, drôle et loufoque. Jusqu'à ce que des imprévus fassent basculer le spectacle dans un univers plus sanglant.",
     long: "Pâtes au ketchup est un spectacle drôle et loufoque de théâtre d'objet, où une artiste présente sa famille et sa relation avec son père. Mais, au fil du spectacle, des imprévus viennent bouleverser le déroulement, l'amenant dans un univers plus sanglant. Est-ce l'âme du père qui vient hanter le spectacle ?",
     distribution: "De et avec Ana Clara Hauri, jeune artiste de cirque genevoise."
@@ -135,6 +128,7 @@ window.SPECTACLES = {
     discipline: "Performance et art numérique",
     duree: "15 min",
     age: "Tout public",
+    tarif: "Au chapeau",
     court: "Au centre de trois caméras 360°, un performeur joue avec une intelligence artificielle projetée devant le public, jusqu'à se rendre invisible pour la perturber.",
     long: "Au centre de trois caméras 360° connectées, le performeur joue avec une intelligence artificielle projetée pour le public, et questionne notre usage de ce nouvel outil numérique.\n\nD'abord, l'IA transforme son corps en avatar 3D et l'oblige à des actions de plus en plus sportives pour récupérer des données. Puis, par un rituel chamanique et punk, il se rend invisible aux caméras pour la perturber. Une version de la pièce a été produite à Séoul.",
     distribution: "De et avec Jordan Fraser Emery, créateur et chercheur en création numérique."
@@ -161,8 +155,8 @@ window.SPECTACLES = {
   },
   "Hans l'Heureux": {
     photos: [
-      { src: "photos/hans-visuel-2.webp", credit: "Visuel : Compagnie Étourderie" },
-      { src: "photos/hans-visuel.webp", credit: "Visuel : Compagnie Étourderie" }
+      { src: "photos/hans-visuel.webp", credit: "Visuel : Compagnie Étourderie" },
+      { src: "photos/hans-visuel-2.webp", credit: "Affiche : Compagnie Étourderie" }
     ],
     banque: [
       { src: "photos/hans-affiche.webp", credit: "Affiche : Compagnie Étourderie" },
@@ -177,7 +171,7 @@ window.SPECTACLES = {
       { src: "photos/hans-3.webp", credit: "Photo : Compagnie Étourderie" },
       { src: "photos/hans-4.webp", credit: "Photo : Compagnie Étourderie" }
     ],
-    photo: "photos/hans-visuel-2.webp",
+    photo: "photos/hans-visuel.webp",
     credit: "Visuel : Compagnie Étourderie",
     compagnie: "Compagnie Étourderie",
     discipline: "Marionnettes et conte",
@@ -200,6 +194,7 @@ window.SPECTACLES = {
     discipline: "Concert",
     duree: "45 min",
     age: "Tout public",
+    tarif: "Au chapeau",
     court: "Un duo né en mer, en Bretagne. Violon alto, voix, basse électrique et effets : une musique paisible et mélancolique, entre jazz, traditions des côtes et échappées futuristes.",
     long: "MERCALM s'est formé en 2024, lors d'un voyage en voilier en Bretagne. Sa musique, paisible et mélancolique, évoque le crachin breton et le vol planant des oiseaux de mer. Elle mêle sonorités jazz, influences traditionnelles et explorations futuristes.\n\nLes deux marins rendent hommage aux gens de la mer et aux traditions musicales des côtes, en improvisant autour de chansons venues des ports où ils ont jeté l'ancre. Leur premier album, enregistré en novembre 2026, sortira au début de l'été 2027.",
     distribution: "Mona Creisson : violon alto, chant, effets. Benoît Gautier : basse électrique, effets."
@@ -214,12 +209,12 @@ window.SPECTACLES = {
     photo: "photos/dragons.webp",
     credit: "Photo : Marc Chabourlin",
     compagnie: "Circo Nagual",
-    discipline: "Clown",
+    discipline: "Solo de clown",
     duree: "45 min",
-    age: "Dès 5 ans, en famille",
+    age: "Tout public",
     court: "Abra, gardien des dragons de Terra Draconis, débarque sur Terre avec sa malle magique à la recherche de son ami l'Ornitoplexus. Un voyage clownesque pour renouer avec notre âme d'enfant.",
     long: "Un voyage clownesque pour renouer avec notre âme d'enfant. Le titre vient d'une ancienne coutume des cartographes : sur les cartes de navigation d'antan, « Ici sont les dragons » signalait les terres inexplorées, un avertissement énigmatique qui invitait aussi à l'aventure.\n\n« Avez-vous déjà rencontré mon ami incroyable, l'Ornitoplexus ? Il est grand, énorme, magnifique… du moins, je crois ! Vous voyez, j'ai un léger oubli, mais il reste très cher à mon cœur. Pouvez-vous m'aider à le retrouver ? »\n\nAbra, clown venu de Terra Draconis, la planète des dragons, débarque sur Terre avec sa malle magique en quête de son ami disparu, qui a laissé quelques pistes. L'imagination des humains est la clé du mystère : Abra arrivera-t-il à réveiller son dragon intérieur ? Au fil du spectacle, il nous rappelle avec une douceur poétique qu'un adulte créatif est simplement un enfant qui a survécu.\n\nŒufs de dragon en céramique, cartographie à l'aquarelle, bois de cerf, plumes et coquillages : le spectacle mêle l'art du clown et les arts plastiques pour faire naître une planète entière sur la scène.",
-    distribution: "De et avec Jabber Daniel Bonfil. Regards extérieurs : Marie Broche et Clara Aumann. Costumes : Pascale Nedjar de Roma. Illustrations : Jonas Duvergé. Circo Nagual est une compagnie franco-mexicaine installée dans le Gard, nourrie des contes, de la mythologie et des savoirs du Mexique."
+    distribution: "De et avec Jabber Daniel Bonfil. Regards extérieurs : Marie Broche et Clara Aumann. Costumes : Pascale Nedjar de Roma. Illustrations : Jonas Duvergé. Production déléguée : Pahaska Production. Circo Nagual est une compagnie franco-mexicaine installée dans le Gard, nourrie des contes, de la mythologie et des savoirs du Mexique."
   },
   "Ma vie tout simplement": {
     photos: [
@@ -277,27 +272,38 @@ window.SPECTACLES = {
     compagnie: "Compagnie Ceux qui boivent du thé",
     discipline: "Danse · acrobatie · roue Cyr",
     duree: "50 min",
+    tarif: "20 francs (réduit 15) · billet + livre 40 francs (réduit 35), au lieu de 26 francs pour le livre seul",
     court: "Le temps de repartir, de tirer les leçons, de se jeter à l'eau ; attraper le train en marche, monter sur le toit. Après, il sera trop tard. Une pièce acrobatique et dansée sur l'élan nomade, suivie de la présentation du livre « Lettres de gares et trains ».",
-    long: "« Le temps de repartir, de tirer les leçons, de se jeter à l'eau ; attraper le train en marche, monter sur le toit. Après, il sera trop tard. »\n\nC'est l'histoire de trajectoires tangentes et d'une trop courte rencontre. Une question de rails, aussi. Par le mouvement acrobatique et dansé, « Partir vers l'est » rend hommage à l'élan nomade, aux premiers pas, au non-retour.\n\nLa pièce de Yuridia Ortega et Raphaël Perrenoud surgit de la convergence de leurs pratiques respectives : danse contemporaine, acrobatie au sol et roue Cyr. La chorégraphie s'est construite autour de la « désacrobatisation » d'un numéro de cirque ainsi que des exils répétés de ses auteurs hors de l'espace Schengen, particulièrement dans les Balkans.\n\nÀ l'occasion de la sortie du livre de Raphaël Perrenoud et Man Nien Lam « Lettres de gares et trains », dont certains textes ont directement inspiré la pièce, deux soirées mêlent littérature et spectacle, en collaboration avec la Société Genevoise des Écrivaines et Écrivains. La présentation du livre suit la représentation.",
+    long: "« Le temps de repartir, de tirer les leçons, de se jeter à l'eau ; attraper le train en marche, monter sur le toit. Après, il sera trop tard. »\n\nC'est l'histoire de trajectoires tangentes et d'une trop courte rencontre. Une question de rails, aussi. Par le mouvement acrobatique et dansé, « Partir vers l'est » rend hommage à l'élan nomade, aux premiers pas, au non-retour.\n\nLa pièce de Yuridia Ortega et Raphaël Perrenoud surgit de la convergence de leurs pratiques respectives : danse contemporaine, acrobatie au sol et roue Cyr. La chorégraphie s'est construite autour de la « désacrobatisation » d'un numéro de cirque ainsi que des exils répétés de ses auteurs hors de l'espace Schengen, particulièrement dans les Balkans.\n\nÀ l'occasion de la sortie du livre de Raphaël Perrenoud et Man Nien Lam « Lettres de gares et trains », dont certains textes ont directement inspiré la pièce, deux soirées mêlent littérature et spectacle, en collaboration avec la Société Genevoise des Écrivaines et Écrivains. La présentation du livre suit la représentation.\n\nCes deux soirs, une table de livres de plusieurs auteur·es est proposée à la vente sur place.",
     distribution: "Conception et interprétation : Yuridia Ortega et Raphaël Perrenoud. Compagnie Ceux qui boivent du thé. Livre « Lettres de gares et trains » de Raphaël Perrenoud et Man Nien Lam, présenté avec la Société Genevoise des Écrivaines et Écrivains."
   },
   "El Cabaret du festival": {
     discipline: "Cabaret",
-    court: "La soirée de clôture : des numéros d'une dizaine de minutes, de tous les genres, par les artistes du festival et leurs invité·es. Avec, entre autres, Julian Bellini et son Invitation jonglée."
+    court: "La soirée de clôture : des numéros d'une dizaine de minutes, de tous les genres, par les artistes du festival et leurs invité·es. Avec, entre autres, « L'Invitation » de Julian Bellini, un duo théâtral et jonglé joué avec un·e volontaire du public."
   },
-  "Formation artistique": { discipline: "Rencontre" }
+  "À la recherche du sourire perdu": {
+    compagnie: "Formation artistique du Théâtre-Cirqule",
+    discipline: "Cirque"
+  },
+  "C'est quoi ce cirque": {
+    compagnie: "Floriza Flor",
+    duree: "30 min",
+    tarif: "Au chapeau",
+    court: "Floriza Flor retrace, raconte et rend hommage à des extraits du roman autobiographique d'Yvette Challande, « C'est quoi ce cirque ». Avec une touche d'humour et de sensibilité, sur des airs de Johnny Hallyday, et un clin d'œil à Gérard Challande."
+  }
 };
 
-// Programme d'essai (essai 4, mis à jour le 9 nov. : L'Invitation rejoint le cabaret du 19, MERCALM attend une nouvelle date) affiché seulement dans l'aperçu (/apercu/), pour les dates pas encore ouvertes dans l'appli. Sans réservation.
+// Programme d'essai (essai 9, 9 nov. 2026) affiché seulement dans l'aperçu (/apercu/), pour les dates pas encore ouvertes dans l'appli. Sans réservation.
 window.PROGRAMME_ESSAI = [
   ["2026-12-03", "20:00", "Ma vie tout simplement"],
   ["2026-12-04", "19:45", "Hurler sous l'eau"],
+  ["2026-12-04", "21:00", "C'est quoi ce cirque"],
   ["2026-12-05", "18:00", "Hurler sous l'eau"],
   ["2026-12-05", "19:30", "Mise à Mâle"],
   ["2026-12-05", "20:30", "Pâtes au Ketchup"],
-  ["2026-12-06", "16:00", "Corde et cordes"],
-  ["2026-12-06", "16:30", "I.A Ma Chère"],
+  ["2026-12-06", "16:00", "I.A Ma Chère"],
   ["2026-12-06", "18:00", "Mise à Mâle"],
+  ["2026-12-06", "19:15", "MERCALM"],
   ["2026-12-10", "17:45", "Pâtes au Ketchup"],
   ["2026-12-10", "18:35", "I.A Ma Chère"],
   ["2026-12-10", "20:00", "Les 12 lettres du facteur Cheval"],
@@ -305,13 +311,14 @@ window.PROGRAMME_ESSAI = [
   ["2026-12-11", "18:55", "Corde et cordes"],
   ["2026-12-11", "20:00", "Les 12 lettres du facteur Cheval"],
   ["2026-12-12", "17:00", "Ici sont les dragons"],
-  ["2026-12-12", "20:00", "Formation artistique"],
-  ["2026-12-13", "15:00", "Formation artistique"],
+  ["2026-12-12", "20:00", "À la recherche du sourire perdu"],
+  ["2026-12-13", "15:00", "À la recherche du sourire perdu"],
   ["2026-12-15", "20:00", "Sur le rivage de Gaza"],
   ["2026-12-16", "19:30", "Partir vers l'est"],
   ["2026-12-17", "19:30", "Partir vers l'est"],
   ["2026-12-18", "20:00", "Sur le rivage de Gaza"],
   ["2026-12-19", "17:00", "Ici sont les dragons"],
+  ["2026-12-19", "18:00", "Corde et cordes"],
   ["2026-12-19", "20:00", "El Cabaret du festival"],
   ["2026-12-20", "17:00", "Ma vie tout simplement"]
 ];
