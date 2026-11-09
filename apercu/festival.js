@@ -92,7 +92,7 @@ window.SPECTACLES = {
     age: "Ados et adultes",
     tarif: "Prix libre, 15 francs conseillés",
     court: "Un solo absurde, politique, tendre et brutal, au mât pendulaire, sur la masculinité et ce qu'elle fait aux corps.",
-    long: "Mise à Mâle est un solo absurde, politique, tendre et brutal. Il parle de masculinité, de vulnérabilité, de santé mentale et d'identité, avec les outils de l'artiste multidisciplinaire : mât pendulaire, clown, danse, théâtre physique et objets crochetés.\n\nDes fleurs, une serpillière, la virilité, la chute, la renaissance : autant de symboles qu'Antonio Anguiano manipule, détourne et laisse tomber, pour voir ce qui reste d'un homme quand on lui enlève ce qu'on lui a appris.",
+    long: "> En acceptant d'avoir dans mon corps des sensations que je ne voulais pas assimiler, je me suis rendu compte que je ne m'acceptais pas moi-même. Lorsque j'ai accepté mes actions, j'ai commencé à me connecter et à accepter l'avalanche de sentiments que j'ai en moi. J'étais une fleur mal arrosée. (Antonio Anguiano)\n\nMise à Mâle est un solo absurde, politique, tendre et brutal. Il parle de masculinité, de vulnérabilité, de santé mentale et d'identité, avec les outils de l'artiste multidisciplinaire : mât pendulaire, clown, danse, théâtre physique et objets crochetés.\n\nDes fleurs, une serpillière, la virilité, la chute, la renaissance : autant de symboles qu'Antonio Anguiano manipule, détourne et laisse tomber, pour voir ce qui reste d'un homme quand on lui enlève ce qu'on lui a appris.",
     distribution: "De et avec Antonio Anguiano."
   },
   "Pâtes au Ketchup": {
@@ -101,8 +101,8 @@ window.SPECTACLES = {
     duree: "40 min",
     age: "Ados et adultes",
     tarif: "Au chapeau",
-    court: "Une artiste présente sa famille et sa relation avec son père, drôle et loufoque. Jusqu'à ce que des imprévus fassent basculer le spectacle dans un univers plus sanglant.",
-    long: "Pâtes au ketchup est un spectacle drôle et loufoque de théâtre d'objet, où une artiste présente sa famille et sa relation avec son père. Mais, au fil du spectacle, des imprévus viennent bouleverser le déroulement, l'amenant dans un univers plus sanglant. Est-ce l'âme du père qui vient hanter le spectacle ?",
+    court: "Dans Pâtes au Ketchup, Clara Chupket retrace l'histoire de sa famille et de sa relation avec son père par le théâtre d'objet. Mais, au fil du spectacle, des imprévus viennent bouleverser le déroulement, l'entraînant dans un univers plus sanglant. Est-ce l'âme du père qui vient hanter le spectacle ?",
+    long: "Dans *Pâtes au Ketchup*, Clara Chupket retrace l'histoire de sa famille et de sa relation avec son père par le théâtre d'objet. Mais, au fil du spectacle, des imprévus viennent bouleverser le déroulement, l'entraînant dans un univers plus sanglant. Est-ce l'âme du père qui vient hanter le spectacle ?\n\nEntre humour absurde, manipulation d'objets et mise en abyme, Clara Chupket nous embarque dans un spectacle aussi déjanté qu'imprévisible.\n\nVous avez aimé les films de Tarantino ? Venez voir ce spectacle ! Vous ne les avez pas aimés ? Venez quand même !",
     distribution: "De et avec Ana Clara Hauri, jeune artiste de cirque genevoise."
   },
   "Corde et cordes": {
