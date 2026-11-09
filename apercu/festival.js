@@ -111,6 +111,11 @@ window.SPECTACLES = {
     distribution: "De et avec Antonio Anguiano."
   },
   "Pâtes au Ketchup": {
+    photos: [
+      { src: "photos/pates-ketchup-1.webp", credit: "Photo : Ana Clara Hauri" },
+      { src: "photos/pates-ketchup-3.webp", credit: "Photo : Ana Clara Hauri" },
+      { src: "photos/pates-ketchup-2.webp", credit: "Photo : Ana Clara Hauri" }
+    ],
     compagnie: "Ana Clara Hauri",
     discipline: "Théâtre d'objet",
     duree: "40 min",
