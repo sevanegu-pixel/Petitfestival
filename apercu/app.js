@@ -197,6 +197,8 @@
     document.getElementById('festTexte').innerHTML = paras((F.presentation || []).join('\n\n'));
     document.getElementById('festLieu').textContent = F.theatricul || '';
     document.getElementById('festOrga').textContent = F.organisation || '';
+    var feu = F.coinDuFeu, zf = document.getElementById('coinFeu');
+    if (feu && zf) { document.getElementById('feuSur').textContent = feu.sur || ''; document.getElementById('feuTitre').textContent = feu.titre || ''; document.getElementById('feuTexte').innerHTML = paras((feu.textes || []).join('\n\n')); zf.hidden = false; }
     var hm = F.hommage, secH = document.getElementById('gerard');
     if (hm && secH) {
       secH.hidden = false;

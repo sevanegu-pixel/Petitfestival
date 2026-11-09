@@ -14,6 +14,16 @@ window.FESTIVAL = {
     "Au programme : des petits formats de 15 à 35 minutes, des grands formats jusqu'à une heure, et un cabaret où chaque numéro dure une dizaine de minutes. Plusieurs spectacles se jouent le même soir, le temps de boire un verre à la buvette entre deux.",
     "La salle est petite, et c'est ce qui fait son charme : 45 à 50 places sur des bancs en gradin, à quelques mètres de la scène. Chaque spectacle a son tarif, parfois au chapeau, et toute la recette va aux artistes."
   ],
+  // Page « Le festival » : la buvette et le poêle à bois, entre les spectacles
+  coinDuFeu: {
+    sur: "Entre les spectacles",
+    titre: "Au coin du feu",
+    textes: [
+      "Le Petit Festival a lieu en décembre, et il se vit au chaud. En entrant au Théâtricul, on tombe sur la buvette et sur son poêle à bois : c'est là que tout le monde se retrouve, avant, entre et après les spectacles.",
+      "On s'y pose avec un verre, le bon vieux vin qu'on attend d'une soirée au théâtre, et de quoi manger : des choses simples, mais bonnes. On discute avec les artistes qui sortent de scène, on se réchauffe les mains près du poêle, puis on retourne s'asseoir sur les bancs pour le spectacle suivant.",
+      "Ici, la soirée ne s'arrête pas au salut final : elle continue au bord du poêle, dans un esprit convivial et festif. On vient pour un spectacle, on reste pour la soirée."
+    ]
+  },
   organisation: "Le festival est organisé par Sévane Gurunlian et Yvette Challande, avec l'équipe du Théâtricul.",
   // Hommage discret à Gérard Challande (bas de la page « Le festival », et une ligne au bas du programme)
   hommage: {
