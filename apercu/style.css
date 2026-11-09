@@ -424,3 +424,16 @@ html[data-sections=teintes] .affiche,html[data-sections=affirmees] .affiche{back
 html[data-sections=teintes] .pratique,html[data-sections=affirmees] .pratique{background:var(--pratiqueFond)}
 html[data-sections=teintes] .hero:after,html[data-sections=affirmees] .hero:after{background:var(--presFond)}
 html[data-sections=teintes] .pres .carteSp,html[data-sections=affirmees] .pres .carteSp,html[data-sections=teintes] .pratique .carteG,html[data-sections=affirmees] .pratique .carteG{background:var(--carte)}
+
+/* Hommage discret (bas de la page « Le festival ») et ligne au bas du programme */
+.memoire{background:var(--fond)}
+.hommage{display:grid;grid-template-columns:160px 1fr;gap:34px;align-items:start;max-width:860px;margin:0 auto}
+.hommage figure{margin:0}
+.hommage img{width:100%;display:block;border:6px solid var(--bordPhoto,#fff);box-shadow:4px 4px 0 var(--ligne);filter:sepia(.15) contrast(.98)}
+.hommage figcaption{font-size:13px;color:var(--doux);margin-top:8px;line-height:1.4}
+.hommage h2{font-size:clamp(22px,2.6vw,30px);margin:0 0 12px}
+.hommage p{color:var(--doux);font-size:17px}
+.hommage .sur{color:var(--doux)}
+.memoireLigne{text-align:center;color:var(--doux);font-size:15px;margin:0 auto;padding:10px 20px 40px;max-width:720px}
+.memoireLigne a{color:inherit}
+@media (max-width:600px){.hommage{grid-template-columns:1fr}.hommage figure{max-width:160px}}

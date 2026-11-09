@@ -15,6 +15,19 @@ window.FESTIVAL = {
     "La salle est petite, et c'est ce qui fait son charme : 45 à 50 places sur des bancs en gradin, à quelques mètres de la scène. Chaque spectacle a son tarif, parfois au chapeau, et toute la recette va aux artistes."
   ],
   organisation: "Le festival est organisé par Sévane Gurunlian et Yvette Challande, avec l'équipe du Théâtricul.",
+  // Hommage discret à Gérard Challande (bas de la page « Le festival », et une ligne au bas du programme)
+  hommage: {
+    sur: "En mémoire",
+    titre: "Gérard Challande, 1939–2021",
+    textes: [
+      "Comédien, chanteur d'opérette, imprimeur et bâtisseur, Gérard Challande a transformé en 1979 une ancienne écurie de Chêne-Bourg en salle de spectacle : le Théâtricul, « petit théâtre » en roumain, inauguré avec *Le Roi se meurt* d'Ionesco. Dix ans plus tard, il fonde avec Yvette Challande le Théâtre-Cirqule, l'école de cirque de Genève.",
+      "Il nous a quittés le 20 décembre 2021. Depuis, un cabaret lui rend hommage chaque année à cette date. Le Petit Festival prolonge cette habitude : il se termine le 20 décembre, avec le cabaret du 19 et « Ma vie tout simplement » d'Yvette Challande, et donne la priorité aux jeunes compagnies, comme le Théâtricul l'a toujours fait."
+    ],
+    photo: "photos/gerard-roi-se-meurt.webp",
+    legende: "Gérard Challande dans « Le Roi se meurt », 1981. Photo : archives Challande.",
+    ligneProgramme: "Le Petit Festival se tient en souvenir de Gérard Challande, fondateur du Théâtricul.",
+    lienTexte: "Quelques mots sur lui"
+  },
   theatricul: "Un petit théâtre insolite et charmant, niché au 64 rue de Genève à Chêne-Bourg, qui accueille depuis des années les compagnies émergentes des arts vivants. Une scène de 5 mètres sur 5, une cour et un petit jardin.",
   infos: [
     ["Tarifs", "Chaque spectacle a son tarif, indiqué sur sa fiche ; certains sont au chapeau. Toute la recette revient aux artistes. Paiement sur place."],

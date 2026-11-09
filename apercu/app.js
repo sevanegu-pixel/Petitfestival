@@ -188,6 +188,12 @@
     document.getElementById('festTexte').innerHTML = paras((F.presentation || []).join('\n\n'));
     document.getElementById('festLieu').textContent = F.theatricul || '';
     document.getElementById('festOrga').textContent = F.organisation || '';
+    var hm = F.hommage, secH = document.getElementById('gerard');
+    if (hm && secH) {
+      secH.hidden = false;
+      secH.querySelector('.hommage').innerHTML = (hm.photo ? '<figure><img src="' + esc(hm.photo) + '" alt="" loading="lazy"><figcaption>' + esc(hm.legende || '') + '</figcaption></figure>' : '') +
+        '<div><p class="sur">' + esc(hm.sur || 'En mémoire') + '</p><h2>' + esc(hm.titre) + '</h2>' + paras((hm.textes || []).join('\n\n')) + '</div>';
+    }
     var lt = document.getElementById('festLienTheatricul'); if (F.theatriculSite) lt.href = F.theatriculSite; else lt.parentNode.remove();
     var art = document.getElementById('artistes');
     art.innerHTML = Object.keys(SP).filter(function (k) { return SP[k].court; }).map(function (k) {
@@ -243,7 +249,9 @@
           '<div class="action">' + (e.reservable ? '<a class="btn" href="' + lienFiche(e) + '">Réserver</a>' : '<a class="btn contour" href="' + lienFiche(e) + '">Voir</a>') + etat(e) + '</div></article>';
       });
       if (ouvert) h += grand ? '</div></section>' : '</div></div>';
-      return h + '</div></section>';
+      h += '</div></section>';
+      if (F.hommage && F.hommage.ligneProgramme) h += '<p class="memoireLigne">' + esc(F.hommage.ligneProgramme) + ' <a href="festival.html#gerard">' + esc(F.hommage.lienTexte || 'En savoir plus') + '</a></p>';
+      return h;
     }
     function afficherProgramme() {
       document.title = 'Programme · ' + (F.nom || 'Festival');
