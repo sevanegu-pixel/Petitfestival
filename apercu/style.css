@@ -257,12 +257,9 @@ html[data-menu=centre] .haut:after{content:"";display:block;width:min(420px,70vw
 /* Infos */
 .infos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
 .infos.une{grid-template-columns:1fr;gap:12px}
-.infos>div{background:var(--carte);border:1px solid var(--ligne);padding:20px 22px;position:relative;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
-.infos>div:before{content:"";position:absolute;left:0;top:0;width:6px;height:100%;background:var(--magenta)}
-.infos>div:nth-child(2):before{background:var(--bleu)}
-.infos>div:nth-child(3):before{background:var(--jauneVif)}
-.infos>div:nth-child(4):before{background:var(--violet)}
-.infos h3{font-size:19px;margin:0 0 6px}
+.infos>div{background:none;border:0;border-top:2px solid var(--texte);padding:16px 0 0;position:relative;box-shadow:none}
+.infos>div:before{content:"";position:absolute;left:0;right:0;top:6px;height:8px;background:radial-gradient(circle at 4px 4px,var(--pointille) 2.6px,var(--pointille2) 3px,transparent 4.2px) 0 0/18px 8px repeat-x;opacity:.9}
+.infos h3{font-size:24px;margin:10px 0 8px}
 .infos p{margin:0;color:var(--doux)}
 .carte{background:var(--carte);border:1px solid var(--ligne);aspect-ratio:4/3;overflow:hidden;position:relative;clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%)}
 .carte.grande{aspect-ratio:1}
@@ -321,6 +318,8 @@ textarea{min-height:80px;resize:vertical}
 .piege{position:absolute;left:-5000px}
 .erreur{color:var(--corail2);margin:12px 0 0}
 .petit{font-size:14px;color:var(--doux)}
+#resa .btn+*,#resa p+.petit{margin-top:14px}
+#resa .petit:last-child{margin-top:14px}
 .navSp{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:50px 0 0;padding-top:30px;border-top:1px solid var(--ligne)}
 .navSp a{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;text-decoration:none;color:inherit;background:var(--carte);border:1px solid var(--ligne);padding:12px;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
 .navSp a.suivant{grid-template-columns:1fr 96px;text-align:right}
@@ -344,11 +343,12 @@ footer .liens{display:flex;gap:18px;flex-wrap:wrap}
 /* Options de l'aperçu */
 .opt{position:fixed;left:14px;bottom:14px;z-index:40;font-family:var(--corps)}
 .opt>button{font:700 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;background:var(--texte);color:var(--fond);border:0;padding:10px 14px;cursor:pointer;box-shadow:0 6px 20px var(--ombre);clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%)}
-.opt .panneau{display:none;position:absolute;left:0;bottom:44px;width:min(92vw,330px);max-height:min(70vh,560px);overflow:auto;background:var(--carte);color:var(--texte);border:1px solid var(--ligne);padding:16px 18px;box-shadow:0 12px 40px var(--ombre);font-size:14px}
+.opt .panneau{display:none;position:absolute;left:0;bottom:44px;width:min(92vw,330px);max-height:min(70vh,560px);overflow:auto;background:var(--carte);color:var(--texte);border:1px solid var(--ligne);padding:16px 18px;box-shadow:0 12px 40px var(--ombre);font-size:14px;max-height:calc(100vh - 90px);overflow:auto;overscroll-behavior:contain}
 .opt.ouvert .panneau{display:block}
 .opt h4{font:700 11px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin:12px 0 6px}
 .opt h4:first-child{margin-top:0}
 .opt .choixOpt{display:flex;flex-wrap:wrap;gap:6px}
+.opt .choixOpt.curseur{align-items:center;gap:10px}.opt .choixOpt.curseur input{flex:1;accent-color:var(--magenta);min-width:140px}.opt .choixOpt.curseur output{font:700 13px var(--mono);min-width:3ch;text-align:right}
 .opt .choixOpt button{font:600 13px/1.2 var(--corps);background:var(--fond);color:var(--texte);border:1px solid var(--ligne);border-radius:999px;padding:7px 12px;cursor:pointer}
 .opt .choixOpt button.on{background:var(--corail);color:var(--btnTexte);border-color:var(--corail)}
 .opt .choixOpt button[data-k=titre]{font-size:15px}
@@ -396,34 +396,43 @@ footer .liens{display:flex;gap:18px;flex-wrap:wrap}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.carteSp,.carteG,.carteG .visuel img{transition:none}}
 
-/* Ombres accentuées : bords portés, un peu « ancien » (option Ombres) */
-html[data-ombre=fortes]{--ombre:rgba(27,23,51,.3)}
-html[data-ombre=fortes][data-theme=nuit],html[data-ombre=fortes]:not([data-theme=clair]){--ombre:rgba(0,0,0,.55)}
-html[data-ombre=fortes] .carteSp,html[data-ombre=fortes] .carteG,html[data-ombre=fortes] .carteA,html[data-ombre=fortes] .infos>div,html[data-ombre=fortes] form,html[data-ombre=fortes] .encadre,html[data-ombre=fortes] .artiste,html[data-ombre=fortes] .merci{box-shadow:5px 5px 0 var(--texte),12px 16px 30px var(--ombre)}
-html[data-ombre=fortes] .carteSp:hover{box-shadow:9px 9px 0 var(--magenta),16px 22px 36px var(--ombre)}
-html[data-ombre=fortes] .carteA:hover{box-shadow:8px 8px 0 var(--bleu),14px 20px 32px var(--ombre)}
-html[data-ombre=fortes] .fiche dl{box-shadow:7px 7px 0 var(--violet),14px 18px 34px var(--ombre)}
-html[data-ombre=fortes] .btn{box-shadow:4px 4px 0 var(--texte),6px 10px 18px var(--ombre)}
-html[data-ombre=fortes] .btn:hover{box-shadow:7px 7px 0 var(--violet),10px 16px 24px var(--ombre)}
-html[data-ombre=fortes] .jours a{box-shadow:4px 4px 0 var(--texte),6px 9px 16px var(--ombre)}
-html[data-ombre=fortes] .jours a.on{box-shadow:4px 4px 0 var(--violet),6px 9px 16px var(--ombre)}
-html[data-ombre=fortes] .visuel img,html[data-ombre=fortes] .galerie img{filter:saturate(.9) contrast(1.04)}
-html[data-ombre=fortes] .bande:after{content:"";position:absolute;left:-2%;right:-2%;height:70px;pointer-events:none;z-index:0;background:linear-gradient(180deg,var(--ombre),transparent)}
-html[data-ombre=fortes] .bande:nth-of-type(odd):after{top:var(--pente);transform:skewY(-2.3deg);transform-origin:left top}
-html[data-ombre=fortes] .bande:nth-of-type(even):after{top:0;transform:skewY(2.3deg);transform-origin:left top}
-html[data-ombre=fortes] .hero:after{box-shadow:none}
-html[data-ombre=fortes] .haut:after{box-shadow:0 2px 6px var(--ombre)}
-html[data-ombre=fortes] .bande>.int{z-index:1}
-/* Teintes des sections (option Sections) */
-html[data-sections=teintes][data-theme=clair]{--presFond:#f6e4de;--afficheFond:#e3eff0;--pratiqueFond:#ebe4f4}
-html[data-sections=teintes]:not([data-theme=clair]){--presFond:#261a2f;--afficheFond:#15202d;--pratiqueFond:#1e1a30}
-html[data-sections=affirmees][data-theme=clair]{--presFond:#f1d8c8;--afficheFond:#d6e6e0;--pratiqueFond:#e9dcc3}
-html[data-sections=affirmees]:not([data-theme=clair]){--presFond:#2e1d2a;--afficheFond:#122a2c;--pratiqueFond:#2b2318}
-html[data-sections=teintes] .pres,html[data-sections=affirmees] .pres{background:var(--presFond)}
-html[data-sections=teintes] .affiche,html[data-sections=affirmees] .affiche{background:var(--afficheFond)}
-html[data-sections=teintes] .pratique,html[data-sections=affirmees] .pratique{background:var(--pratiqueFond)}
-html[data-sections=teintes] .hero:after,html[data-sections=affirmees] .hero:after{background:var(--presFond)}
-html[data-sections=teintes] .pres .carteSp,html[data-sections=affirmees] .pres .carteSp,html[data-sections=teintes] .pratique .carteG,html[data-sections=affirmees] .pratique .carteG{background:var(--carte)}
+/* Ombres : curseur « Ombres » des options (--ok de 0 = aucune à 1 = très marquées ; 0,6 par défaut) */
+:root{--ok:.6;--lk:.4}
+html{--ombre:rgba(27,23,51,calc(.5*var(--ok)))}
+html:not([data-theme=clair]){--ombre:rgba(0,0,0,calc(.8*var(--ok)))}
+.carteSp,.carteG,.carteA,.infos>div.x,form,.encadre,.artiste,.merci{box-shadow:calc(6px*var(--ok)) calc(6px*var(--ok)) 0 var(--texte),calc(14px*var(--ok)) calc(18px*var(--ok)) calc(34px*var(--ok)) var(--ombre)}
+.carteSp:hover{box-shadow:calc(6px*var(--ok) + 3px) calc(6px*var(--ok) + 3px) 0 var(--magenta),calc(16px*var(--ok)) calc(22px*var(--ok)) calc(36px*var(--ok)) var(--ombre)}
+.carteA:hover{box-shadow:calc(6px*var(--ok) + 2px) calc(6px*var(--ok) + 2px) 0 var(--bleu),calc(14px*var(--ok)) calc(20px*var(--ok)) calc(32px*var(--ok)) var(--ombre)}
+.fiche dl{box-shadow:calc(4px + 4px*var(--ok)) calc(4px + 4px*var(--ok)) 0 var(--violet),calc(14px*var(--ok)) calc(18px*var(--ok)) calc(34px*var(--ok)) var(--ombre)}
+.btn{box-shadow:calc(3px + 2px*var(--ok)) calc(3px + 2px*var(--ok)) 0 var(--texte),calc(6px*var(--ok)) calc(10px*var(--ok)) calc(18px*var(--ok)) var(--ombre)}
+.btn:hover{box-shadow:calc(6px + 2px*var(--ok)) calc(6px + 2px*var(--ok)) 0 var(--violet),calc(10px*var(--ok)) calc(16px*var(--ok)) calc(24px*var(--ok)) var(--ombre)}
+.jours a{box-shadow:calc(3px + 2px*var(--ok)) calc(3px + 2px*var(--ok)) 0 var(--texte),calc(6px*var(--ok)) calc(9px*var(--ok)) calc(16px*var(--ok)) var(--ombre)}
+.jours a.on{box-shadow:calc(3px + 2px*var(--ok)) calc(3px + 2px*var(--ok)) 0 var(--violet),calc(6px*var(--ok)) calc(9px*var(--ok)) calc(16px*var(--ok)) var(--ombre)}
+.bande:after{content:"";position:absolute;left:-2%;right:-2%;height:70px;pointer-events:none;z-index:0;background:linear-gradient(180deg,var(--ombre),transparent)}
+.bande:nth-of-type(odd):after{top:var(--pente);transform:skewY(-2.3deg);transform-origin:left top}
+.bande:nth-of-type(even):after{top:0;transform:skewY(2.3deg);transform-origin:left top}
+.haut:after{box-shadow:0 2px calc(8px*var(--ok)) var(--ombre)}
+.bande>.int{z-index:1}
+/* Lueurs colorées : curseur « Lueurs » (--lk de 0 à 1) ; sur l'accueil (bleu en haut, rose en bas) et au bord des sections */
+html[data-texture=argentique][data-theme=clair]{--lueur1:rgba(255,31,180,calc(.04 + .5*var(--lk)));--lueur2:rgba(25,200,255,calc(.06 + .55*var(--lk)))}
+html[data-texture=argentique]:not([data-theme=clair]){--lueur1:rgba(255,62,165,calc(.08 + .5*var(--lk)));--lueur2:rgba(63,214,255,calc(.06 + .45*var(--lk)))}
+.bande.pres{background-image:radial-gradient(700px 380px at 100% 0,var(--lueur2),transparent 62%),radial-gradient(600px 360px at 0 100%,var(--lueur1),transparent 60%)}
+.bande.affiche{background-image:radial-gradient(640px 360px at 0 0,var(--lueur1),transparent 62%),radial-gradient(700px 400px at 100% 100%,var(--lueur2),transparent 60%)}
+.bande.pratique{background-image:radial-gradient(700px 380px at 100% 0,var(--lueur1),transparent 62%),radial-gradient(560px 340px at 0 100%,var(--lueur2),transparent 60%)}
+.entete{background-image:radial-gradient(700px 400px at 90% 0,var(--lueur2),transparent 60%),radial-gradient(500px 300px at 0 100%,var(--lueur1),transparent 60%)}
+/* Couleurs des sections (option « Sections ») : papiers (crème → ivoire → kraft), rosée (crème → rose poudré → lavande), nuit (dernière section sombre) */
+html[data-sections=papiers][data-theme=clair]{--presFond:#f3ead7;--afficheFond:#fbf6ea;--pratiqueFond:#e9dcc2}
+html[data-sections=papiers]:not([data-theme=clair]){--presFond:#1c1830;--afficheFond:#120f24;--pratiqueFond:#241d2e}
+html[data-sections=rosee][data-theme=clair]{--presFond:#f6e6e3;--afficheFond:#f7f0e1;--pratiqueFond:#ebe5f4}
+html[data-sections=rosee]:not([data-theme=clair]){--presFond:#261a2f;--afficheFond:#120f24;--pratiqueFond:#1e1a30}
+html[data-sections=nuit][data-theme=clair]{--presFond:#efe6d2;--afficheFond:#f7f0e1;--pratiqueFond:#1b1733;--pratiqueTexte:#f7f3ff;--pratiqueDoux:#c3b9dd}
+html[data-sections=nuit]:not([data-theme=clair]){--presFond:#1a1533;--afficheFond:#120f24;--pratiqueFond:#000;--pratiqueTexte:#f7f3ff;--pratiqueDoux:#c3b9dd}
+html[data-sections]:not([data-sections=unies]) .pres{background-color:var(--presFond)}
+html[data-sections]:not([data-sections=unies]) .affiche{background-color:var(--afficheFond)}
+html[data-sections]:not([data-sections=unies]) .pratique{background-color:var(--pratiqueFond)}
+html[data-sections]:not([data-sections=unies]) .hero:after{background:var(--presFond)}
+html[data-sections=nuit] .pratique{color:var(--pratiqueTexte)}html[data-sections=nuit] .pratique .sur,html[data-sections=nuit] .pratique p,html[data-sections=nuit] .pratique .infos p{color:var(--pratiqueDoux)}
+html[data-sections=nuit][data-theme=clair] .pratique .carteG,html[data-sections=nuit][data-theme=clair] .pratique .infos>div,html[data-sections=nuit][data-theme=clair] .pratique form,html[data-sections=nuit][data-theme=clair] .pratique .artiste{color:#1b1733}html[data-sections=nuit][data-theme=clair] .pratique .carteG p{color:#5b5570}
 
 /* Hommage discret (bas de la page « Le festival ») et ligne au bas du programme */
 .memoire{background:var(--fond)}
@@ -434,6 +443,10 @@ html[data-sections=teintes] .pres .carteSp,html[data-sections=affirmees] .pres .
 .hommage h2{font-size:clamp(22px,2.6vw,30px);margin:0 0 12px}
 .hommage p{color:var(--doux);font-size:17px}
 .hommage .sur{color:var(--doux)}
-.memoireLigne{text-align:center;color:var(--doux);font-size:15px;margin:0 auto;padding:10px 20px 40px;max-width:720px}
-.memoireLigne a{color:inherit}
+.memoireLigne{display:flex;align-items:center;justify-content:center;gap:14px;color:var(--doux);font-size:15px;margin:10px auto 0;padding:22px 20px 44px;max-width:760px;position:relative}
+.memoireLigne:before{content:"";position:absolute;left:20px;right:20px;top:0;height:8px;background:radial-gradient(circle at 4px 4px,var(--pointille) 2.6px,var(--pointille2) 3px,transparent 4.2px) 0 0/18px 8px repeat-x;opacity:.9}
+.memoireLigne img{width:44px;height:44px;flex:none;filter:drop-shadow(2px 2px 0 var(--ligne))}
+.memoireLigne span{font-style:italic}
+.memoireLigne a{color:inherit;font-style:normal;font:700 13px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.08em;text-decoration:none;border-bottom:2px solid var(--magenta);white-space:nowrap}
+.memoireLigne a:hover{color:var(--magenta)}
 @media (max-width:600px){.hommage{grid-template-columns:1fr}.hommage figure{max-width:160px}}

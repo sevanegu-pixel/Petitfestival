@@ -46,7 +46,7 @@
       var nomF = u.split('/').pop(), deja = photos.findIndex(function (p) { return p.src.split('/').pop() === nomF; });
       if (deja >= 0) photos.unshift(photos.splice(deja, 1)[0]); else photos.unshift({ src: u, credit: '' });
     });
-    var videos = (s.videos || []).slice(); if (s.video) videos.push({ url: s.video });
+    var videos = (s.videos || []).slice(); if (s.video) videos.push({ url: s.video }); if (e.video) videos.unshift({ url: e.video });
     return {
       compagnie: e.compagnie || s.compagnie || '', discipline: s.discipline || '', duree: e.duree || s.duree || '', age: e.age || s.age || '',
       court: e.description || s.court || '', long: e.long || s.long || '', tarif: e.tarif || s.tarif || '', banque: s.banque || [], distribution: e.distribution || s.distribution || '', citation: s.citation || '',
@@ -85,15 +85,18 @@
       ['texte', 'Typo des textes', [['newsreader', 'Newsreader (journal)'], ['franklin', 'Libre Franklin (presse)'], ['atkinson', 'Atkinson'], ['barlow', 'Barlow (avant)']]],
       ['prog', 'Programme', [['grand', 'Grand format'], ['liste', 'Liste (avant)']]],
       ['menu', 'Menu', [['centre', 'Centré, dans la page'], ['barre', 'Barre en haut (avant)']]],
-      ['ombre', 'Ombres', [['fortes', 'Accentuées'], ['douces', 'Douces (avant)']]],
-      ['sections', 'Couleurs des sections', [['unies', 'Unies (actuel)'], ['teintes', 'Teintes légères'], ['affirmees', 'Teintes affirmées']]]
+      ['ombre', 'Ombres (quantité)', 'curseur'],
+      ['lueur', 'Lueurs colorées (accueil, bords des sections)', 'curseur'],
+      ['sections', 'Couleurs des sections', [['unies', 'Unies (actuel)'], ['papiers', 'Papiers (crème, ivoire, kraft)'], ['rosee', 'Rosée (rose poudré, lavande)'], ['nuit', 'Dernière section nuit']]]
     ];
     var opt = document.createElement('div'); opt.className = 'opt';
     opt.innerHTML = '<button type="button" aria-expanded="false">Options de l\'aperçu</button><div class="panneau">' + GROUPES.map(function (g) {
+      if (g[2] === 'curseur') return '<h4>' + g[1] + '</h4><div class="choixOpt curseur"><input type="range" min="0" max="100" step="5" data-k="' + g[0] + '" value="' + esc(OPTS.get(g[0])) + '" aria-label="' + g[1] + '"><output>' + esc(OPTS.get(g[0])) + '</output></div>';
       return '<h4>' + g[1] + '</h4><div class="choixOpt">' + g[2].map(function (c) { return '<button type="button" data-k="' + g[0] + '" data-v="' + c[0] + '" class="' + (OPTS.get(g[0]) === c[0] ? 'on' : '') + '">' + c[1] + '</button>'; }).join('') + '</div>';
     }).join('') + '<p class="note">Ces choix ne concernent que cet aperçu. Dites-moi lesquels garder.</p></div>';
     document.body.appendChild(opt);
     opt.firstChild.onclick = function () { var o = opt.classList.toggle('ouvert'); opt.firstChild.setAttribute('aria-expanded', o); };
+    opt.querySelectorAll('.choixOpt input[type=range]').forEach(function (r) { r.oninput = function () { OPTS.set(r.getAttribute('data-k'), r.value); r.nextSibling.textContent = r.value; }; });
     opt.querySelectorAll('.choixOpt button').forEach(function (b) {
       b.onclick = function () {
         OPTS.set(b.getAttribute('data-k'), b.getAttribute('data-v'));
@@ -144,7 +147,7 @@
   }
   function carteGrande(e) {
     var s = fiche(e);
-    return '<article class="carteG">' + visuel(e, s, '', lienFiche(e)) + '<div class="corps"><p class="heure">' + esc(heure(e)) + '</p><h3><a href="' + lienFiche(e) + '">' + esc(e.titre) + '</a></h3>' +
+    return '<article class="carteG" id="ev-' + esc(e.id) + '">' + visuel(e, s, '', lienFiche(e)) + '<div class="corps"><p class="heure">' + esc(heure(e)) + '</p><h3><a href="' + lienFiche(e) + '">' + esc(e.titre) + '</a></h3>' +
       '<p class="meta">' + esc([s.compagnie, meta(s)].filter(Boolean).join(' · ')) + '</p>' + (s.court ? '<p class="court">' + esc(s.court) + '</p>' : '') +
       '<div class="pied">' + (e.reservable ? '<a class="btn" href="' + lienFiche(e) + '">Réserver</a>' : '') + '<a class="lien" href="' + lienFiche(e) + '">' + (s.long || s.photos.length > 1 || s.videos.length ? 'Photos, vidéo et texte complet' : 'En savoir plus') + '</a>' + etat(e) + '</div></div></article>';
   }
@@ -244,13 +247,13 @@
           ouvert = true;
         }
         if (grand) h += carteGrande(e);
-        else h += '<article class="ev">' + visuel(e, s) + '<div><p class="heure">' + esc(heure(e)) + '</p><h3><a href="' + lienFiche(e) + '">' + esc(e.titre) + '</a></h3>' +
+        else h += '<article class="ev" id="ev-' + esc(e.id) + '">' + visuel(e, s) + '<div><p class="heure">' + esc(heure(e)) + '</p><h3><a href="' + lienFiche(e) + '">' + esc(e.titre) + '</a></h3>' +
           '<p class="meta">' + esc([s.compagnie, meta(s)].filter(Boolean).join(' · ')) + '</p>' + (s.court ? '<p class="court">' + esc(s.court) + '</p>' : '') + '</div>' +
           '<div class="action">' + (e.reservable ? '<a class="btn" href="' + lienFiche(e) + '">Réserver</a>' : '<a class="btn contour" href="' + lienFiche(e) + '">Voir</a>') + etat(e) + '</div></article>';
       });
       if (ouvert) h += grand ? '</div></section>' : '</div></div>';
       h += '</div></section>';
-      if (F.hommage && F.hommage.ligneProgramme) h += '<p class="memoireLigne">' + esc(F.hommage.ligneProgramme) + ' <a href="festival.html#gerard">' + esc(F.hommage.lienTexte || 'En savoir plus') + '</a></p>';
+      if (F.hommage && F.hommage.ligneProgramme) h += '<p class="memoireLigne"><img src="favicon.svg" alt=""><span>' + esc(F.hommage.ligneProgramme) + '</span> <a href="festival.html#gerard">' + esc(F.hommage.lienTexte || 'En savoir plus') + '</a></p>';
       return h;
     }
     function afficherProgramme() {
@@ -435,9 +438,10 @@
       var d = ev.data; if (!d || d.type !== 'pf-brouillon' || !d.evenement) return;
       var b = d.evenement, places = Number(b.places) || 0;
       b.id = b.id || 'brouillon'; b.places = places; b.restantes = places || null; b.complet = false; b.reservable = b.statut === 'Ouvert'; b.attente = b.attente === 'Oui' || b.attente === true;
-      BROUILLON = true; evenements = preparer((evenements || []).filter(function (x) { return x.id !== b.id; }).concat([b]));
+      var premier = !BROUILLON; BROUILLON = true; evenements = preparer((evenements || []).filter(function (x) { return x.id !== b.id; }).concat([b]));
       var h = decodeURIComponent(location.hash.slice(1)).replace(/#.*$/, '');
       if (h && !/^jour-/.test(h) && !evenements.some(function (x) { return x.id === h; })) location.hash = b.id; else route();
+      if (premier) { var cible = document.getElementById('ev-' + b.id); if (cible) setTimeout(function () { cible.scrollIntoView({ block: 'center' }); }, 60); }
     });
     route();
     charger(function (miseAJour) { if (miseAJour && (enSaisie() || BROUILLON)) return; route(); jsonLd(evenements); });
