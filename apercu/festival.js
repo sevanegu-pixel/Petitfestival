@@ -266,7 +266,21 @@ window.SPECTACLES = {
     court: "Une soirée de poésie palestinienne, portée par trois comédien·nes sur le rivage de Gaza.",
     distribution: "Avec Maulde Coutau, Nicolas Reichel et Thomas Delclaud. Lumière : Martin Leu. Décor : Mani Berclaz."
   },
-  "Partir vers l'est": { discipline: "Théâtre" },
+  "Partir vers l'est": {
+    photos: [
+      { src: "photos/partir-1.webp", credit: "Photo : Cie Ceux qui boivent du thé" },
+      { src: "photos/partir-2.webp", credit: "Couverture du livre « Lettres de gares et trains »" },
+      { src: "photos/partir-3.webp", credit: "Dessin : Cie Ceux qui boivent du thé" }
+    ],
+    photo: "photos/partir-1.webp",
+    credit: "Photo : Cie Ceux qui boivent du thé",
+    compagnie: "Compagnie Ceux qui boivent du thé",
+    discipline: "Danse · acrobatie · roue Cyr",
+    duree: "50 min",
+    court: "Le temps de repartir, de tirer les leçons, de se jeter à l'eau ; attraper le train en marche, monter sur le toit. Après, il sera trop tard. Une pièce acrobatique et dansée sur l'élan nomade, suivie de la présentation du livre « Lettres de gares et trains ».",
+    long: "« Le temps de repartir, de tirer les leçons, de se jeter à l'eau ; attraper le train en marche, monter sur le toit. Après, il sera trop tard. »\n\nC'est l'histoire de trajectoires tangentes et d'une trop courte rencontre. Une question de rails, aussi. Par le mouvement acrobatique et dansé, « Partir vers l'est » rend hommage à l'élan nomade, aux premiers pas, au non-retour.\n\nLa pièce de Yuridia Ortega et Raphaël Perrenoud surgit de la convergence de leurs pratiques respectives : danse contemporaine, acrobatie au sol et roue Cyr. La chorégraphie s'est construite autour de la « désacrobatisation » d'un numéro de cirque ainsi que des exils répétés de ses auteurs hors de l'espace Schengen, particulièrement dans les Balkans.\n\nÀ l'occasion de la sortie du livre de Raphaël Perrenoud et Man Nien Lam « Lettres de gares et trains », dont certains textes ont directement inspiré la pièce, deux soirées mêlent littérature et spectacle, en collaboration avec la Société Genevoise des Écrivaines et Écrivains. La présentation du livre suit la représentation.",
+    distribution: "Conception et interprétation : Yuridia Ortega et Raphaël Perrenoud. Compagnie Ceux qui boivent du thé. Livre « Lettres de gares et trains » de Raphaël Perrenoud et Man Nien Lam, présenté avec la Société Genevoise des Écrivaines et Écrivains."
+  },
   "El Cabaret du festival": {
     discipline: "Cabaret",
     court: "La soirée de clôture : des numéros d'une dizaine de minutes, de tous les genres, par les artistes du festival et leurs invité·es. Avec, entre autres, Julian Bellini et son Invitation jonglée."
