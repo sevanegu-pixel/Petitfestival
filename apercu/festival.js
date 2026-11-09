@@ -98,7 +98,7 @@ window.SPECTACLES = {
     credit: "Photo : Antonio Anguiano",
     compagnie: "Antonio Anguiano",
     discipline: "Cirque et théâtre physique",
-    duree: "40 min",
+    duree: "30 min",
     age: "Ados et adultes",
     tarif: "Prix libre, 15 francs conseillés",
     court: "Un solo absurde, politique, tendre et brutal, au mât pendulaire, sur la masculinité et ce qu'elle fait aux corps.",
