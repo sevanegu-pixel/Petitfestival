@@ -320,6 +320,9 @@ textarea{min-height:80px;resize:vertical}
 .petit{font-size:14px;color:var(--doux)}
 #resa .btn+*,#resa p+.petit{margin-top:14px}
 #resa .petit:last-child{margin-top:14px}
+#resa .optionsResa{border:0;padding:0;margin:14px 0 0}#resa .optionsResa legend{font-weight:700;padding:0;margin-bottom:6px}
+#resa .optResa{display:flex;gap:10px;align-items:flex-start;margin:0 0 8px;cursor:pointer}#resa .optResa input{width:auto;margin-top:4px;flex:none}
+#resa .optResa small{display:block;font-size:.85em;opacity:.8}#resa .optResa.plein{opacity:.55;cursor:default}
 .navSp{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:50px 0 0;padding-top:30px;border-top:1px solid var(--ligne)}
 .navSp a{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;text-decoration:none;color:inherit;background:var(--carte);border:1px solid var(--ligne);padding:12px;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
 .navSp a.suivant{grid-template-columns:1fr 96px;text-align:right}

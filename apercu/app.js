@@ -336,7 +336,9 @@
       var s = fiche(e), i = evenements.indexOf(e), prec = evenements[i - 1], suiv = evenements[i + 1];
       document.title = e.titre + ' · ' + (F.nom || 'Festival');
       var attente = !!(e.complet && e.attente && !e.reservable);
-      var max = attente ? 10 : e.restantes != null ? Math.min(10, e.restantes) : 10, opts = '';
+      var optsResa = (Array.isArray(e.options) ? e.options : []).filter(function (o) { return o && o.id && o.nom; });
+      var libresC = optsResa.reduce(function (m, o) { return o.type === 'contingent' && o.restantes > m ? o.restantes : m; }, 0);
+      var max = attente ? 10 : e.restantes != null ? Math.min(10, Math.max(e.restantes, libresC)) : 10, opts = '';
       for (var k = 1; k <= max; k++) opts += '<option>' + k + '</option>';
       var autres = memeJour(e).filter(function (x) { return x !== e; });
       var h = '<div class="fiche"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a>' + (s.discipline ? '<p><span class="tag">' + esc(s.discipline) + '</span></p>' : '') + '<h1>' + esc(e.titre) + '</h1>' +
@@ -362,6 +364,11 @@
           '<label for="email">E-mail *</label><input id="email" name="email" type="email" autocomplete="email" required>' +
           '<label for="telephone">Téléphone</label><input id="telephone" name="telephone" type="tel" autocomplete="tel">' +
           '<label for="places">Nombre de places *</label><select id="places" name="places">' + opts + '</select>' +
+          (optsResa.length && !attente ? '<fieldset class="optionsResa"><legend>Options</legend>' + optsResa.map(function (o) {
+            var plein = o.type === 'contingent' && o.restantes != null && o.restantes <= 0;
+            return '<label class="optResa' + (plein ? ' plein' : '') + '"><input type="checkbox" name="opt" value="' + esc(o.id) + '"' + (plein ? ' disabled' : '') + '> <span><b>' + esc(o.nom) + '</b>' +
+              (o.aide ? '<small>' + esc(o.aide) + '</small>' : '') + (o.type === 'contingent' && o.restantes != null ? '<small>' + (plein ? 'Ces places sont toutes prises.' : 'Places réservées : encore ' + o.restantes) + '</small>' : '') + '</span></label>';
+          }).join('') + '</fieldset>' : '') +
           '<label for="message">Message</label><textarea id="message" name="message"></textarea>' +
           '<input class="piege" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">' +
           '<p class="erreur" id="err" role="alert" hidden></p><p style="margin:18px 0 0"><button class="btn" type="submit">' + (attente ? 'M\'inscrire sur la liste d\'attente' : 'Réserver') + '</button></p>' +
@@ -403,8 +410,8 @@
     }
     function envoyer(e, f) {
       var err = document.getElementById('err'), bt = f.querySelector('button[type=submit]');
-      var d = { api: 'reserver', evenement: e.id }, attente = f.getAttribute('data-attente') === '1', libelle = bt.textContent;
-      new FormData(f).forEach(function (v, k) { d[k] = v; });
+      var d = { api: 'reserver', evenement: e.id, options: [] }, attente = f.getAttribute('data-attente') === '1', libelle = bt.textContent;
+      new FormData(f).forEach(function (v, k) { if (k === 'opt') d.options.push(v); else d[k] = v; });
       if (attente) d.attente = true;
       err.hidden = true;
       if (!d.nom.trim()) return montrer('Indiquez votre nom.');
@@ -416,7 +423,7 @@
           if (!r.ok) { bt.disabled = false; bt.textContent = libelle; return montrer(r.erreur || 'La réservation n\'a pas pu être enregistrée.'); }
           if (r.attente) f.outerHTML = '<div class="merci"><h3>C\'est noté</h3><p>Vous êtes sur la liste d\'attente pour « ' + esc(e.titre) + ' » (' + esc(d.places) + ' place' + (d.places > 1 ? 's' : '') + '). Dès qu\'une place se libère, nous vous écrivons à <b>' + esc(d.email) + '</b>.</p><p><a href="programme.html">Voir les autres spectacles</a></p></div>';
           else f.outerHTML = '<div class="merci"><h3>Merci !</h3><p>Votre réservation de ' + esc(d.places) + ' place' + (d.places > 1 ? 's' : '') +
-            ' pour « ' + esc(e.titre) + ' » est confirmée.</p><p>' + (r.mailEnvoye === false ? 'Nous vous écrirons à ' : 'Un e-mail de confirmation vient de partir à ') +
+            ' pour « ' + esc(e.titre) + ' » est confirmée' + (d.options.length ? ' (' + esc((e.options || []).filter(function (o) { return d.options.indexOf(o.id) >= 0; }).map(function (o) { return o.nom; }).join(', ')) + ')' : '') + '.</p><p>' + (r.mailEnvoye === false ? 'Nous vous écrirons à ' : 'Un e-mail de confirmation vient de partir à ') +
             '<b>' + esc(d.email) + '</b>.</p><p><a href="programme.html">Voir les autres spectacles</a></p></div>';
           if (r.restantes != null) { e.restantes = r.restantes; e.complet = r.restantes <= 0; e.reservable = !e.complet; }
         })
@@ -438,6 +445,7 @@
       var d = ev.data; if (!d || d.type !== 'pf-brouillon' || !d.evenement) return;
       var b = d.evenement, places = Number(b.places) || 0;
       b.id = b.id || 'brouillon'; b.places = places; b.restantes = places || null; b.complet = false; b.reservable = b.statut === 'Ouvert'; b.attente = b.attente === 'Oui' || b.attente === true;
+      if (typeof b.options === 'string') { try { b.options = JSON.parse(b.options || '[]'); } catch (x) { b.options = []; } (b.options || []).forEach(function (o) { if (o.type === 'contingent') o.restantes = Number(o.places) || 0; }); }
       var premier = !BROUILLON; BROUILLON = true; evenements = preparer((evenements || []).filter(function (x) { return x.id !== b.id; }).concat([b]));
       var h = decodeURIComponent(location.hash.slice(1)).replace(/#.*$/, '');
       if (h && !/^jour-/.test(h) && !evenements.some(function (x) { return x.id === h; })) location.hash = b.id; else route();
