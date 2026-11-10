@@ -303,7 +303,9 @@ window.SPECTACLES = {
   },
   "À la recherche du sourire perdu": {
     compagnie: "Formation artistique du Théâtre-Cirqule",
-    discipline: "Cirque"
+    discipline: "Cirque",
+    photos: [{ src: "photos/sourire-perdu.webp", credit: "Illustration : Théâtre-Cirqule" }],
+    court: "Il était une fois un pays étrange où le sourire n'existait pas. Jamais on n'entendait le moindre rire, même les enfants ne savaient pas chanter, ni danser… La Reine était triste et tout le royaume devait être comme elle… Sa fille était capricieuse. Mais un jour, une vieille femme…"
   },
   "C'est quoi ce cirque": {
     compagnie: "Floriza Flor",
