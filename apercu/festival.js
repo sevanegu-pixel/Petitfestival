@@ -283,18 +283,21 @@ window.SPECTACLES = {
   },
   "Partir vers l'est": {
     photos: [
-      { src: "photos/partir-1.webp", credit: "Photo : Cie Ceux qui boivent du thé" },
-      { src: "photos/partir-2.webp", credit: "Couverture du livre « Lettres de gares et trains »" },
-      { src: "photos/partir-3.webp", credit: "Dessin : Cie Ceux qui boivent du thé" }
+      { src: "photos/partir-a.webp", credit: "Photo : DR" },
+      { src: "photos/partir-b.webp", credit: "Photo : DR" },
+      { src: "photos/partir-c.webp", credit: "Photo : DR" },
+      { src: "photos/partir-d.webp", credit: "Photo : DR" },
+      { src: "photos/partir-e.webp", credit: "Photo : DR" },
+      { src: "photos/partir-f.webp", credit: "Photo : DR" },
+      { src: "photos/partir-g.webp", credit: "Photo : @chacaldelsuroficial" },
+      { src: "photos/partir-2.webp", credit: "Couverture du livre « Lettres de gares et trains »" }
     ],
-    photo: "photos/partir-1.webp",
-    credit: "Photo : Cie Ceux qui boivent du thé",
     compagnie: "Compagnie Ceux qui boivent du thé",
     discipline: "Danse · acrobatie · roue Cyr",
-    duree: "50 min",
+    duree: "1 h 30 (toute la soirée)",
     tarif: "20 francs (réduit 15) · billet + livre 40 francs (réduit 35), au lieu de 26 francs pour le livre seul",
     court: "Le temps de repartir, de tirer les leçons, de se jeter à l'eau ; attraper le train en marche, monter sur le toit. Après, il sera trop tard. Une pièce acrobatique et dansée sur l'élan nomade, suivie de la présentation du livre « Lettres de gares et trains ».",
-    long: "« Le temps de repartir, de tirer les leçons, de se jeter à l'eau ; attraper le train en marche, monter sur le toit. Après, il sera trop tard. »\n\nC'est l'histoire de trajectoires tangentes et d'une trop courte rencontre. Une question de rails, aussi. Par le mouvement acrobatique et dansé, « Partir vers l'est » rend hommage à l'élan nomade, aux premiers pas, au non-retour.\n\nLa pièce de Yuridia Ortega et Raphaël Perrenoud surgit de la convergence de leurs pratiques respectives : danse contemporaine, acrobatie au sol et roue Cyr. La chorégraphie s'est construite autour de la « désacrobatisation » d'un numéro de cirque ainsi que des exils répétés de ses auteurs hors de l'espace Schengen, particulièrement dans les Balkans.\n\nÀ l'occasion de la sortie du livre de Raphaël Perrenoud et Man Nien Lam « Lettres de gares et trains », dont certains textes ont directement inspiré la pièce, deux soirées mêlent littérature et spectacle, en collaboration avec la Société Genevoise des Écrivaines et Écrivains. La présentation du livre suit la représentation.\n\nCes deux soirs, une table de livres de plusieurs auteur·es est proposée à la vente sur place.",
+    long: "« Le temps de repartir, de tirer les leçons, de se jeter à l'eau ; attraper le train en marche, monter sur le toit. Après, il sera trop tard. »\n\nC'est l'histoire de trajectoires tangentes et d'une trop courte rencontre. Une question de rails, aussi. Par le mouvement acrobatique et dansé, « Partir vers l'est » rend hommage à l'élan nomade, aux premiers pas, au non-retour.\n\nLa pièce de Yuridia Ortega et Raphaël Perrenoud surgit de la convergence de leurs pratiques respectives : danse contemporaine, acrobatie au sol et roue Cyr. La chorégraphie s'est construite autour de la « désacrobatisation » d'un numéro de cirque ainsi que des exils répétés de ses auteurs hors de l'espace Schengen, particulièrement dans les Balkans.\n\nÀ l'occasion de la sortie du livre de Raphaël Perrenoud et Man Nien Lam « Lettres de gares et trains », dont certains textes ont directement inspiré la pièce, deux soirées mêlent littérature et spectacle, en collaboration avec la Société Genevoise des Écrivaines et Écrivains. La soirée s'ouvre sur une courte lecture de textes et de poésie, mise en lumière, par des membres de la Société ; vient ensuite le spectacle, puis la présentation des artistes et du livre. Durée de la soirée : 1 h 30.\n\nCes deux soirs, une table de livres de plusieurs auteur·es est proposée à la vente sur place.",
     distribution: "Conception et interprétation : Yuridia Ortega et Raphaël Perrenoud. Compagnie Ceux qui boivent du thé. Livre « Lettres de gares et trains » de Raphaël Perrenoud et Man Nien Lam, présenté avec la Société Genevoise des Écrivaines et Écrivains."
   },
   "El Cabaret du festival": {
