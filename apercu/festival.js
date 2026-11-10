@@ -311,6 +311,10 @@ window.SPECTACLES = {
     court: "Il était une fois un pays étrange où le sourire n'existait pas. Jamais on n'entendait le moindre rire, même les enfants ne savaient pas chanter, ni danser… La Reine était triste et tout le royaume devait être comme elle… Sa fille était capricieuse. Mais un jour, une vieille femme…"
   },
   "C'est quoi ce cirque": {
+    photos: [
+      { src: "photos/cest-quoi-1.webp", credit: "Photo : DR" },
+      { src: "photos/cest-quoi-2.webp", credit: "Floriza Flor · Photo : DR" }
+    ],
     compagnie: "Floriza Flor",
     duree: "30 min",
     tarif: "Au chapeau",
