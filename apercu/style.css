@@ -509,17 +509,23 @@ html[data-sections=nuit][data-theme=clair] .pratique .carteG,html[data-sections=
 .logoTheatricul{display:block;width:min(320px,70%);height:auto;margin:0 0 14px;mix-blend-mode:multiply}
 html[data-theme=nuit] .logoTheatricul{mix-blend-mode:normal;filter:invert(1);opacity:.9}
 
-/* Accueil : l'illustration de l'affiche (croquis en attendant la version finale, fichier photos/illustration.webp).
-   Elle tient toute la hauteur : les jambes géantes descendent de sous le menu et les pieds se posent sur la diagonale. Fond calme, sans lueurs ni rayures. */
-html[data-menu=centre-depliant] .hero{background:var(--fond);min-height:clamp(520px,46vw,680px);display:flex;align-items:center;padding:40px 0 calc(var(--pente) + 50px)}
-html[data-menu=centre-depliant] .hero .int{width:100%}
-html[data-menu=centre-depliant] .hero .int>*{max-width:min(46%,560px)}
+/* Accueil : l'illustration de l'affiche sur toute la largeur (croquis en attendant la version finale).
+   Fichiers : photos/illustration-large.webp (bande large, ordinateur) et photos/illustration.webp (en hauteur, téléphone).
+   Le texte et les boutons sont logés dans la grande jambe de droite ; tailles en vw pour suivre l'image. */
+html[data-menu=centre-depliant] .hero{background:var(--fond);padding:0}
 html[data-menu=centre-depliant] .hero .rayures{display:none}
-html[data-menu=centre-depliant] .hero:after{z-index:0}
-.hero .croquis{position:absolute;right:max(10px,calc(50% - 600px));bottom:calc(var(--pente)*.15);height:108%;width:auto;mix-blend-mode:multiply;pointer-events:none;z-index:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%);mask-image:linear-gradient(90deg,transparent,#000 7%)}
+html[data-menu=centre-depliant] .hero:after{z-index:2}
+.hero .croquis{display:block;mix-blend-mode:multiply}
+.hero .croquis img{display:block;width:100%;height:auto}
 html[data-theme=nuit] .hero .croquis{mix-blend-mode:screen;filter:invert(1);opacity:.9}
+@media (min-width:861px){
+  html[data-menu=centre-depliant] .hero .int{position:absolute;z-index:1;left:79%;top:6%;width:19.5%;max-width:none;margin:0;padding:0}
+  html[data-menu=centre-depliant] .hero .sur{font-size:max(9px,.82vw);letter-spacing:.1em;margin:0 0 .9vw}
+  html[data-menu=centre-depliant] .hero .ou{font-size:max(13px,1.5vw);line-height:1.38;margin:0 0 1.6vw;max-width:none}
+  html[data-menu=centre-depliant] .hero .actions{display:flex;flex-direction:column;align-items:flex-start;gap:.9vw;margin:0}
+  html[data-menu=centre-depliant] .hero .actions .btn{font-size:max(12px,1.1vw);padding:.75vw 1.2vw;margin:0}
+}
 @media (max-width:860px){
-  html[data-menu=centre-depliant] .hero{display:block;min-height:0;padding:30px 0 0}
-  html[data-menu=centre-depliant] .hero .int>*{max-width:none}
-  .hero .croquis{position:relative;display:block;right:auto;bottom:auto;height:auto;width:min(92%,440px);margin:6px auto calc(var(--pente)*.3);-webkit-mask-image:none;mask-image:none}
+  html[data-menu=centre-depliant] .hero{padding:30px 0 0}
+  .hero .croquis{width:min(92%,440px);margin:6px auto calc(var(--pente)*.3)}
 }
