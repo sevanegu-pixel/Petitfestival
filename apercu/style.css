@@ -146,7 +146,7 @@ html[data-menu=centre-depliant] .marque{order:1}
 html[data-menu=centre-depliant] .haut nav{order:3;padding:0 20px}
 html[data-menu=centre-depliant] .hero h1,html[data-menu=centre-depliant] .hero .quand{display:none}
 html[data-menu=centre-depliant] .hero{padding-top:clamp(40px,7vw,90px)}
-html[data-menu=centre-depliant] .hero .ou{font:italic 400 clamp(21px,2.3vw,28px)/1.4 var(--texte-police,Newsreader),Georgia,serif;color:var(--texte);margin:14px 0 28px;max-width:34ch}
+html[data-menu=centre-depliant] .hero .ou{font:italic 400 clamp(17px,1.5vw,19px)/1.5 var(--texte-police,Newsreader),Georgia,serif;color:var(--texte);margin:14px 0 28px;max-width:46ch}
 html[data-menu=centre-depliant] #presTexte .chapo{display:none}
 html[data-theme=nuit][data-menu=centre-depliant] .haut:before{background:#f7f0e1;color:#141127}
 @media (max-width:720px){
