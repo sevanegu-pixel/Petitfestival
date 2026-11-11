@@ -147,8 +147,8 @@ window.SPECTACLES = {
     duree: "15 min",
     age: "Tout public",
     tarif: "Au chapeau",
-    court: "Au centre de trois caméras 360°, un performeur joue avec une intelligence artificielle projetée devant le public, jusqu'à se rendre invisible pour la perturber.",
-    long: "Au centre de trois caméras 360° connectées, le performeur joue avec une intelligence artificielle projetée pour le public, et questionne notre usage de ce nouvel outil numérique.\n\nD'abord, l'IA transforme son corps en avatar 3D et l'oblige à des actions de plus en plus sportives pour récupérer des données. Puis, par un rituel chamanique et punk, il se rend invisible aux caméras pour la perturber. Une version de la pièce a été produite à Séoul.",
+    court: "La réalité est devenue son propre avatar, dopée par des IA que nous nourrissons de nos gestes et de nos vécus. Seul face à trois caméras 360°, le performeur passe du travailleur du clic docile à la créature indomptable dans un court-circuit visuel et sonore de 15 minutes. Une performance coup de poing entre extraction de données et transe techno/noise.",
+    long: "La réalité est devenue son propre avatar, dopée par des IA que nous nourrissons de nos gestes et de nos vécus. Seul face à trois caméras 360°, le performeur passe du travailleur du clic docile à la créature indomptable dans un court-circuit visuel et sonore de 15 minutes. Une performance coup de poing entre extraction de données et transe techno/noise.",
     distribution: "De et avec Jordan Fraser Emery, créateur et chercheur en création numérique."
   },
   "Les 12 lettres du facteur Cheval": {
