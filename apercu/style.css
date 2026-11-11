@@ -509,23 +509,7 @@ html[data-sections=nuit][data-theme=clair] .pratique .carteG,html[data-sections=
 .logoTheatricul{display:block;width:min(320px,70%);height:auto;margin:0 0 14px;mix-blend-mode:multiply}
 html[data-theme=nuit] .logoTheatricul{mix-blend-mode:normal;filter:invert(1);opacity:.9}
 
-/* Accueil : l'illustration de l'affiche sur toute la largeur (croquis en attendant la version finale).
-   Fichiers : photos/illustration-large.webp (bande large, ordinateur) et photos/illustration.webp (en hauteur, téléphone).
-   Le texte et les boutons sont logés dans la grande jambe de droite ; tailles en vw pour suivre l'image. */
-html[data-menu=centre-depliant] .hero{background:var(--fond);padding:0}
-html[data-menu=centre-depliant] .hero .rayures{display:none}
-html[data-menu=centre-depliant] .hero:after{z-index:2}
-.hero .croquis{display:block;mix-blend-mode:multiply}
-.hero .croquis img{display:block;width:100%;height:auto}
-html[data-theme=nuit] .hero .croquis{mix-blend-mode:screen;filter:invert(1);opacity:.9}
-@media (min-width:861px){
-  html[data-menu=centre-depliant] .hero .int{position:absolute;z-index:1;left:79%;top:6%;width:19.5%;max-width:none;margin:0;padding:0}
-  html[data-menu=centre-depliant] .hero .sur{font-size:max(9px,.82vw);letter-spacing:.1em;margin:0 0 .9vw}
-  html[data-menu=centre-depliant] .hero .ou{font-size:max(13px,1.5vw);line-height:1.38;margin:0 0 1.6vw;max-width:none}
-  html[data-menu=centre-depliant] .hero .actions{display:flex;flex-direction:column;align-items:flex-start;gap:.9vw;margin:0}
-  html[data-menu=centre-depliant] .hero .actions .btn{font-size:max(12px,1.1vw);padding:.75vw 1.2vw;margin:0}
-}
-@media (max-width:860px){
-  html[data-menu=centre-depliant] .hero{padding:30px 0 0}
-  .hero .croquis{width:min(92%,440px);margin:6px auto calc(var(--pente)*.3)}
-}
+/* Accueil : le petit personnage de l'illustrateur à la place du soleil (croquis en attendant la version finale, photos/illustration.webp, fond transparent) */
+.hero .croquis{position:absolute;right:max(24px,calc(50% - 520px));top:50%;transform:translateY(-52%);height:min(86%,470px);width:auto;pointer-events:none;z-index:0}
+html[data-theme=nuit] .hero .croquis{filter:invert(1)}
+@media (max-width:860px){.hero .croquis{position:relative;display:block;right:auto;top:auto;transform:none;height:auto;width:min(64%,280px);margin:26px auto -20px}}
