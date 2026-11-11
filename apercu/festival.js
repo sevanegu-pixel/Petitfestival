@@ -277,7 +277,7 @@ window.SPECTACLES = {
     discipline: "Poésie palestinienne",
     age: "Ados et adultes",
     tarif: "25 francs (tarif réduit 20 francs)",
-    court: "Une soirée de poésie palestinienne, portée par trois comédien·nes sur le rivage de Gaza.",
+    court: "Une soirée de poésie palestinienne, portée par une comédienne, un comédien et un musicien.",
     distribution: "Avec Maulde Coutau, Nicolas Reichel et Thomas Delclaud. Lumière : Martin Leu. Décor : Mani Berclaz."
   },
   "Partir vers l'est": {
