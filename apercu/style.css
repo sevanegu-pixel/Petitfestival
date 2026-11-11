@@ -20,14 +20,15 @@ html[data-theme=clair]{
 /* Texture « argentique » : grain, vignettage, couleurs passées, bords de tirage */
 html[data-texture=argentique]{--grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");--corail:#f4635f;--corail2:#ff8f8b;--cyan:#62c9e6;--jaune:#f2cf62;--magenta:#ef4ea4;--cyanVif:#62c9e6;--jauneVif:#f2cf62;--bordPhoto:#1c1733}
 html[data-texture=argentique][data-theme=clair]{--fond:#f7f0e1;--fond2:#efe6d2;--carte:#fcf7ec;--ligne:#dccfb4;--corail:#ff2e63;--corail2:#6b1fd6;--cyan:#0d7fa6;--jaune:#a86e00;--magenta:#ff1fb4;--violet:#6b2cff;--bleu:#1f5bff;--cyanVif:#19c8ff;--jauneVif:#ffd23f;--btnTexte:#fff;--tagTexte:#fff;--bordPhoto:#fbf6ea;--lueur1:rgba(255,31,180,.22);--lueur2:rgba(25,200,255,.3)}
-html[data-texture=argentique] body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:998;background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(10,6,20,.42) 100%);mix-blend-mode:multiply}
-html[data-texture=argentique][data-theme=clair] body:before{background:radial-gradient(ellipse at 50% 45%,transparent 58%,rgba(90,60,20,.22) 100%)}
-html[data-texture=argentique] body:after{content:"";position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:999;background:var(--grain) 0 0/180px 180px;opacity:.22;mix-blend-mode:overlay;animation:grain 1.2s steps(4) infinite}
+/* Vignette sombre sur toute la page retirée le 11.11 (elle voilait les photos). */
+
+html[data-texture=argentique] body:after{content:"";position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:-1;background:var(--grain) 0 0/180px 180px;opacity:.22;mix-blend-mode:overlay;animation:grain 1.2s steps(4) infinite}
+html[data-texture=argentique] body{background:transparent}
 html[data-texture=argentique][data-theme=clair] body:after{opacity:.3;mix-blend-mode:multiply}
 @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(0,0)}}
-html[data-texture=argentique] .visuel img,html[data-texture=argentique] .galerie img,html[data-texture=argentique] .vignettes img{filter:contrast(.96) saturate(.82) sepia(.22)}
-html[data-texture=argentique] .visuel:not(.vide):before,html[data-texture=argentique] .galerie .principal:before,html[data-texture=argentique] .video:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 62%,rgba(20,10,30,.38) 100%),linear-gradient(160deg,rgba(255,220,170,.12),rgba(60,30,80,.1));box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 0 0 7px var(--bordPhoto)}
-html[data-texture=argentique] .visuel:not(.vide):after,html[data-texture=argentique] .galerie .principal:after,html[data-texture=argentique] .video:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:var(--grain) 0 0/160px 160px;mix-blend-mode:overlay;opacity:.75}
+/* Pas de voile sur les photos : ni filtre, ni vignette, ni grain (demande du 11.11). Le grain reste seulement sur le fond de page, sous le contenu. */
+html[data-texture=argentique] .visuel:not(.vide):before,html[data-texture=argentique] .galerie .principal:before,html[data-texture=argentique] .video:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 0 0 7px var(--bordPhoto)}
+
 html[data-texture=argentique] .carteSp .visuel,html[data-texture=argentique] .carteG .visuel,html[data-texture=argentique] .galerie .principal,html[data-texture=argentique] .ev .visuel{background:var(--bordPhoto)}
 html[data-texture=argentique] .hero{background-image:radial-gradient(900px 500px at 85% 115%,var(--lueur1),transparent 60%),radial-gradient(700px 420px at 10% -10%,var(--lueur2),transparent 60%),linear-gradient(rgba(255,230,190,.04),rgba(255,230,190,.04))}
 html[data-texture=argentique] .soleil{opacity:.78;filter:drop-shadow(0 0 40px rgba(255,90,95,.3)) blur(.3px)}
@@ -493,7 +494,7 @@ html[data-sections=nuit][data-theme=clair] .pratique .carteG,html[data-sections=
 .memoire{background:var(--fond)}
 .hommage{display:grid;grid-template-columns:160px 1fr;gap:34px;align-items:start;max-width:860px;margin:0 auto}
 .hommage figure{margin:0}
-.hommage img{width:100%;display:block;border:6px solid var(--bordPhoto,#fff);box-shadow:4px 4px 0 var(--ligne);filter:sepia(.15) contrast(.98)}
+.hommage img{width:100%;display:block;border:6px solid var(--bordPhoto,#fff);box-shadow:4px 4px 0 var(--ligne)}
 .hommage figcaption{font-size:13px;color:var(--doux);margin-top:8px;line-height:1.4}
 .hommage h2{font-size:clamp(22px,2.6vw,30px);margin:0 0 12px}
 .hommage p{color:var(--doux);font-size:17px}
