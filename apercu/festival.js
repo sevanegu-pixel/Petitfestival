@@ -348,7 +348,7 @@ window.PROGRAMME_ESSAI = [
   ["2026-12-15", "20:00", "Sur le rivage de Gaza"],
   ["2026-12-16", "19:30", "Acrobaties littéraires"],
   ["2026-12-17", "19:30", "Acrobaties littéraires"],
-  ["2026-12-18", "20:00", "Sur le rivage de Gaza"],
+  ["2026-12-18", "20:30", "Sur le rivage de Gaza"],
   ["2026-12-19", "17:00", "Ici sont les dragons"],
   ["2026-12-19", "18:00", "Corde et cordes"],
   ["2026-12-19", "20:00", "El Cabaret du festival"],
