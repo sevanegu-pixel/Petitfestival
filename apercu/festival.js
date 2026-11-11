@@ -237,9 +237,9 @@ window.SPECTACLES = {
   },
   "Ma vie tout simplement": {
     photos: [
-      { src: "photos/ma-vie-2.webp", credit: "Photo : DR" },
-      { src: "photos/ma-vie-3.webp", credit: "Photo : DR" },
-      { src: "photos/ma-vie-1.webp", credit: "Photo : DR" }
+      { src: "photos/ma-vie-2.webp", credit: "Photo : Alison Johnson" },
+      { src: "photos/ma-vie-3.webp", credit: "Photo : Alison Johnson" },
+      { src: "photos/ma-vie-1.webp", credit: "Photo : Alison Johnson" }
     ],
     banque: [
       { src: "photos/ma-vie-affiche.webp", credit: "Affiche du spectacle" },
@@ -259,11 +259,12 @@ window.SPECTACLES = {
       { src: "photos/gerard-14.webp", credit: "Photo : archives Challande" }
     ],
     photo: "photos/ma-vie-2.webp",
-    credit: "Photo : DR",
+    credit: "Photo : Alison Johnson",
     compagnie: "Yvette Challande",
     discipline: "Théâtre · seule en scène",
     age: "Ados et adultes",
-    tarif: "Entrée libre",
+    duree: "Environ 1 h",
+    tarif: "Au chapeau",
     court: "Petite-fille de chiffonnier, fille de récupérateur, Yvette Challande évoque avec un humour sarcastique et légèrement féministe des moments de sa vie qui sortent de l'ordinaire. En hommage à Gérard Challande.",
     long: "Petite-fille de chiffonnier, fille de récupérateur, elle aurait pu être agent de traitement des déchets si elle n'avait pas préféré se lancer dans la vie artistique.\n\nDans son spectacle, la comédienne évoque avec un humour sarcastique et légèrement féministe des moments de sa vie qui sortent de l'ordinaire… Une famille italienne au passé un peu trouble… Une enfance dans l'entreprise de récupération familiale lui offre un terrain de jeu et d'aventures où l'imaginaire est roi… Mais l'argent rare…\n\n« Si tu es sage, tu auras un homme… mais si tu n'es pas sage, tu en auras plusieurs », lui avait dit son père. Alors, elle a choisi de ne pas être sage…\n\n« J'ai rencontré une vraie femme », lui a dit son ex-mari, et depuis elle se pose cette question : c'est quoi, une vraie femme ? Elle tente de le trouver en devenant femme au foyer, femme soumise, dominatrice, coquette, etc.\n\nElle vous parlera aussi de son deuxième mari qui est, à lui seul, tout un programme.",
     distribution: "De et par Yvette Challande, en hommage à Gérard Challande. Technique : Christine Demaeyer."
@@ -305,11 +306,15 @@ window.SPECTACLES = {
   },
   "El Cabaret du festival": {
     discipline: "Cabaret",
+    duree: "Environ 1 h 30",
+    tarif: "Au chapeau",
     court: "La soirée de clôture : une suite de numéros d'une dizaine de minutes, de tous les genres, pour finir le festival en beauté."
   },
   "À la recherche du sourire perdu": {
     compagnie: "Formation artistique du Théâtre-Cirqule",
     discipline: "Cirque",
+    duree: "Environ 1 h 30",
+    tarif: "Au chapeau",
     photos: [{ src: "photos/sourire-perdu.webp", credit: "Illustration : Yvette Challande" }],
     court: "Il était une fois un pays étrange où le sourire n'existait pas. Jamais on n'entendait le moindre rire, même les enfants ne savaient pas chanter, ni danser… La Reine était triste et tout le royaume devait être comme elle… Sa fille était capricieuse. Mais un jour, une vieille femme…"
   },
