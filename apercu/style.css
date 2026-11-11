@@ -272,9 +272,10 @@ html[data-entete=diagonale][data-menu^=centre] .haut:after{display:none}
 .carteG .pied{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px}
 .carteG .pied .lien{font-weight:600}
 .grilleG.n1 .carteG{flex-direction:row}
-.grilleG.n1 .carteG>a.visuel{flex:0 0 52%;aspect-ratio:3/2;min-height:0;align-self:flex-start}
-.grilleG.n1 .carteG .corps{justify-content:center;padding:34px 36px}
+.grilleG.n1 .carteG>a.visuel{flex:0 0 calc((100% - 52px)*2/3 + 26px);aspect-ratio:3/2;min-height:0;align-self:flex-start}
+.grilleG.n1 .carteG .corps{justify-content:center;padding:30px 30px 30px 34px}
 .grilleG.n1 .carteG h3{font-size:clamp(28px,3.4vw,40px)}
+.grilleG.n1 .carteG .court{flex:0;font-size:17px}
 
 /* Page d'un jour */
 .jourNav{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:26px 0 0;font-weight:600}
