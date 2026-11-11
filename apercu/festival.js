@@ -119,7 +119,9 @@ window.SPECTACLES = {
   },
   "Corde et cordes": {
     photos: [
+      { src: "photos/corde-3.webp", credit: "Photo : Miguel Bueno" },
       { src: "photos/corde-1.webp", credit: "Photo : Miguel Bueno" },
+      { src: "photos/corde-4.webp", credit: "Photo : Miguel Bueno" },
       { src: "photos/corde-2.webp", credit: "Photo : Miguel Bueno" }
     ],
     compagnie: "Léa Gase, Céline Martin et Benoît Gautier",
