@@ -12,7 +12,11 @@ from PIL import Image
 t, d = sys.argv[1], sys.argv[2]
 pages = sorted(glob.glob(t + '/p-*.png'))
 for src, nom in zip(pages, ['exterieur', 'interieur']):
-    Image.open(src).convert('RGB').save(d + '/depliant-' + nom + '.webp', quality=86, method=6)
+    im = Image.open(src).convert('RGB')
+    # Masque les petites mentions de travail en haut des volets (« extérieur · rabat · 97 mm »)
+    w, h = im.size
+    im.paste(im.getpixel((12, 12)), (0, int(h * .004), w, int(h * .024)))
+    im.save(d + '/depliant-' + nom + '.webp', quality=86, method=6)
 mois = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre']
 n = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=1)))
 maj = '%d %s %d à %dh%02d' % (n.day, mois[n.month-1], n.year, n.hour, n.minute)
@@ -34,7 +38,7 @@ h1{font:900 clamp(28px,5vw,44px)/1 Fraunces,Georgia,serif;margin:0 0 6px}
 .sur{font:700 12px/1.4 "Space Mono",monospace;text-transform:uppercase;letter-spacing:.16em;color:#6b2cff;margin:0 0 10px}
 p{margin:0 0 8px;max-width:60ch}
 h2{font:800 20px/1.2 Fraunces,Georgia,serif;margin:34px 0 10px}
-a.img{display:block;border:2px solid #1b1733;box-shadow:6px 6px 0 #ff1fb4;background:#f7f0e1}
+a.img{display:block;margin:0 0 30px;border:2px solid #1b1733;box-shadow:6px 6px 0 #ff1fb4;background:#f7f0e1}
 img{display:block;width:100%;height:auto}
 .note{color:#4a4560;font-size:15px}
 a{color:#6b2cff}
@@ -42,14 +46,8 @@ a{color:#6b2cff}
 </head>
 <body>
 <main>
-<p class="sur">Document de travail · 3 – 20 décembre 2026</p>
-<h1>Le dépliant du P’tit Festival</h1>
-<p>Le programme imprimé, en trois volets. Cette page montre toujours la dernière version.</p>
-<p class="note">Mise à jour : ''' + maj + '''. Touchez une image pour l'agrandir. Le site : <a href="../">ptit-festival.ch/apercu</a></p>
-<h2>Extérieur (rabat, dos, couverture)</h2>
-<a class="img" href="depliant-exterieur.webp?v=''' + v + '''"><img src="depliant-exterieur.webp?v=''' + v + '''" alt="Extérieur du dépliant : présentation du festival, programme jour par jour, couverture" width="2573" height="1819"></a>
-<h2>Intérieur (les spectacles)</h2>
-<a class="img" href="depliant-interieur.webp?v=''' + v + '''"><img src="depliant-interieur.webp?v=''' + v + '''" alt="Intérieur du dépliant : les spectacles, avec photos, dates et tarifs" width="2573" height="1819"></a>
+<a class="img" href="depliant-exterieur.webp?v=''' + v + '''"><img src="depliant-exterieur.webp?v=''' + v + '''" alt="Dépliant du P’tit Festival, extérieur : présentation, programme jour par jour, couverture" width="2573" height="1819"></a>
+<a class="img" href="depliant-interieur.webp?v=''' + v + '''"><img src="depliant-interieur.webp?v=''' + v + '''" alt="Dépliant du P’tit Festival, intérieur : les spectacles, avec photos, dates et tarifs" width="2573" height="1819"></a>
 </main>
 </body>
 </html>
