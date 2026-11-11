@@ -134,6 +134,21 @@ html[data-menu=centre-bande] .haut nav{background:var(--violet);padding:10px 34p
 html[data-menu=centre-bande] .haut nav a{color:#fff;opacity:.85}
 html[data-menu=centre-bande] .haut nav a:hover,html[data-menu=centre-bande] .haut nav a.actif{opacity:1;color:#fff;border-color:var(--cyanVif)}
 html[data-menu=centre-bande] .haut nav a.btn{background:var(--magenta);color:#fff;opacity:1;box-shadow:none}
+/* Entête comme le dépliant : logo noir penché, « au Théâtricul » souligné de rose, bandeau des dates crème */
+html[data-menu=centre-depliant] .haut{padding:34px 0 18px;gap:0;overflow:hidden}
+html[data-menu=centre-depliant] .haut:after{display:none}
+html[data-menu=centre-depliant] .marque{flex-direction:column;align-items:flex-start;gap:8px;transform:rotate(-4deg);margin:0 0 4px}
+html[data-menu=centre-depliant] .marque .pastille{display:none}
+html[data-menu=centre-depliant] #marqueTexte{font:900 clamp(36px,5.4vw,58px)/.95 Fraunces,Georgia,serif;letter-spacing:-.015em;color:var(--texte)}
+html[data-menu=centre-depliant] .marque:after{content:"au Théâtricul";font:700 clamp(11px,1.2vw,14px)/1 "Space Mono",monospace;text-transform:uppercase;letter-spacing:.22em;color:var(--texte);padding:0 4px 5px 2px;border-bottom:2px solid var(--magenta)}
+html[data-menu=centre-depliant] .haut:before{content:"3 – 20 décembre 2026";order:2;display:block;width:120%;margin:22px 0 30px;padding:12px 0 10px;text-align:center;font:800 clamp(21px,2.8vw,32px)/1.1 Fraunces,Georgia,serif;color:var(--texte);background:#fbf6ea;border-top:3px solid var(--texte);box-shadow:0 7px 0 var(--magenta);transform:rotate(-2deg)}
+html[data-menu=centre-depliant] .marque{order:1}
+html[data-menu=centre-depliant] .haut nav{order:3;padding:0 20px}
+html[data-menu=centre-depliant] .hero h1,html[data-menu=centre-depliant] .hero .quand{display:none}
+html[data-menu=centre-depliant] .hero{padding-top:clamp(40px,7vw,90px)}
+html[data-menu=centre-depliant] .hero .ou{font:italic 400 clamp(21px,2.3vw,28px)/1.4 var(--texte-police,Newsreader),Georgia,serif;color:var(--texte);margin:14px 0 28px;max-width:34ch}
+html[data-menu=centre-depliant] #presTexte .chapo{display:none}
+html[data-theme=nuit][data-menu=centre-depliant] .haut:before{background:#f7f0e1;color:#141127}
 @media (max-width:720px){
   html[data-menu=centre-affiche] .haut nav a:not(.btn)+a:not(.btn):before{margin:0 8px}
   html[data-menu=centre-bande] .haut nav,html[data-menu=centre-cadre] .haut nav{padding:8px 16px;gap:4px 16px}

@@ -1,29 +1,21 @@
 // Tout ce qui décrit le festival est ici. Les dates, heures et places des représentations
 // se saisissent dans l'appli de gestion des réservations ; les textes et photos des spectacles sont plus bas.
 window.FESTIVAL = {
-  nom: "Le Petit Festival au Théâtricul",
-  nomCourt: "Le Petit Festival",
-  edition: "1re édition · cirque · danse · théâtre · musique",
+  nom: "Le P’tit Festival au Théâtricul",
+  nomCourt: "Le P’tit Festival",
+  edition: "1re édition · cirque · danse · théâtre · musique · marionnette",
   dates: "Du 3 au 20 décembre 2026",
   lieu: "Théâtricul, Chêne-Bourg (Genève)",
   adresse: "Rue de Genève 64, 1225 Chêne-Bourg",
   site: "https://ptit-festival.ch",
   accroche: "Dix-huit jours de spectacles sur la petite scène du Théâtricul : cirque, théâtre, marionnette, musique, performance… Des artistes d'ici et d'ailleurs, des formes courtes et des grandes, et un cabaret pour finir.",
   presentation: [
-    "Le Théâtricul ouvre ses portes aux artistes de toutes les disciplines qui peuvent se produire sur sa petite scène : artistes professionnel·les, en voie de professionnalisation et élèves des écoles d'arts, sans limite d'âge. Le Petit Festival veut mettre en lumière et propulser leurs projets, avec une programmation éclectique et ouverte à tous les genres.",
-    "Au programme : des petits formats de 15 à 35 minutes, des grands formats jusqu'à une heure, et un cabaret où chaque numéro dure une dizaine de minutes. Plusieurs spectacles se jouent le même soir, le temps de boire un verre à la buvette entre deux.",
-    "La salle est petite, et c'est ce qui fait son charme : 45 à 50 places sur des bancs en gradin, à quelques mètres de la scène. Chaque spectacle a son tarif, parfois au chapeau, et toute la recette va aux artistes."
+    "Le P’tit Festival se vit au chaud. En entrant au Théâtricul, il y a la buvette et son poêle à bois : c'est là qu'on se retrouve, avant, entre et après les spectacles.",
+    "On s'y pose avec un verre, le bon vieux vin qu'on attend d'une soirée au théâtre, et de quoi manger : des choses simples, mais bonnes. On discute avec les artistes qui sortent de scène, en attendant que la salle rouvre ses portes pour le spectacle suivant.",
+    "Ici, la soirée ne s'arrête pas au salut final : elle continue au bord du poêle, dans un esprit convivial et festif. On vient pour un spectacle, on reste pour la soirée."
   ],
-  // Page « Le festival » : la buvette et le poêle à bois, entre les spectacles
-  coinDuFeu: {
-    sur: "Entre les spectacles",
-    titre: "Au coin du feu",
-    textes: [
-      "Le Petit Festival a lieu en décembre, et il se vit au chaud. En entrant au Théâtricul, on tombe sur la buvette et sur son poêle à bois : c'est là que tout le monde se retrouve, avant, entre et après les spectacles.",
-      "On s'y pose avec un verre, le bon vieux vin qu'on attend d'une soirée au théâtre, et de quoi manger : des choses simples, mais bonnes. On discute avec les artistes qui sortent de scène, on se réchauffe les mains près du poêle, puis on retourne s'asseoir sur les bancs pour le spectacle suivant.",
-      "Ici, la soirée ne s'arrête pas au salut final : elle continue au bord du poêle, dans un esprit convivial et festif. On vient pour un spectacle, on reste pour la soirée."
-    ]
-  },
+  // Ancienne section « Au coin du feu » : son texte est remonté dans la présentation (comme sur le dépliant)
+  coinDuFeu: null,
   organisation: "Le festival est organisé par Sévane Gurunlian et Yvette Challande, avec l'équipe du Théâtricul.",
   // Hommage discret à Gérard Challande (bas de la page « Le festival », et une ligne au bas du programme)
   hommage: {
@@ -31,11 +23,11 @@ window.FESTIVAL = {
     titre: "Gérard Challande, 1939–2021",
     textes: [
       "Comédien, chanteur d'opérette, imprimeur et bâtisseur, Gérard Challande a transformé en 1979 une ancienne écurie de Chêne-Bourg en salle de spectacle : le Théâtricul, « petit théâtre » en roumain, inauguré avec *Le Roi se meurt* d'Ionesco. Dix ans plus tard, il fonde avec Yvette Challande le Théâtre-Cirqule, l'école de cirque de Genève.",
-      "Il nous a quittés le 20 décembre 2021. Depuis, un cabaret lui rend hommage chaque année à cette date. Le Petit Festival prolonge cette habitude : il se termine le 20 décembre, avec le cabaret du 19 et « Ma vie tout simplement » d'Yvette Challande, et donne la priorité aux jeunes compagnies, comme le Théâtricul l'a toujours fait."
+      "Il nous a quittés le 20 décembre 2021. Depuis, un cabaret lui rend hommage chaque année à cette date. Le P’tit Festival prolonge cette habitude : il se termine le 20 décembre, avec le cabaret du 19 et « Ma vie tout simplement » d'Yvette Challande, et donne la priorité aux jeunes compagnies, comme le Théâtricul l'a toujours fait."
     ],
     photo: "photos/gerard-roi-se-meurt.webp",
     legende: "Gérard Challande dans « Le Roi se meurt », 1981. Photo : archives Challande.",
-    ligneProgramme: "Le Petit Festival se tient en souvenir de Gérard Challande, fondateur du Théâtricul.",
+    ligneProgramme: "Le P’tit Festival se tient en souvenir de Gérard Challande, fondateur du Théâtricul.",
     lienTexte: "Quelques mots sur lui"
   },
   theatricul: "Un petit théâtre insolite et charmant, niché au 64 rue de Genève à Chêne-Bourg, qui accueille depuis des années les compagnies émergentes des arts vivants. Une scène de 5 mètres sur 5, une cour et un petit jardin.",
@@ -303,7 +295,7 @@ window.SPECTACLES = {
   },
   "El Cabaret du festival": {
     discipline: "Cabaret",
-    court: "La soirée de clôture : des numéros d'une dizaine de minutes, de tous les genres, par les artistes du festival et leurs invité·es. Avec, entre autres, « L'Invitation » de Julian Bellini, un duo théâtral et jonglé joué avec un·e volontaire du public."
+    court: "La soirée de clôture : une suite de numéros d'une dizaine de minutes, de tous les genres, pour finir le festival en beauté."
   },
   "À la recherche du sourire perdu": {
     compagnie: "Formation artistique du Théâtre-Cirqule",

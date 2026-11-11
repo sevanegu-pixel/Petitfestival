@@ -90,7 +90,7 @@
       ['titre', 'Typo des titres', [['fraunces', 'Fraunces'], ['archivo', 'Archivo Black'], ['shoulders', 'Big Shoulders'], ['syne', 'Syne (avant)']]],
       ['texte', 'Typo des textes', [['newsreader', 'Newsreader (journal)'], ['franklin', 'Libre Franklin (presse)'], ['atkinson', 'Atkinson'], ['barlow', 'Barlow (avant)']]],
       ['prog', 'Programme', [['grand', 'Grand format'], ['liste', 'Liste (avant)']]],
-      ['menu', 'Menu', [['centre', 'Centré, ligne fine (actuel)'], ['centre-cadre', 'Centré, encadré'], ['centre-pastilles', 'Centré, pastilles'], ['centre-affiche', 'Centré, façon affiche'], ['centre-bande', 'Centré, bande violette'], ['barre', 'Barre en haut (avant)']]],
+      ['menu', 'Menu', [['centre-depliant', 'Comme le dépliant (nouveau)'], ['centre', 'Centré, ligne fine'], ['centre-cadre', 'Centré, encadré'], ['centre-pastilles', 'Centré, pastilles'], ['centre-affiche', 'Centré, façon affiche'], ['centre-bande', 'Centré, bande violette'], ['barre', 'Barre en haut (avant)']]],
       ['entete', 'Fond de l\'en-tête', [['aucun', 'Aucun (actuel)'], ['papier', 'Papier kraft'], ['rayures', 'Rayures fines'], ['aurore', 'Aurore (lueurs)'], ['nuit', 'Nuit étoilée'], ['diagonale', 'Diagonale colorée']]],
       ['ombre', 'Ombres (quantité)', 'curseur'],
       ['lueur', 'Lueurs colorées (accueil, bords des sections)', 'curseur'],
@@ -109,6 +109,7 @@
         OPTS.set(b.getAttribute('data-k'), b.getAttribute('data-v'));
         opt.querySelectorAll('[data-k="' + b.getAttribute('data-k') + '"]').forEach(function (x) { x.classList.toggle('on', x === b); });
         if (b.getAttribute('data-k') === 'prog' && window.PF_RAFRAICHIR) window.PF_RAFRAICHIR();
+        if (b.getAttribute('data-k') === 'menu' && document.body.getAttribute('data-page') === 'accueil') location.reload();
       };
     });
   }
@@ -168,7 +169,7 @@
     document.getElementById('heroEdition').textContent = F.edition || '';
     document.getElementById('heroTitre').textContent = F.nom || '';
     document.getElementById('heroDates').textContent = F.dates || '';
-    document.getElementById('heroLieu').textContent = F.lieu || '';
+    document.getElementById('heroLieu').textContent = (document.documentElement.getAttribute('data-menu') === 'centre-depliant' && F.accroche) || F.lieu || '';
     document.getElementById('hero').insertAdjacentHTML('beforeend', '<div class="rayures" aria-hidden="true"></div>');
     document.getElementById('presTexte').innerHTML = (F.accroche ? '<p class="chapo">' + esc(F.accroche) + '</p>' : '') + paras((F.presentation || []).slice(0, 1).join('\n\n')) + '<p><a href="festival.html">En savoir plus sur le festival</a></p>';
     document.getElementById('accesCourt').innerHTML = '<p><b>' + esc(F.adresse || F.lieu) + '</b></p>' + (F.acces || []).slice(0, 2).map(function (a) { return '<p><b>' + esc(a[0]) + '.</b> ' + esc(a[1]) + '</p>'; }).join('');
