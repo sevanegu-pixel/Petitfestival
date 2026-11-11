@@ -118,6 +118,10 @@ window.SPECTACLES = {
     distribution: "De et avec Ana Clara Hauri, jeune artiste de cirque genevoise."
   },
   "Corde et cordes": {
+    photos: [
+      { src: "photos/corde-1.webp", credit: "Photo : Miguel Bueno" },
+      { src: "photos/corde-2.webp", credit: "Photo : Miguel Bueno" }
+    ],
     compagnie: "Léa Gase, Céline Martin et Benoît Gautier",
     discipline: "Cirque aérien et contrebasse",
     duree: "15 min",
