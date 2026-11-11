@@ -277,7 +277,8 @@ window.SPECTACLES = {
     discipline: "Poésie palestinienne",
     age: "Ados et adultes",
     tarif: "25 francs (tarif réduit 20 francs)",
-    court: "Une soirée de poésie palestinienne, portée par une comédienne, un comédien et un musicien.",
+    court: "Une soirée de poésie palestinienne : les poèmes de Mosab Abu Toha, portés par une comédienne, un comédien et un musicien.",
+    long: "Poète et universitaire palestinien, Mosab Abu Toha a vu le jour, peu avant les accords d'Oslo (1992), dans le camp de réfugiés d'Al-Shati, à l'ouest de la ville de Gaza. La famille ayant été expulsée de Jaffa, ses deux parents étaient déjà nés dans des camps. Sa passion pour la langue anglaise lui a fait découvrir les auteurs romantiques grâce auxquels il peut « s'enfuir dans un monde imaginaire ». « Quand ils me parlent des arbres, des rivières, des nuages et des fleurs, ils m'invitent à partager leur expérience, ce qui est un très bon moyen pour moi de voyager hors de Gaza », confie-t-il dans une interview qui fait suite aux poèmes. Plus tard, il fondera la bibliothèque Edward Saïd, première bibliothèque anglophone de l'enclave.\n\nNous avons choisi de témoigner, de lire la poésie de Mosab, car elle nous touche profondément, elle nous permet de partager avec d'autres ce qui nous semble important : ne jamais s'incliner complètement devant l'irrémédiable, mais parler aux vivants, car c'est encore possible.\n\n« La poésie ça sert à voir plus loin, plus profond dans l'obscur. À marcher tête haute dans l'inconnu. À apprivoiser la nuit qui est en soi » (Jean-Pierre Siméon)",
     distribution: "Avec Maulde Coutau, Nicolas Reichel et Thomas Delclaud. Lumière : Martin Leu. Décor : Mani Berclaz."
   },
   "Acrobaties littéraires": {
