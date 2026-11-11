@@ -83,7 +83,7 @@
   }
 
   // Options de l'aperçu (thème, typos, mise en page)
-  if (OPTS && APERCU) {
+  if (OPTS && APERCU && OPTS.actif) {
     var GROUPES = [
       ['theme', 'Couleurs', [['clair', 'Clair'], ['nuit', 'Nuit']]],
       ['texture', 'Texture', [['argentique', 'Argentique'], ['nette', 'Nette']]],
