@@ -296,7 +296,7 @@ window.SPECTACLES = {
   },
   "El Cabaret du festival": {
     discipline: "Cabaret",
-    court: "La soirée de clôture : une suite de numéros d'une dizaine de minutes, de tous les genres, pour finir le festival en beauté. Avec, entre autres, « L'Invitation » de Julian Bellini, un duo théâtral et jonglé joué avec un·e volontaire du public."
+    court: "La soirée de clôture : une suite de numéros d'une dizaine de minutes, de tous les genres, pour finir le festival en beauté."
   },
   "À la recherche du sourire perdu": {
     compagnie: "Formation artistique du Théâtre-Cirqule",
