@@ -30,10 +30,10 @@ window.FESTIVAL = {
     ligneProgramme: "Le P’tit Festival se tient en souvenir de Gérard Challande, fondateur du Théâtricul.",
     lienTexte: "Quelques mots sur lui"
   },
-  theatricul: "Un petit théâtre insolite et charmant, niché au 64 rue de Genève à Chêne-Bourg, qui accueille depuis des années les compagnies émergentes des arts vivants. Une scène de 5 mètres sur 5, une cour et un petit jardin.",
+  theatricul: "Rue de Genève 64, 1225 Chêne-Bourg. Tram 12 ou 17, arrêt Peillonnex ; Léman Express, gare de Chêne-Bourg.",
   infos: [
-    ["Tarifs", "Chaque spectacle a son tarif, indiqué sur sa fiche ; certains sont au chapeau. Toute la recette revient aux artistes. Paiement sur place."],
-    ["Réservations", "La salle compte 45 à 50 places : réservez depuis la fiche de chaque spectacle. Vous recevez un e-mail de confirmation, et vos places vous attendent à l'entrée."],
+    ["Tarifs", "Chaque spectacle a son tarif, indiqué sur sa fiche ; toute la recette revient aux artistes. Paiement sur place."],
+    ["Réservations", "Réservez depuis la fiche de chaque spectacle. Vous recevez un e-mail de confirmation, et vos places vous attendent à l'entrée."],
     ["Sur place", "La buvette ouvre une heure avant le premier spectacle de la journée, avec de quoi boire et grignoter. Les portes de la salle ouvrent un quart d'heure avant chaque représentation."],
     ["Enfants", "Plusieurs spectacles sont pensés pour les familles ; l'âge conseillé est indiqué sur chaque fiche. Les tout-petits sont les bienvenus aux spectacles « dès 3 ans »."]
   ],
