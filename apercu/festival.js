@@ -318,6 +318,7 @@ window.SPECTACLES = {
     compagnie: "Floriza Flor",
     duree: "30 min",
     tarif: "Au chapeau",
+    distribution: "De et avec Floriza Flor, seule en scène.",
     court: "Floriza Flor retrace, raconte et rend hommage à des extraits du roman autobiographique d'Yvette Challande, « C'est quoi ce cirque ». Avec une touche d'humour et de sensibilité, sur des airs de Johnny Hallyday, et un clin d'œil à Gérard Challande."
   }
 };
