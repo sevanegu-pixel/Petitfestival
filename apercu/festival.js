@@ -122,7 +122,7 @@ window.SPECTACLES = {
     discipline: "Cirque aérien et contrebasse",
     duree: "15 min",
     age: "Tout public",
-    court: "Deux artistes de corde aérienne et un contrebassiste : entre équilibre et vertige, l'absurde flirte avec la poésie.",
+    court: "Entre vertige et équilibre, nous avons tenté de tisser sur la corde un univers où l'absurde flirte avec la poésie. Le son grave de la contrebasse fera vibrer les personnages, peut-être même les emportera-t-il ailleurs ?",
     long: "Sur la corde, entre équilibre et vertige, nous avons tenté de tisser un univers où l'absurde flirte avec la poésie. Le son grave de la contrebasse fait trembler les personnages.\n\nEntre cours, vie professionnelle et vie de famille, c'est la passion du cirque qui nous a réunis. De cette rencontre improbable est née une création où l'irrationnel devient notre langage. Deux personnages, à la fois confus et complices, se perdent et se retrouvent dans un délire surréaliste. La musique et le musicien, avec ses cordes, les enveloppent.",
     distribution: "De et avec Léa Gase et Céline Martin. Accompagnement musical : Benoît Gautier."
   },
