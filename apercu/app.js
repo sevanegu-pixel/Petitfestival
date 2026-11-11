@@ -56,7 +56,7 @@
     return {
       compagnie: e.compagnie || s.compagnie || '', discipline: s.discipline || '', duree: e.duree || s.duree || '', age: e.age || s.age || '',
       court: e.description || s.court || '', long: e.long || s.long || '', tarif: e.tarif || s.tarif || '', banque: s.banque || [], distribution: e.distribution || s.distribution || '', citation: s.citation || '',
-      photos: photos, photo: photos.length ? photos[0].src : '', credit: photos.length ? photos[0].credit : '', videos: videos, lien: s.lien || ''
+      photos: photos, photo: photos.length ? photos[0].src : '', credit: photos.length ? photos[0].credit : '', videos: videos, lien: s.lien || '', lienTitre: s.lienTitre || ''
     };
   }
   function visuel(e, s, classe, href) {
@@ -366,7 +366,7 @@
         (s.court ? '<div class="desc court">' + enrichir(s.court) + '</div>' : (s.long ? '' : '<p class="vide">Présentation à venir.</p>')) +
         (s.long ? '<button class="lire" id="lire" aria-expanded="false">Lire la suite</button><div class="suite" id="suite">' + paras(s.long) + (s.citation ? '<p class="citation">' + esc(s.citation) + '</p>' : '') + '</div>' : '') +
         (s.videos.length ? '<div class="videos"><h2>En vidéo</h2>' + s.videos.map(video).join('') + '</div>' : '') +
-        (s.lien ? '<p><a href="' + esc(s.lien) + '" rel="noopener">Le site de la compagnie</a></p>' : '') +
+        (s.lien ? '<p><a href="' + esc(s.lien) + '" rel="noopener">' + esc(s.lienTitre || 'Le site de la compagnie') + '</a></p>' : '') +
         (s.distribution ? '<p class="distribution">' + esc(s.distribution) + '</p>' : '') + '</div><div class="colle">';
       if (e.reservable || attente) {
         h += '<form id="resa" novalidate' + (attente ? ' data-attente="1"' : '') + '><h3>' + (attente ? 'Liste d\'attente' : 'Réserver') + '</h3>' + (attente ? '<p class="petit">C\'est complet, mais des places se libèrent souvent : inscrivez-vous, nous vous écrivons dès qu\'il y en a.</p>' : etat(e) ? '<p class="petit">' + etat(e) + '</p>' : '') +

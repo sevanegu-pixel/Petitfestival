@@ -280,7 +280,9 @@ window.SPECTACLES = {
     court: "Une soirée de poésie palestinienne, portée par une comédienne, un comédien et un musicien.",
     distribution: "Avec Maulde Coutau, Nicolas Reichel et Thomas Delclaud. Lumière : Martin Leu. Décor : Mani Berclaz."
   },
-  "Partir vers l'est": {
+  "Acrobaties littéraires": {
+    lien: "https://www.rising.tf/raphael-perrenoud-auteur",
+    lienTitre: "Le site d'auteur de Raphaël Perrenoud",
     photos: [
       { src: "photos/partir-a.webp", credit: "Photo : DR" },
       { src: "photos/partir-b.webp", credit: "Photo : DR" },
@@ -344,8 +346,8 @@ window.PROGRAMME_ESSAI = [
   ["2026-12-12", "20:00", "À la recherche du sourire perdu"],
   ["2026-12-13", "15:00", "À la recherche du sourire perdu"],
   ["2026-12-15", "20:00", "Sur le rivage de Gaza"],
-  ["2026-12-16", "19:30", "Partir vers l'est"],
-  ["2026-12-17", "19:30", "Partir vers l'est"],
+  ["2026-12-16", "19:30", "Acrobaties littéraires"],
+  ["2026-12-17", "19:30", "Acrobaties littéraires"],
   ["2026-12-18", "20:00", "Sur le rivage de Gaza"],
   ["2026-12-19", "17:00", "Ici sont les dragons"],
   ["2026-12-19", "18:00", "Corde et cordes"],
