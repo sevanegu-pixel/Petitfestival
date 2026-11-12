@@ -283,6 +283,7 @@ window.SPECTACLES = {
     distribution: "Avec Maulde Coutau, Nicolas Reichel et Thomas Delclaud. Lumière : Martin Leu. Décor : Mani Berclaz."
   },
   "Acrobaties littéraires": {
+    anciensNoms: ["Partir vers l'est"],
     lien: "https://www.rising.tf/raphael-perrenoud-auteur",
     lienTitre: "Le site d'auteur de Raphaël Perrenoud",
     photos: [
@@ -313,7 +314,6 @@ window.SPECTACLES = {
   "À la recherche du sourire perdu": {
     compagnie: "Formation artistique du Théâtre-Cirqule",
     discipline: "Cirque",
-    duree: "Environ 1 h 30",
     tarif: "Au chapeau",
     photos: [{ src: "photos/sourire-perdu.webp", credit: "Illustration : Yvette Challande" }],
     court: "Il était une fois un pays étrange où le sourire n'existait pas. Jamais on n'entendait le moindre rire, même les enfants ne savaient pas chanter, ni danser… La Reine était triste et tout le royaume devait être comme elle… Sa fille était capricieuse. Mais un jour, une vieille femme…"

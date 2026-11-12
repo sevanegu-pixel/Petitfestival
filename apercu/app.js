@@ -37,7 +37,7 @@
   function pluriel(n, mot) { return n + ' ' + mot + (n > 1 ? 's' : ''); }
 
   // Fusionne une représentation (feuille) avec sa fiche (festival.js) : la feuille gagne si elle est remplie.
-  var INDEX = {}; Object.keys(SP).forEach(function (k) { INDEX[norm(k)] = SP[k]; });
+  var INDEX = {}; Object.keys(SP).forEach(function (k) { INDEX[norm(k)] = SP[k]; (SP[k].anciensNoms || []).forEach(function (n) { if (!INDEX[norm(n)]) INDEX[norm(n)] = SP[k]; }); });
   function fiche(e) {
     var s = INDEX[norm(e.spectacle || e.titre)] || INDEX[norm(e.titre)] || {};
     var photos = (s.photos || []).slice();
