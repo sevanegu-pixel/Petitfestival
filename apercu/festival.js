@@ -307,7 +307,7 @@ window.SPECTACLES = {
     distribution: "Conception et interprétation : Yuridia Ortega et Raphaël Perrenoud. Compagnie Ceux qui boivent du thé. Lecture : Christiane Kolla, Patrice Mugny et Michel Chevallier, membres du comité de la SGE. Régie : Sévane Gurunlian. Livre « Lettres de gares et trains » de Raphaël Perrenoud et Man Nien Lam, présenté avec la Société Genevoise des Écrivaines et Écrivains."
   },
   "El Cabaret du festival": {
-    photos: [{ src: "photos/cabaret-1.webp", credit: "Affiche du cabaret de l'an passé · Gérard Challande dans « Le roi se meurt », 1981" }],
+    photos: [{ src: "photos/cabaret-2.webp", credit: "Visuel : Théâtricul" }, { src: "photos/cabaret-1.webp", credit: "Affiche du cabaret de l'an passé · Gérard Challande dans « Le roi se meurt », 1981" }],
     discipline: "Cabaret",
     duree: "Environ 1 h 30",
     tarif: "Au chapeau",
