@@ -119,11 +119,12 @@ window.SPECTACLES = {
   },
   "Corde et cordes": {
     photos: [
-      { src: "photos/corde-3.webp", credit: "Photo : Miguel Bueno" },
-      { src: "photos/corde-1.webp", credit: "Photo : Miguel Bueno" },
-      { src: "photos/corde-4.webp", credit: "Photo : Miguel Bueno" },
-      { src: "photos/corde-2.webp", credit: "Photo : Miguel Bueno" }
+      { src: "photos/corde-6573.webp", credit: "Photo : Miguel Bueno" },
+      { src: "photos/corde-6044.webp", credit: "Photo : Miguel Bueno" },
+      { src: "photos/corde-contrebasse.webp", credit: "Photo : DR" },
+      { src: "photos/corde-6612.webp", credit: "Photo : Miguel Bueno" }
     ],
+    tarif: "Prix libre, 5 francs conseillés, 10 francs de soutien",
     compagnie: "Léa Gase, Céline Martin et Benoît Gautier",
     discipline: "Cirque aérien et contrebasse",
     duree: "15 min",
