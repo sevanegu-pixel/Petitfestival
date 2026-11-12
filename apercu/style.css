@@ -525,3 +525,27 @@ html[data-theme=nuit] .hero .croquis img{filter:invert(1)}
 .fiche .tarifs li span{flex:1}
 .fiche .tarifs li b{white-space:nowrap;font-weight:700}
 .fiche .tarifNote{margin:6px 0 0;font-size:14px;line-height:1.45;opacity:.8}
+
+/* ===== Téléphone (12.11) : en-tête plus compact, début de l'accueil resserré ===== */
+@media (max-width:860px){
+  /* Accueil : le personnage se pose à droite des boutons au lieu d'occuper un écran entier */
+  html[data-menu=centre-depliant] .hero{padding-top:30px;padding-bottom:calc(var(--pente) + 26px)}
+  html[data-menu=centre-depliant] .hero .ou{margin:10px 0 0}
+  .hero .actions{flex-direction:column;align-items:flex-start;gap:12px;margin-top:22px;min-height:clamp(200px,54vw,330px);max-width:56%}
+  .hero .actions .btn{white-space:nowrap}
+  .hero .croquis{position:absolute;right:14px;left:auto;top:auto;bottom:calc(var(--pente) + 4px);transform:none;width:min(40%,250px);height:auto;margin:0}
+  .hero .croquis img{width:100%;height:auto}
+  .hero .croquis figcaption{position:static;white-space:normal;font-size:9.5px;line-height:1.35;margin-top:4px}
+  .hero .croquis .ast{font-size:22px;top:3%;right:2%}
+  .hero .rayures{display:none}
+}
+@media (max-width:560px){
+  html[data-menu=centre-depliant] .haut{padding:22px 0 12px}
+  html[data-menu=centre-depliant] #marqueTexte{font-size:34px}
+  html[data-menu=centre-depliant] .haut:before{margin:16px 0 18px;padding:10px 0 8px;font-size:18px}
+  html[data-menu=centre-depliant] .haut nav{gap:4px 15px;font-size:14.5px;padding:0 12px}
+  html[data-menu=centre-depliant] .haut nav a.btn{padding:8px 16px;flex-basis:auto;margin-top:2px}
+  .sur{font-size:12px;letter-spacing:.11em}
+}
+/* Titre de section sur deux lignes : ne touche plus les pointillés du premier jour */
+.affiche h2{margin-bottom:26px}
