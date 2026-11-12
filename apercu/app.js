@@ -279,6 +279,7 @@
       return h;
     }
     function afficherProgramme() {
+      document.documentElement.classList.remove('ficheResa');
       document.title = 'Programme · ' + (F.nom || 'Festival');
       vue.innerHTML = programme(); vueActuelle = 'programme';
       vue.querySelectorAll('.filtre button').forEach(function (b) { b.onclick = function () { filtreActif = b.getAttribute('data-f'); afficherProgramme(); }; });
@@ -287,6 +288,7 @@
 
     // Page d'une journée : tous les spectacles du jour + réservation groupée
     function afficherJour(d) {
+      document.documentElement.classList.remove('ficheResa');
       var evs = evenements.filter(function (e) { return e.date === d; }), ds = dates(), i = ds.indexOf(d);
       document.title = maj(dateLongue(d)) + ' · ' + (F.nom || 'Festival');
       var ouverts = evs.filter(function (e) { return e.reservable; });
@@ -363,7 +365,7 @@
       var max = attente ? 10 : e.restantes != null ? Math.min(10, Math.max(e.restantes, libresC)) : 10, opts = '';
       for (var k = 1; k <= max; k++) opts += '<option>' + k + '</option>';
       var autres = memeJour(e).filter(function (x) { return x !== e; });
-      var h = '<div class="fiche"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a>' + (s.discipline ? '<p><span class="tag">' + esc(s.discipline) + '</span></p>' : '') + '<h1>' + esc(e.titre) + '</h1>' +
+      var h = '<div class="fiche"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a>' + '<p class="ficheTete">' + (s.discipline ? '<span class="tag">' + esc(s.discipline) + '</span>' : '') + ((e.reservable || attente) ? '<button type="button" class="btn petitbtn versResa" id="versResa">' + (attente ? 'Liste d\'attente pour ce spectacle' : 'Réserver pour ce spectacle') + '</button>' : '') + '</p><h1>' + esc(e.titre) + '</h1>' +
         (s.compagnie ? '<p class="cie">' + esc(s.compagnie) + '</p>' : '');
       if (s.photos.length) {
         h += '<div class="galerie" id="galerie"><div class="visuel principal"><img src="' + esc(s.photos[0].src) + '" alt="' + esc(e.titre) + '"></div>' +
@@ -389,7 +391,7 @@
           (optsResa.length && !attente ? '<fieldset class="optionsResa"><legend>Options</legend>' + optsResa.map(function (o) {
             var plein = o.type === 'contingent' && o.restantes != null && o.restantes <= 0;
             return '<label class="optResa' + (plein ? ' plein' : '') + '"><input type="checkbox" name="opt" value="' + esc(o.id) + '"' + (plein ? ' disabled' : '') + '> <span><b>' + esc(o.nom) + '</b>' +
-              (o.aide ? '<small>' + esc(o.aide) + '</small>' : '') + (o.type === 'contingent' && o.restantes != null ? '<small>' + (plein ? 'Ces places sont toutes prises.' : 'Places réservées : encore ' + o.restantes) + '</small>' : '') + '</span></label>';
+              (o.aide ? '<small>' + esc(o.aide) + '</small>' : '') + (plein ? '<small>Ces places sont toutes prises.</small>' : '') + '</span></label>';
           }).join('') + '</fieldset>' : '') +
           '<label for="message">Message</label><textarea id="message" name="message"></textarea>' +
           '<input class="piege" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">' +
@@ -409,6 +411,10 @@
           (suiv ? '<a class="suivant" href="' + lienFiche(suiv) + '"><div><p class="sens">Spectacle suivant →</p><p class="titre">' + esc(suiv.titre) + '</p><p class="quand">' + esc(dateCourte(suiv.date)) + (suiv.debut ? ' · ' + esc(suiv.debut) : '') + '</p></div>' + visuel(suiv, fiche(suiv)) + '</a>' : '') + '</nav>';
       }
       vue.innerHTML = h + '</div></div>'; vueActuelle = 'fiche';
+      // Sur une fiche réservable, le bouton « Réservation » du menu est remplacé par « Réserver pour ce spectacle », qui descend au formulaire.
+      var vr = document.getElementById('versResa');
+      document.documentElement.classList.toggle('ficheResa', !!vr);
+      if (vr) vr.onclick = function () { var f = document.getElementById('resa'); if (f) { f.scrollIntoView({ behavior: 'smooth', block: 'start' }); var n = document.getElementById('nom'); if (n) setTimeout(function () { n.focus({ preventScroll: true }); }, 500); } };
       scrollTo(0, 0);
       var lire = document.getElementById('lire');
       if (lire) lire.onclick = function () { var o = document.getElementById('suite').classList.toggle('ouvert'); lire.textContent = o ? 'Réduire' : 'Lire la suite'; lire.setAttribute('aria-expanded', o); };

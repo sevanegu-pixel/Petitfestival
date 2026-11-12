@@ -549,3 +549,9 @@ html[data-theme=nuit] .hero .croquis img{filter:invert(1)}
 }
 /* Titre de section sur deux lignes : ne touche plus les pointillés du premier jour */
 .affiche h2{margin-bottom:26px}
+
+/* Fiche spectacle : bouton « Réserver pour ce spectacle » à côté de la discipline ; le bouton du menu s'efface sur ces pages */
+.ficheTete{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin:0 0 14px}
+.ficheTete .versResa{cursor:pointer;font-size:14px;padding:8px 14px}
+html.ficheResa .haut nav a.btn{display:none}
+#resa{scroll-margin-top:24px}
