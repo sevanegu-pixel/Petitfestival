@@ -66,6 +66,18 @@
     return '<' + tag + h + ' class="visuel vide t' + t + ' ' + (classe || '') + '" aria-hidden="true">' + esc((e.titre || '?').charAt(0).toUpperCase()) + '</' + tag + '>';
   }
   function meta(s) { return [s.discipline, s.duree, s.age].filter(Boolean).join(' · '); }
+  /* Tarif sur plusieurs lignes (champ « Tarif » de la feuille ou de festival.js) : chaque ligne « Libellé : prix » devient une ligne de grille,
+     une ligne qui commence par * devient une note. Sur une seule ligne, le tarif s'affiche tel quel. */
+  function tarifHtml(t) {
+    t = String(t || ''); if (!/\n/.test(t)) return esc(t);
+    var lignes = t.split(/\n+/).map(function (l) { return l.trim(); }).filter(Boolean), grille = '', notes = '';
+    lignes.forEach(function (l) {
+      var m = l.match(/^(.*\S)\s+:\s+(.+)$/);
+      if (/^\*/.test(l) || !m) notes += '<p class="tarifNote">' + esc(l) + '</p>';
+      else grille += '<li><span>' + esc(m[1]) + '</span><b>' + esc(m[2]) + '</b></li>';
+    });
+    return (grille ? '<ul class="tarifs">' + grille + '</ul>' : '') + notes;
+  }
   function lienFiche(e) { return 'programme.html#' + encodeURIComponent(e.id); }
   function lienJour(d) { return 'programme.html#jour-' + d; }
   function memeJour(e) { return evenements.filter(function (x) { return x.date === e.date; }); }
@@ -362,7 +374,7 @@
         '<dl><dt>Date</dt><dd>' + esc(dateLongue(e.date)) + '</dd>' + (heure(e) ? '<dt>Heure</dt><dd>' + esc(heure(e)) + '</dd>' : '') +
         (s.duree ? '<dt>Durée</dt><dd>' + esc(s.duree) + '</dd>' : '') + (s.age ? '<dt>Public</dt><dd>' + esc(s.age) + '</dd>' : '') +
         '<dt>Lieu</dt><dd>' + esc([e.lieu || 'Théâtricul', e.adresse || F.adresse].filter(Boolean).join(', ')) + '</dd>' +
-        (s.tarif ? '<dt>Tarif</dt><dd>' + esc(s.tarif) + '</dd>' : '') + '</dl>' +
+        (s.tarif ? '<dt>Tarif' + (/\n/.test(s.tarif) ? 's' : '') + '</dt><dd>' + tarifHtml(s.tarif) + '</dd>' : '') + '</dl>' +
         (s.court ? '<div class="desc court">' + enrichir(s.court) + '</div>' : (s.long ? '' : '<p class="vide">Présentation à venir.</p>')) +
         (s.long ? '<button class="lire" id="lire" aria-expanded="false">Lire la suite</button><div class="suite" id="suite">' + paras(s.long) + (s.citation ? '<p class="citation">' + esc(s.citation) + '</p>' : '') + '</div>' : '') +
         (s.videos.length ? '<div class="videos"><h2>En vidéo</h2>' + s.videos.map(video).join('') + '</div>' : '') +
