@@ -345,7 +345,7 @@ window.PROGRAMME_ESSAI = [
   ["2026-12-06", "19:00", "MERCALM"],
   ["2026-12-10", "18:30", "Pâtes au Ketchup"],
   ["2026-12-10", "19:30", "I.A Ma Chère"],
-  ["2026-12-10", "20:15", "Les 12 lettres du facteur Cheval"],
+  ["2026-12-10", "20:10", "Les 12 lettres du facteur Cheval"],
   ["2026-12-11", "18:00", "Hans l'Heureux"],
   ["2026-12-11", "18:55", "Corde et cordes"],
   ["2026-12-11", "20:00", "Les 12 lettres du facteur Cheval"],
