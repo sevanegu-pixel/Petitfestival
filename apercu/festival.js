@@ -190,6 +190,7 @@ window.SPECTACLES = {
       { src: "photos/hans-4.webp", credit: "Photo : Compagnie Étourderie" }
     ],
     photo: "photos/hans-visuel.webp",
+    entier: true, // visuel en hauteur sur fond noir : montré en entier, centré
     credit: "Visuel : Compagnie Étourderie",
     compagnie: "Compagnie Étourderie",
     discipline: "Marionnettes et conte",
@@ -198,7 +199,7 @@ window.SPECTACLES = {
     tarif: "15 francs, prix unique",
     court: "Adaptation du conte traditionnel des frères Grimm. Vous ne ferez plus jamais votre lessive de la même manière ! Pimprenelle se fait surprendre par les habits qu'elle étend et se voit raconter, malgré elle, l'histoire de Hans l'Heureux.",
     long: "D'après le conte « Hans im Glück » des frères Grimm.\n\nPimprenelle vient étendre sa lessive sur scène mais tombe, très surprise, sur tout un public présent dans la salle. Elle interagit pour savoir ce que tous ces gens sont venus faire dans son espace buanderie. Après avoir compris qu'ils viennent pour écouter un spectacle, Pimprenelle négocie de pouvoir juste ranger son linge avant d'écouter, elle aussi, l'histoire. Au moment de retirer le linge de la corde, les habits font comme appel à elle. Ils s'animent. Pimprenelle se dit alors qu'elle pourrait elle-même raconter l'histoire de « Hans l'Heureux »…\n\nInspiré du travail de l'artiste Helga Stentzel, ce spectacle fait apparaître les animaux de l'histoire au travers des vêtements étendus sur la corde à linge. Il suscite ainsi, avec des matériaux communs, l'imagination et l'élan créatif des enfants.\n\nVenez découvrir ce conte traditionnel, revisité par le regard de Delphine Tschopp, assistée d'Amélie Chérubin Soulières à la mise en scène et d'Emilie Bender à la manipulation des marionnettes.\n\nLa Compagnie Étourderie crée des spectacles se produisant proche des gens, avec une volonté d'interaction avec le public. Les histoires sont présentées avec humour et sincérité et s'adressent aux tout petits comme aux tout grands.",
-    distribution: "Écriture et jeu : Delphine Tschopp. Mise en scène : Amélie Chérubin Soulières. Manipulation des marionnettes : Emilie Bender. La compagnie fribourgeoise Étourderie était déjà au Théâtricul en décembre 2024 avec « Sur mon chemin, des pierres »."
+    distribution: "Écriture et jeu : Delphine Tschopp. Mise en scène : Amélie Chérubin Soulières. Conseil marionnettique : Émilie Bender. La compagnie fribourgeoise Étourderie était déjà au Théâtricul en décembre 2024 avec « Sur mon chemin, des pierres »."
   },
   "MERCALM": {
     photos: [
@@ -328,7 +329,7 @@ window.SPECTACLES = {
     duree: "30 min",
     tarif: "Au chapeau",
     distribution: "De et avec Floriza Flor, seule en scène.",
-    court: "Floriza Flor retrace, raconte et rend hommage à des extraits du roman autobiographique d'Yvette Challande, « C'est quoi ce cirque ». Avec une touche d'humour et de sensibilité, sur des airs de Johnny Hallyday, et un clin d'œil à Gérard Challande."
+    court: "Floriza Flor retrace, raconte et rend hommage à des extraits de « C'est quoi ce cirque », le roman autobiographique d'Yvette Challande. Avec une touche d'humour et de sensibilité, sur des airs de Johnny Hallyday, et un clin d'œil à Gérard Challande."
   }
 };
 
@@ -352,7 +353,7 @@ window.PROGRAMME_ESSAI = [
   ["2026-12-12", "17:00", "Ici sont les dragons"],
   ["2026-12-12", "20:00", "À la recherche du sourire perdu"],
   ["2026-12-13", "15:00", "À la recherche du sourire perdu"],
-  ["2026-12-15", "20:00", "Sur le rivage de Gaza"],
+  ["2026-12-15", "20:30", "Sur le rivage de Gaza"],
   ["2026-12-16", "19:30", "Acrobaties littéraires"],
   ["2026-12-17", "19:30", "Acrobaties littéraires"],
   ["2026-12-18", "20:30", "Sur le rivage de Gaza"],

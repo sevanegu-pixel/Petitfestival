@@ -200,6 +200,8 @@ html[data-entete=diagonale][data-menu^=centre] .haut:after{display:none}
 .carteSp:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--magenta)}
 .visuel{aspect-ratio:3/2;background:var(--fond2);position:relative;overflow:hidden}
 .visuel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.visuel.entier,html[data-texture=argentique] .visuel.entier{background:#0a0a0a}
+.visuel.entier img,.galerie .principal.entier img{object-fit:contain;object-position:50% 50%}
 .visuel.vide{display:flex;align-items:flex-end;padding:14px;font:var(--gras) 64px/1 var(--titre);color:var(--videTexte);background:linear-gradient(160deg,var(--fond2),var(--carte))}
 .visuel.vide:after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:linear-gradient(180deg,var(--jauneVif),var(--corail) 60%,var(--magenta));opacity:.35;mask:repeating-linear-gradient(180deg,#000 0 70%,transparent 70% 100%) 0 0/100% 18px}
 .visuel.vide.t1:after{background:linear-gradient(180deg,var(--cyanVif),var(--magenta))}

@@ -82,12 +82,12 @@
     return {
       compagnie: e.compagnie || s.compagnie || '', discipline: s.discipline || '', duree: e.duree || s.duree || '', age: e.age || s.age || '',
       court: e.description || s.court || '', long: e.long || s.long || '', tarif: e.tarif || s.tarif || '', banque: s.banque || [], distribution: e.distribution || s.distribution || '', citation: s.citation || '',
-      photos: photos, photo: photos.length ? photos[0].src : '', credit: photos.length ? photos[0].credit : '', videos: videos, lien: s.lien || '', lienTitre: s.lienTitre || ''
+      photos: photos, photo: photos.length ? photos[0].src : '', credit: photos.length ? photos[0].credit : '', videos: videos, lien: s.lien || '', lienTitre: s.lienTitre || '', entier: !!s.entier
     };
   }
   function visuel(e, s, classe, href) {
     var tag = href ? 'a' : 'div', h = href ? ' href="' + href + '"' : '';
-    if (s.photo) return '<' + tag + h + ' class="visuel ' + (classe || '') + '"><img src="' + esc(s.photo) + '" alt="' + esc(e.titre) + '" loading="lazy"></' + tag + '>';
+    if (s.photo) return '<' + tag + h + ' class="visuel ' + (s.entier ? 'entier ' : '') + (classe || '') + '"><img src="' + esc(s.photo) + '" alt="' + esc(e.titre) + '" loading="lazy"></' + tag + '>';
     var t = (norm(e.titre).length % 3);
     return '<' + tag + h + ' class="visuel vide t' + t + ' ' + (classe || '') + '" aria-hidden="true">' + esc((e.titre || '?').charAt(0).toUpperCase()) + '</' + tag + '>';
   }
@@ -396,7 +396,7 @@
       var h = '<div class="fiche"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a>' + '<p class="ficheTete">' + (s.discipline ? '<span class="tag">' + esc(s.discipline) + '</span>' : '') + ((e.reservable || attente) ? '<button type="button" class="btn petitbtn versResa" id="versResa">' + (attente ? 'Liste d\'attente pour ce spectacle' : 'Réserver pour ce spectacle') + '</button>' : '') + '</p><h1>' + esc(e.titre) + '</h1>' +
         (s.compagnie ? '<p class="cie">' + esc(s.compagnie) + '</p>' : '');
       if (s.photos.length) {
-        h += '<div class="galerie" id="galerie"><div class="visuel principal"><img src="' + esc(s.photos[0].src) + '" alt="' + esc(e.titre) + '"></div>' +
+        h += '<div class="galerie" id="galerie"><div class="visuel principal' + (s.entier ? ' entier' : '') + '"><img src="' + esc(s.photos[0].src) + '" alt="' + esc(e.titre) + '"></div>' +
           (s.photos.length > 1 ? '<div class="vignettes" role="group" aria-label="Autres photos">' + s.photos.map(function (p, n) { return '<button type="button" class="' + (n ? '' : 'on') + '" data-n="' + n + '" aria-label="Photo ' + (n + 1) + '"><img src="' + esc(p.src) + '" alt="" loading="lazy"></button>'; }).join('') + '</div>' : '') +
           '<p class="credit" id="credit">' + esc(s.photos[0].credit || '') + '</p></div>';
       }
