@@ -280,7 +280,7 @@
         '<p class="resume">' + pluriel(evs.length, 'spectacle') + (evs[0].debut ? ' · dès ' + esc(evs[0].debut) : '') + '</p><div class="jourActions">' + boutonJour(d) + '</div></header>';
     }
     function programme() {
-      var h = '<section class="entete"><div class="int large"><p class="sur">Programme</p><h1>Dix-huit jours, tous les genres</h1><p class="chapo">Chaque spectacle a son tarif, souvent au chapeau. Réservez spectacle par spectacle, ou toute une journée d\'un coup : la salle est petite.</p>';
+      var h = '<section class="entete"><div class="int large"><p class="sur">Programme</p><h1>Dix-huit jours, tous les genres</h1><p class="chapo">Chaque spectacle a son tarif, souvent au chapeau. Réservez spectacle par spectacle, ou toute une journée d\'un coup : la salle est petite. La programmation peut encore évoluer : revenez voir cette page.</p>';
       if (evenements === null) return h + '</div></section><section class="bande pres"><div class="int large"><p class="vide">Chargement du programme…</p></div></section>';
       if (!evenements.length) return h + '</div></section><section class="bande pres"><div class="int large">' + messageVide() + '</div></section>';
       h += barreJours() + '</div></section><section class="bande pres"><div class="int large">';

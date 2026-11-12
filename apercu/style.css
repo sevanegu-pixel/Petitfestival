@@ -327,8 +327,10 @@ html[data-entete=diagonale][data-menu^=centre] .haut:after{display:none}
 .fiche h1{font-size:clamp(36px,6.5vw,76px);margin:6px 0 8px;max-width:18ch}
 .fiche .cie{color:var(--doux);font-size:21px;margin:0 0 26px}
 .galerie{margin:0 0 30px}
-.galerie .principal{aspect-ratio:16/8;clip-path:polygon(0 0,100% 0,100% calc(100% - 30px),calc(100% - 30px) 100%,0 100%);background:var(--fond2)}
-.galerie .principal img{width:100%;height:100%;object-fit:cover}
+.galerie .principal{aspect-ratio:3/2;max-height:660px;width:100%;clip-path:polygon(0 0,100% 0,100% calc(100% - 30px),calc(100% - 30px) 100%,0 100%);background:var(--fond2)}
+.galerie .principal,html[data-texture=argentique] .galerie .principal{background:#15131f}
+.galerie .principal img{width:100%;height:100%;object-fit:contain;object-position:50% 50%}
+.galerie .principal.entier,html[data-texture=argentique] .galerie .principal.entier{background:#0a0a0a}
 .galerie .credit{font-size:13px;color:var(--doux);margin:8px 0 0}
 .vignettes{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 0}
 .vignettes button{width:110px;aspect-ratio:3/2;padding:0;border:2px solid transparent;background:var(--fond2);cursor:pointer;overflow:hidden;opacity:.75}

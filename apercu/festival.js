@@ -122,7 +122,9 @@ window.SPECTACLES = {
       { src: "photos/corde-6573.webp", credit: "Photo : Miguel Bueno" },
       { src: "photos/corde-6044.webp", credit: "Photo : Miguel Bueno" },
       { src: "photos/corde-contrebasse.webp", credit: "Photo : DR" },
-      { src: "photos/corde-6612.webp", credit: "Photo : Miguel Bueno" }
+      { src: "photos/corde-6612.webp", credit: "Photo : Miguel Bueno" },
+      { src: "photos/corde-contrebasse-2.webp", credit: "Photo : DR" },
+      { src: "photos/corde-duo.webp", credit: "Photo : Miguel Bueno" }
     ],
     tarif: "Prix libre, 5 francs conseillés, 10 francs de soutien",
     compagnie: "Léa Gase, Céline Martin et Benoît Gautier",
@@ -135,13 +137,12 @@ window.SPECTACLES = {
   },
   "I.A Ma Chère": {
     photos: [
-      { src: "photos/ia-ma-chere.webp", credit: "Photo : Jordan Fraser Emery" },
       { src: "photos/ia-ma-chere-2.webp", credit: "Photo : Jordan Fraser Emery" },
       { src: "photos/ia-ma-chere-3.webp", credit: "Photo : Jordan Fraser Emery" },
       { src: "photos/ia-ma-chere-4.webp", credit: "Photo : Jordan Fraser Emery" }
     ],
     videos: [{ url: "https://youtu.be/w1-ZoSAk0B4", titre: "Extrait vidéo" }],
-    photo: "photos/ia-ma-chere.webp",
+    photo: "photos/ia-ma-chere-2.webp",
     credit: "Photo : Jordan Fraser Emery",
     compagnie: "Jordan Fraser Emery",
     discipline: "Performance et art numérique",
@@ -204,8 +205,7 @@ window.SPECTACLES = {
   },
   "MERCALM": {
     photos: [
-      { src: "photos/mercalm.webp", credit: "Photo : MERCALM" },
-      { src: "photos/mercalm-2.webp", credit: "Photo : MERCALM, en Norvège" }
+      { src: "photos/mercalm.webp", credit: "Photo : MERCALM, en Norvège" }
     ],
     videos: [{ url: "https://www.youtube.com/watch?v=aUMH9B6UjXo", titre: "Concert à la Brasserie du Mât, Genève" }],
     photo: "photos/mercalm.webp",
@@ -223,7 +223,6 @@ window.SPECTACLES = {
     photos: [
       { src: "photos/dragons.webp", credit: "Photo : Marc Chabourlin" },
       { src: "photos/dragons-2.webp", credit: "Photo : Circo Nagual" },
-      { src: "photos/dragons-3.webp", credit: "Photo : Marc Chabourlin" },
       { src: "photos/dragons-4.webp", credit: "Photo : Circo Nagual" }
     ],
     photo: "photos/dragons.webp",
@@ -312,7 +311,7 @@ window.SPECTACLES = {
     discipline: "Cabaret",
     duree: "Environ 1 h 30",
     tarif: "Au chapeau",
-    court: "La soirée de clôture : une suite de numéros d'une dizaine de minutes, de tous les genres, pour finir le festival en beauté."
+    court: "Une grande soirée cabaret : une suite de numéros d'une dizaine de minutes, de tous les genres."
   },
   "À la recherche du sourire perdu": {
     compagnie: "Formation artistique du Théâtre-Cirqule",
