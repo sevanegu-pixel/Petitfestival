@@ -327,6 +327,7 @@ window.SPECTACLES = {
       { src: "photos/cest-quoi-2.webp", credit: "Floriza Flor · Photo : DR" }
     ],
     compagnie: "Floriza Flor",
+    discipline: "Théâtre",
     duree: "30 min",
     tarif: "Au chapeau",
     distribution: "De et avec Floriza Flor, seule en scène.",
