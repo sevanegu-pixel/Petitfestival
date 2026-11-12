@@ -8,6 +8,32 @@
   var FRAIS = /[?&]frais=/.test(location.search); // ?frais=1 : ignorer la copie locale (aperçu depuis l'appli)
   var APERCU = /\/apercu\//.test(location.pathname);
   var CACHE = 'pf_evenements';
+  // Réglages du formulaire de réservation, choisis dans l'appli (réponse « formulaire » de ?api=evenements). Sans eux : comportement d'origine.
+  var FORM = { telephone: 'facultatif', message: 'facultatif', telDes: 0, maxPlaces: 10 };
+  function reglerForm(f) {
+    if (!f || typeof f !== 'object') return;
+    ['telephone', 'message'].forEach(function (k) { if (/^(facultatif|obligatoire|masque)$/.test(f[k])) FORM[k] = f[k]; });
+    FORM.telDes = Math.max(0, Math.floor(Number(f.telDes) || 0)); FORM.maxPlaces = Math.max(1, Math.floor(Number(f.maxPlaces) || 10));
+  }
+  function telObligatoire(places) { return FORM.telephone === 'obligatoire' || (FORM.telephone === 'facultatif' && FORM.telDes > 0 && Number(places) >= FORM.telDes); }
+  function champTel() {
+    if (FORM.telephone === 'masque') return '';
+    var des = FORM.telephone === 'facultatif' && FORM.telDes > 0;
+    return '<label for="telephone">Téléphone<span id="telEtoile"' + (telObligatoire(1) ? '' : ' hidden') + '> *</span>' + (des ? ' <small class="mention">obligatoire à partir de ' + FORM.telDes + ' places</small>' : '') + '</label><input id="telephone" name="telephone" type="tel" autocomplete="tel"' + (telObligatoire(1) ? ' required' : '') + '>';
+  }
+  function champMessage() { return FORM.message === 'masque' ? '' : '<label for="message">Message' + (FORM.message === 'obligatoire' ? ' *' : '') + '</label><textarea id="message" name="message"' + (FORM.message === 'obligatoire' ? ' required' : '') + '></textarea>'; }
+  // Le téléphone devient obligatoire dès que le nombre de places atteint le seuil choisi.
+  function suivreTel(f) {
+    var sel = f.querySelector('[name=places]'), tel = f.querySelector('[name=telephone]'), et = f.querySelector('#telEtoile');
+    if (!sel || !tel) return;
+    function maj() { var o = telObligatoire(sel.value); tel.required = o; if (et) et.hidden = !o; }
+    sel.addEventListener('change', maj); maj();
+  }
+  function erreurForm(d) {
+    if (FORM.telephone !== 'masque' && telObligatoire(d.places) && !String(d.telephone || '').trim()) return FORM.telephone === 'obligatoire' ? 'Indiquez votre numéro de téléphone.' : 'À partir de ' + FORM.telDes + ' places, indiquez votre numéro de téléphone.';
+    if (FORM.message === 'obligatoire' && !String(d.message || '').trim()) return 'Écrivez un message.';
+    return '';
+  }
 
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }).replace(/« /g, '«\u00a0').replace(/ »/g, '\u00a0»'); } // guillemets français collés au mot (espace insécable)
   function norm(t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); }
@@ -142,14 +168,15 @@
   function charger(cb) {
     if (!F.api) { evenements = []; cb(); return; }
     var brut = null;
-    try { var c = JSON.parse(localStorage.getItem(CACHE) || 'null'); if (!FRAIS && c && c.evenements && Date.now() - c.t < 7 * 86400e3) brut = c.evenements; } catch (e) {}
+    try { var c = JSON.parse(localStorage.getItem(CACHE) || 'null'); if (!FRAIS && c && c.evenements && Date.now() - c.t < 7 * 86400e3) { brut = c.evenements; reglerForm(c.formulaire); } } catch (e) {}
     if (brut) { evenements = preparer(brut); cb(); }
     else if (window.PROGRAMME_ESSAI && APERCU) { evenements = preparer([]); cb(); }
     fetch(F.api + '?api=evenements').then(function (r) { return r.json(); }).then(function (d) {
-      var liste = d.evenements || [];
+      var liste = d.evenements || [], avantForm = JSON.stringify(FORM);
+      reglerForm(d.formulaire);
       var texte = JSON.stringify(liste);
-      try { localStorage.setItem(CACHE, JSON.stringify({ t: Date.now(), evenements: liste })); } catch (e) {}
-      if (brut && JSON.stringify(brut) === texte) return;
+      try { localStorage.setItem(CACHE, JSON.stringify({ t: Date.now(), evenements: liste, formulaire: d.formulaire || null })); } catch (e) {}
+      if (brut && JSON.stringify(brut) === texte && avantForm === JSON.stringify(FORM)) return;
       evenements = preparer(liste); cb(true);
     }).catch(function () { if (evenements === null) { evenements = []; erreurChargement = true; cb(); } });
   }
@@ -299,16 +326,16 @@
         '<div class="jourNav">' + (i > 0 ? '<a href="' + lienJour(ds[i - 1]) + '">← ' + esc(maj(dateLongue(ds[i - 1]))) + '</a>' : '<span></span>') + (i < ds.length - 1 ? '<a href="' + lienJour(ds[i + 1]) + '">' + esc(maj(dateLongue(ds[i + 1]))) + ' →</a>' : '') + '</div>' +
         '<div class="resaJour" id="resaJour"><h2>Réserver la journée</h2>';
       if (ouverts.length) {
-        var max = Math.min(10, Math.max.apply(null, ouverts.map(function (e) { return e.restantes != null ? e.restantes : 10; }))), opts = '';
+        var max = Math.min(FORM.maxPlaces, Math.max.apply(null, ouverts.map(function (e) { return e.restantes != null ? e.restantes : FORM.maxPlaces; }))), opts = '';
         for (var k = 1; k <= max; k++) opts += '<option>' + k + '</option>';
         h += '<form id="resa" novalidate><div class="cols"><div><h3>Quels spectacles ?</h3><ul class="choix">' + ouverts.map(function (e) {
           return '<li><input type="checkbox" id="ev' + esc(e.id) + '" name="ev" value="' + esc(e.id) + '" checked><label for="ev' + esc(e.id) + '"><b>' + esc(e.debut || '') + '</b>' + esc(e.titre) + '</label>' + etat(e) + '</li>';
         }).join('') + '</ul>' + (ouverts.length < evs.length ? '<p class="petit">Les autres spectacles de la journée ne sont pas encore ouverts à la réservation.</p>' : '') + '</div><div>' +
           '<h3>Vos coordonnées</h3><label for="nom">Prénom et nom *</label><input id="nom" name="nom" autocomplete="name" required>' +
           '<label for="email">E-mail *</label><input id="email" name="email" type="email" autocomplete="email" required>' +
-          '<label for="telephone">Téléphone</label><input id="telephone" name="telephone" type="tel" autocomplete="tel">' +
+          champTel() +
           '<label for="places">Nombre de places (pour chaque spectacle coché) *</label><select id="places" name="places">' + opts + '</select>' +
-          '<label for="message">Message</label><textarea id="message" name="message"></textarea>' +
+          champMessage() +
           '<input class="piege" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">' +
           '<p class="erreur" id="err" role="alert" hidden></p><p style="margin:18px 0 0"><button class="btn" type="submit">Réserver</button></p>' +
           '<p class="petit">Une réservation par spectacle coché. Vous recevrez un e-mail de confirmation pour chacune. Le paiement se fait sur place.</p></div></div></form>';
@@ -322,7 +349,7 @@
       else if (!/#resaJour$/.test(location.href)) scrollTo(0, 0);
       var actif = vue.querySelector('.jours a.on'); if (actif && actif.scrollIntoView) actif.scrollIntoView({ block: 'nearest', inline: 'center' });
       var f = document.getElementById('resa');
-      if (f) f.onsubmit = function (ev) { ev.preventDefault(); envoyerJour(ouverts, f); };
+      if (f) { suivreTel(f); f.onsubmit = function (ev) { ev.preventDefault(); envoyerJour(ouverts, f); }; }
     }
     function envoyerJour(ouverts, f) {
       var err = document.getElementById('err'), bt = f.querySelector('button[type=submit]');
@@ -332,6 +359,7 @@
       if (!choisis.length) return montrer('Cochez au moins un spectacle.');
       if (!d.nom.trim()) return montrer('Indiquez votre nom.');
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email.trim())) return montrer('L\'adresse e-mail ne semble pas correcte.');
+      var ef = erreurForm(d); if (ef) return montrer(ef);
       bt.disabled = true; bt.textContent = 'Envoi…';
       var resultats = [];
       (function suivant(i) {
@@ -362,7 +390,7 @@
       var attente = !!(e.complet && e.attente && !e.reservable);
       var optsResa = (Array.isArray(e.options) ? e.options : []).filter(function (o) { return o && o.id && o.nom; });
       var libresC = optsResa.reduce(function (m, o) { return o.type === 'contingent' && o.restantes > m ? o.restantes : m; }, 0);
-      var max = attente ? 10 : e.restantes != null ? Math.min(10, Math.max(e.restantes, libresC)) : 10, opts = '';
+      var max = attente ? FORM.maxPlaces : e.restantes != null ? Math.min(FORM.maxPlaces, Math.max(e.restantes, libresC)) : FORM.maxPlaces, opts = '';
       for (var k = 1; k <= max; k++) opts += '<option>' + k + '</option>';
       var autres = memeJour(e).filter(function (x) { return x !== e; });
       var h = '<div class="fiche"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a>' + '<p class="ficheTete">' + (s.discipline ? '<span class="tag">' + esc(s.discipline) + '</span>' : '') + ((e.reservable || attente) ? '<button type="button" class="btn petitbtn versResa" id="versResa">' + (attente ? 'Liste d\'attente pour ce spectacle' : 'Réserver pour ce spectacle') + '</button>' : '') + '</p><h1>' + esc(e.titre) + '</h1>' +
@@ -386,14 +414,14 @@
         h += '<form id="resa" novalidate' + (attente ? ' data-attente="1"' : '') + '><h3>' + (attente ? 'Liste d\'attente' : 'Réserver') + '</h3>' + (attente ? '<p class="petit">C\'est complet, mais des places se libèrent souvent : inscrivez-vous, nous vous écrivons dès qu\'il y en a.</p>' : etat(e) ? '<p class="petit">' + etat(e) + '</p>' : '') +
           '<label for="nom">Prénom et nom *</label><input id="nom" name="nom" autocomplete="name" required>' +
           '<label for="email">E-mail *</label><input id="email" name="email" type="email" autocomplete="email" required>' +
-          '<label for="telephone">Téléphone</label><input id="telephone" name="telephone" type="tel" autocomplete="tel">' +
+          champTel() +
           '<label for="places">Nombre de places *</label><select id="places" name="places">' + opts + '</select>' +
           (optsResa.length && !attente ? '<fieldset class="optionsResa"><legend>Options</legend>' + optsResa.map(function (o) {
             var plein = o.type === 'contingent' && o.restantes != null && o.restantes <= 0;
             return '<label class="optResa' + (plein ? ' plein' : '') + '"><input type="checkbox" name="opt" value="' + esc(o.id) + '"' + (plein ? ' disabled' : '') + '> <span><b>' + esc(o.nom) + '</b>' +
               (o.aide ? '<small>' + esc(o.aide) + '</small>' : '') + (plein ? '<small>Ces places sont toutes prises.</small>' : '') + '</span></label>';
           }).join('') + '</fieldset>' : '') +
-          '<label for="message">Message</label><textarea id="message" name="message"></textarea>' +
+          champMessage() +
           '<input class="piege" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">' +
           '<p class="erreur" id="err" role="alert" hidden></p><p style="margin:18px 0 0"><button class="btn" type="submit">' + (attente ? 'M\'inscrire sur la liste d\'attente' : 'Réserver') + '</button></p>' +
           '<p class="petit">' + (attente ? 'Vous recevrez un e-mail quand une place se libère ; rien n\'est réservé tant que nous ne vous avons pas confirmé.' : 'Vous recevrez un e-mail de confirmation. Le paiement se fait sur place.') + '</p></form>';
@@ -426,7 +454,7 @@
         };
       });
       var f = document.getElementById('resa');
-      if (f) f.onsubmit = function (ev) { ev.preventDefault(); envoyer(e, f); };
+      if (f) { suivreTel(f); f.onsubmit = function (ev) { ev.preventDefault(); envoyer(e, f); }; }
     }
     function video(v) {
       var h = '', m;
@@ -444,6 +472,7 @@
       err.hidden = true;
       if (!d.nom.trim()) return montrer('Indiquez votre nom.');
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email.trim())) return montrer('L\'adresse e-mail ne semble pas correcte.');
+      var ef = erreurForm(d); if (ef) return montrer(ef);
       bt.disabled = true; bt.textContent = 'Envoi…';
       fetch(F.api, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(d) })
         .then(function (r) { return r.json(); })
