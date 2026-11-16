@@ -169,6 +169,7 @@ window.SPECTACLES = {
     discipline: "Poème théâtral et musical",
     duree: "48 min",
     age: "Tout public",
+    tarif: "15 francs (tarif réduit 10 francs)",
     court: "Un comédien, sa brouette et son violon nous emmènent dans le pays onirique, et pourtant bien réel, du Palais idéal du facteur Cheval.",
     long: "Une brouette qui parle, c'est pas banal. Une brouette qui parle d'un Cheval, d'un palais, d'un facteur, c'est vraiment idéal pour donner une envie folle de se plonger sur les traces de Ferdinand Cheval, bâtisseur d'une œuvre originale, solide et fragile à la fois, comme un comédien sur une brouette avec son violon.\n\nNé en 1836 et facteur de son métier, Ferdinand Cheval a passé trente-trois ans à construire son Palais idéal, à Hauterives dans la Drôme, pour marquer son passage dans le temps et écrire avec du ciment la vision d'un rêve très personnel. Douze lettres racontent douze dates de sa vie. Comme un colporteur, le comédien nous fait voyager dans ce pays onirique et pourtant bien réel ; pas descriptif, ce poème théâtral et musical veut surtout donner envie d'aller voir… le palais.",
     distribution: "Écriture, jeu et musique : Didier Hugon. Mise en scène et écriture : Daniel Haspala. Composition : David Mathieu. Lutherie de brouette musicale : Marc Boutron. Costume : Maryline Gerbet."
