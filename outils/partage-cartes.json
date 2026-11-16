@@ -1,0 +1,137 @@
+[
+ {
+  "slug": "ma-vie-tout-simplement",
+  "titre": "Ma vie tout simplement",
+  "cie": "Yvette Challande",
+  "discipline": "Théâtre · seule en scène",
+  "quand": "3 et 20 décembre 2026",
+  "photo": "photos/ma-vie-2.webp",
+  "entier": false
+ },
+ {
+  "slug": "hurler-sous-l-eau",
+  "titre": "Hurler sous l'eau",
+  "cie": "Compagnie Sémaphore",
+  "discipline": "Théâtre",
+  "quand": "4 et 5 décembre 2026",
+  "photo": "photos/hurler-z3.webp",
+  "entier": false
+ },
+ {
+  "slug": "c-est-quoi-ce-cirque",
+  "titre": "C'est quoi ce cirque",
+  "cie": "Floriza Flor",
+  "discipline": "Théâtre",
+  "quand": "Vendredi 4 décembre · 21 h",
+  "photo": "photos/cest-quoi-1.webp",
+  "entier": false
+ },
+ {
+  "slug": "mise-a-male",
+  "titre": "Mise à Mâle",
+  "cie": "Antonio Anguiano",
+  "discipline": "Cirque et théâtre physique",
+  "quand": "5 et 6 décembre 2026",
+  "photo": "photos/mise-a-male-1.webp",
+  "entier": false
+ },
+ {
+  "slug": "pates-au-ketchup",
+  "titre": "Pâtes au Ketchup",
+  "cie": "Ana Clara Hauri",
+  "discipline": "Théâtre d'objet",
+  "quand": "5 et 10 décembre 2026",
+  "photo": "photos/pates-ketchup-1.webp",
+  "entier": false
+ },
+ {
+  "slug": "i-a-ma-chere",
+  "titre": "I.A Ma Chère",
+  "cie": "Jordan Fraser Emery",
+  "discipline": "Performance et art numérique",
+  "quand": "6 et 10 décembre 2026",
+  "photo": "photos/ia-ma-chere-4.webp",
+  "entier": false
+ },
+ {
+  "slug": "mercalm",
+  "titre": "MERCALM",
+  "cie": "Mona Creisson et Benoît Gautier",
+  "discipline": "Concert",
+  "quand": "Dimanche 6 décembre · 19 h",
+  "photo": "photos/mercalm.webp",
+  "entier": false
+ },
+ {
+  "slug": "les-12-lettres-du-facteur-cheval",
+  "titre": "Les 12 lettres du facteur Cheval",
+  "cie": "Didier Hugon · Les Enfants du Paradigme",
+  "discipline": "Poème théâtral et musical",
+  "quand": "10 et 11 décembre 2026",
+  "photo": "photos/facteur-cheval-6.webp",
+  "entier": false
+ },
+ {
+  "slug": "hans-l-heureux",
+  "titre": "Hans l'Heureux",
+  "cie": "Compagnie Étourderie",
+  "discipline": "Marionnettes et conte",
+  "quand": "Vendredi 11 décembre · 18 h",
+  "photo": "photos/hans-visuel.webp",
+  "entier": true
+ },
+ {
+  "slug": "corde-et-cordes",
+  "titre": "Corde et cordes",
+  "cie": "Léa Gase, Céline Martin et Benoît Gautier",
+  "discipline": "Cirque aérien et contrebasse",
+  "quand": "11 et 19 décembre 2026",
+  "photo": "photos/corde-6573.webp",
+  "entier": false
+ },
+ {
+  "slug": "ici-sont-les-dragons",
+  "titre": "Ici sont les dragons",
+  "cie": "Circo Nagual",
+  "discipline": "Solo de clown",
+  "quand": "12 et 19 décembre 2026",
+  "photo": "photos/dragons.webp",
+  "entier": false
+ },
+ {
+  "slug": "a-la-recherche-du-sourire-perdu",
+  "titre": "À la recherche du sourire perdu",
+  "cie": "Formation artistique du Théâtre-Cirqule",
+  "discipline": "Cirque",
+  "quand": "12 et 13 décembre 2026",
+  "photo": "photos/sourire-perdu.webp",
+  "entier": false
+ },
+ {
+  "slug": "sur-le-rivage-de-gaza",
+  "titre": "Sur le rivage de Gaza",
+  "cie": "Maulde Coutau, Nicolas Reichel et Thomas Delclaud",
+  "discipline": "Poésie palestinienne",
+  "quand": "15 et 18 décembre 2026",
+  "photo": "photos/gaza-plage.webp",
+  "entier": false
+ },
+ {
+  "slug": "acrobaties-litteraires",
+  "titre": "Acrobaties littéraires",
+  "cie": "Compagnie Ceux qui boivent du thé",
+  "discipline": "Danse · acrobatie · roue Cyr",
+  "quand": "16 et 17 décembre 2026",
+  "photo": "photos/partir-a.webp",
+  "entier": false
+ },
+ {
+  "slug": "el-cabaret-du-festival",
+  "titre": "El Cabaret du festival",
+  "cie": "",
+  "discipline": "Cabaret",
+  "quand": "Samedi 19 décembre · 20 h",
+  "photo": "photos/cabaret-2.webp",
+  "entier": false
+ }
+]

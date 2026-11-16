@@ -185,17 +185,31 @@ tete, reste = modele.split('<main', 1)
 pied_tpl = '</main>\n<footer id="pied">{pied}</footer>\n<script src="app.js"></script>\n</body>\n</html>\n'
 
 
+def jours_texte(reps):
+    jours = [datetime.date.fromisoformat(r['date']) for r in reps]
+    return (' et '.join(str(d.day) if i < len(jours) - 1 else str(d.day) + ' ' + MOIS[d.month - 1] for i, d in enumerate(jours)) if len(set(d.month for d in jours)) == 1
+             else ', '.join(date_longue(r['date']) for r in reps))
+
+
+def heure_texte(h): return h.replace(':', ' h ').replace(' h 00', ' h')
+
+
+def carte_partage(sp):
+    """Ce qui est écrit sur l'image de partage du spectacle."""
+    reps = sp['reps']; ph = photos(sp)
+    quand = (date_longue(reps[0]['date']).capitalize() + ' · ' + heure_texte(reps[0]['debut'])) if len(reps) == 1 else jours_texte(reps).capitalize() + ' 2026'
+    return {'slug': sp['slug'], 'titre': sp['titre'], 'cie': sp['s'].get('compagnie', ''), 'discipline': sp['s'].get('discipline', ''),
+            'quand': quand, 'photo': ph[0]['src'] if ph else 'photos/illustration.webp', 'entier': bool(sp['s'].get('entier'))}
+
+
 def page_spectacle(sp):
     s = sp['s']; ph = photos(sp); url = SITE + '/spectacles/' + sp['slug'] + '.html'
     reps = sp['reps']; cie = s.get('compagnie', '')
-    jours = [datetime.date.fromisoformat(r['date']) for r in reps]
-    quand = (' et '.join(str(d.day) if i < len(jours) - 1 else str(d.day) + ' ' + MOIS[d.month - 1] for i, d in enumerate(jours)) if len(set(d.month for d in jours)) == 1
-             else ', '.join(date_longue(r['date']) for r in reps))
-    quand = ('le ' if len(reps) == 1 else 'les ') + quand + ' 2026'
+    quand = ('le ' if len(reps) == 1 else 'les ') + jours_texte(reps) + ' 2026'
     titre = sp['titre'] + (', ' + cie if cie and len(sp['titre'] + cie) < 46 else '') + ' · Le P’tit Festival, Chêne-Bourg'
     resume = texte_brut(s.get('court') or s.get('long') or '')
     desc = couper((s.get('discipline', '') + ' au Théâtricul, Chêne-Bourg (Genève), ' + quand + '. ' + resume).strip(), 158)
-    img = SITE + '/' + ph[0]['src'] if ph else SITE + '/partage.png'
+    img = SITE + '/partage/' + sp['slug'] + '.jpg'
     h = tete
     h = re.sub(r'<title>.*?</title>', '<title>' + esc(titre) + '</title>', h)
     h = re.sub(r'(<meta name="description" content=")[^"]*', lambda m: m.group(1) + esc(desc), h)
@@ -204,6 +218,8 @@ def page_spectacle(sp):
     h = re.sub(r'(<meta property="og:description" content=")[^"]*', lambda m: m.group(1) + esc(desc), h)
     h = re.sub(r'(<meta property="og:url" content=")[^"]*', lambda m: m.group(1) + url, h)
     h = re.sub(r'(<meta property="og:image" content=")[^"]*', lambda m: m.group(1) + img, h)
+    h = h.replace('<meta property="og:locale"', '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
+                  '<meta property="og:image:alt" content="' + esc(sp['titre'] + ', ' + quand + ', au P’tit Festival') + '">\n<meta property="og:locale"', 1)
     h = h.replace('<meta property="og:type" content="website">', '<meta property="og:type" content="article">')
     h = h.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<base href="../">', 1)
     graph = [evenement(sp, r, ph) for r in reps] + [dict(LIEU), dict(ORGA),
@@ -214,7 +230,9 @@ def page_spectacle(sp):
     h = h.replace('<body data-page="programme">', '<body data-page="spectacle">')
     h = h.replace('<a href="programme.html" data-nav="programme">', '<a href="programme.html" data-nav="programme" class="actif">')
     corps = '<main id="contenu"><article class="fiche ficheSp"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a>'
-    corps += '<p class="ficheTete">' + ('<span class="tag">' + esc(s['discipline']) + '</span>' if s.get('discipline') else '') + '</p>'
+    texte_partage = sp['titre'] + (' (' + cie + ')' if cie else '') + ', ' + quand + ' au P’tit Festival, Théâtricul de Chêne-Bourg'
+    corps += ('<p class="ficheTete">' + ('<span class="tag">' + esc(s['discipline']) + '</span>' if s.get('discipline') else '') +
+              '<button type="button" class="btn petitbtn contour partager" data-titre="' + esc(sp['titre']) + '" data-texte="' + esc(texte_partage) + '" data-url="' + url + '">Partager</button></p>')
     corps += '<h1>' + esc(sp['titre']) + '</h1>' + ('<p class="cie">' + esc(cie) + '</p>' if cie else '')
     if ph:
         w = taille(ph[0]['src']); dim = ' width="%d" height="%d"' % w if w else ''
@@ -239,12 +257,16 @@ def page_spectacle(sp):
     if s.get('distribution'): corps += '<p class="distribution">' + esc(s['distribution']) + '</p>'
     corps += '</div><div class="colle"><div class="datesSp"><h2>' + ('Date' if len(reps) == 1 else 'Dates') + '</h2><ul>'
     for r in reps:
-        corps += ('<li><span><b>' + esc(date_longue(r['date']).capitalize()) + '</b> à ' + esc(r['debut'].replace(':', ' h ').replace(' h 00', ' h')) + '</span>'
+        corps += ('<li><span><b>' + esc(date_longue(r['date']).capitalize()) + '</b> à ' + esc(heure_texte(r['debut'])) + '</span>'
                   '<a class="btn petitbtn" href="programme.html#' + r['id'] + '">Réserver</a></li>')
     corps += '</ul><p class="petit">La réservation se fait sur la page de la représentation. Paiement sur place.</p></div></div></div></div></article></main>\n'
     return h + corps + pied_tpl.format(pied=liste_pied(sp['slug']))
 
 
+# Images de partage (WhatsApp, Facebook, mail…) : une par spectacle, faites par outils/partage.js
+cartes = os.path.join(R, 'outils', 'partage-cartes.json')
+json.dump([carte_partage(sp) for sp in spectacles.values()], open(cartes, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+subprocess.check_call(['node', os.path.join(R, 'outils', 'partage.js'), cartes])
 os.makedirs(os.path.join(A, 'spectacles'), exist_ok=True)
 faits = set()
 for sp in spectacles.values():

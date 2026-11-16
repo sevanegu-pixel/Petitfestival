@@ -105,6 +105,32 @@
     return (grille ? '<ul class="tarifs">' + grille + '</ul>' : '') + notes;
   }
   function pageSpectacle(t) { return 'spectacles/' + norm(t).replace(/ /g, '-') + '.html'; } // pages fabriquées par outils/referencement.py
+  // Partager un spectacle : le lien mène à sa page (spectacles/…), dont l'aperçu montre le visuel, le titre et les dates.
+  function boutonPartager(e, s) {
+    var url = (F.site || location.origin) + '/' + pageSpectacle(e.spectacle || e.titre);
+    var texte = e.titre + (s.compagnie ? ' (' + s.compagnie + ')' : '') + ', ' + dateLongue(e.date) + (e.debut ? ' à ' + e.debut.replace(':', ' h ').replace(' h 00', ' h') : '') + ' au P’tit Festival, Théâtricul de Chêne-Bourg';
+    return '<button type="button" class="btn petitbtn contour partager" data-titre="' + esc(e.titre) + '" data-texte="' + esc(texte) + '" data-url="' + esc(url) + '">Partager</button>';
+  }
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('.partager'), ouvert = document.querySelector('.menuPartage');
+    if (ouvert && !(ev.target.closest && ev.target.closest('.menuPartage'))) ouvert.remove();
+    if (!b) return;
+    var titre = b.getAttribute('data-titre'), texte = b.getAttribute('data-texte'), url = b.getAttribute('data-url');
+    if (navigator.share && /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) { navigator.share({ title: titre, text: texte, url: url }).catch(function () {}); return; }
+    if (ouvert && ouvert.previousSibling === b) return;
+    var u = encodeURIComponent(url), t = encodeURIComponent(texte);
+    var m = document.createElement('div'); m.className = 'menuPartage'; m.setAttribute('role', 'menu');
+    m.innerHTML = '<a role="menuitem" href="https://wa.me/?text=' + t + '%20' + u + '" target="_blank" rel="noopener">WhatsApp</a>' +
+      '<a role="menuitem" href="https://www.facebook.com/sharer/sharer.php?u=' + u + '" target="_blank" rel="noopener">Facebook</a>' +
+      '<a role="menuitem" href="mailto:?subject=' + encodeURIComponent(titre + ' · Le P’tit Festival') + '&body=' + t + '%0A%0A' + u + '">E-mail</a>' +
+      '<button type="button" role="menuitem">Copier le lien</button>' +
+      '<p>Pour Instagram : copiez le lien et collez-le dans votre story ou votre bio.</p>';
+    b.parentNode.insertBefore(m, b.nextSibling);
+    m.style.left = Math.max(0, Math.min(b.offsetLeft, b.parentNode.clientWidth - 250)) + 'px';
+    m.querySelector('button').onclick = function () {
+      var btn = this; (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { btn.textContent = 'Lien copié ✓'; }, function () { prompt('Copiez ce lien :', url); });
+    };
+  });
   function lienFiche(e) { return 'programme.html#' + encodeURIComponent(e.id); }
   function lienJour(d) { return 'programme.html#jour-' + d; }
   function memeJour(e) { return evenements.filter(function (x) { return x.date === e.date; }); }
@@ -396,7 +422,7 @@
       var max = attente ? FORM.maxPlaces : e.restantes != null ? Math.min(FORM.maxPlaces, Math.max(e.restantes, libresC)) : FORM.maxPlaces, opts = '';
       for (var k = 1; k <= max; k++) opts += '<option>' + k + '</option>';
       var autres = memeJour(e).filter(function (x) { return x !== e; });
-      var h = '<div class="fiche"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a>' + '<p class="ficheTete">' + (s.discipline ? '<span class="tag">' + esc(s.discipline) + '</span>' : '') + ((e.reservable || attente) ? '<button type="button" class="btn petitbtn versResa" id="versResa">' + (attente ? 'Liste d\'attente pour ce spectacle' : 'Réserver pour ce spectacle') + '</button>' : '') + '</p><h1>' + esc(e.titre) + '</h1>' +
+      var h = '<div class="fiche"><div class="int large"><a class="retour" href="programme.html">← Tout le programme</a>' + '<p class="ficheTete">' + (s.discipline ? '<span class="tag">' + esc(s.discipline) + '</span>' : '') + ((e.reservable || attente) ? '<button type="button" class="btn petitbtn versResa" id="versResa">' + (attente ? 'Liste d\'attente pour ce spectacle' : 'Réserver pour ce spectacle') + '</button>' : '') + boutonPartager(e, s) + '</p><h1>' + esc(e.titre) + '</h1>' +
         (s.compagnie ? '<p class="cie">' + esc(s.compagnie) + '</p>' : '');
       if (s.photos.length) {
         h += '<div class="galerie" id="galerie"><div class="visuel principal' + (s.entier ? ' entier' : '') + '"><img src="' + esc(s.photos[0].src) + '" alt="' + esc(e.titre) + '"></div>' +

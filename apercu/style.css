@@ -588,3 +588,10 @@ footer .spectaclesPied a:hover,footer .spectaclesPied a[aria-current]{text-decor
 .datesSp li:first-child{border-top:0}
 .lienSp{margin-top:14px}
 @media (max-width:860px){.ficheSp .cols>.colle{order:-1}}
+/* Bouton « Partager » (fiches et pages des spectacles) */
+.ficheTete{position:relative}
+.ficheTete .partager{cursor:pointer;font-size:14px;padding:8px 14px}
+.menuPartage{position:absolute;z-index:20;top:calc(100% + 8px);left:0;width:250px;background:var(--carte);border:2px solid var(--texte);box-shadow:5px 5px 0 var(--violet);padding:8px;display:flex;flex-direction:column}
+.menuPartage a,.menuPartage button{display:block;text-align:left;padding:9px 10px;font:600 15px/1.2 var(--texteF,inherit);color:var(--texte);text-decoration:none;background:none;border:0;cursor:pointer}
+.menuPartage a:hover,.menuPartage button:hover{background:var(--fond2,rgba(0,0,0,.06))}
+.menuPartage p{font-size:13px;color:var(--doux);margin:6px 10px 4px;line-height:1.35}

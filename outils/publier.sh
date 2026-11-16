@@ -13,7 +13,7 @@ R = sys.argv[1]; A = os.path.join(R, 'apercu')
 PAGES = ['index.html', 'programme.html', 'festival.html', 'infos.html'] + \
         sorted('spectacles/' + n for n in os.listdir(os.path.join(A, 'spectacles')) if n.endswith('.html'))  # pages faites par outils/referencement.py
 FICHIERS = ['app.js', 'festival.js', 'style.css', 'favicon.svg', 'favicon.png', 'partage.png', 'sitemap.xml']
-DOSSIERS = ['photos', 'videos']
+DOSSIERS = ['photos', 'videos', 'partage']
 # Réglages retenus (valeurs par défaut de apercu/options.js)
 HTML = ('<html lang="fr" data-theme="clair" data-titre="fraunces" data-texte="newsreader" data-prog="grand" '
         'data-texture="argentique" data-menu="centre-depliant" data-sections="unies" data-entete="aucun" style="--ok:0.6;--lk:0.4">')
