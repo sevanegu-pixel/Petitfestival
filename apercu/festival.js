@@ -278,6 +278,7 @@ window.SPECTACLES = {
     credit: "Visuel : Plage de Gaza",
     compagnie: "Maulde Coutau, Nicolas Reichel et Thomas Delclaud",
     discipline: "Poésie palestinienne",
+    duree: "Environ 1 h",
     age: "Ados et adultes",
     tarif: "25 francs (tarif réduit 20 francs)",
     court: "Poèmes de Mosab Abu Toha, poète palestinien né dans le camp de réfugiés d'Al-Shati à Gaza, lus et mis en musique par une comédienne, un comédien et un musicien.",
