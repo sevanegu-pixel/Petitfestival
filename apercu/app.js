@@ -104,6 +104,7 @@
     });
     return (grille ? '<ul class="tarifs">' + grille + '</ul>' : '') + notes;
   }
+  function pageSpectacle(t) { return 'spectacles/' + norm(t).replace(/ /g, '-') + '.html'; } // pages fabriquées par outils/referencement.py
   function lienFiche(e) { return 'programme.html#' + encodeURIComponent(e.id); }
   function lienJour(d) { return 'programme.html#jour-' + d; }
   function memeJour(e) { return evenements.filter(function (x) { return x.date === e.date; }); }
@@ -113,8 +114,10 @@
   document.querySelectorAll('[data-nav]').forEach(function (a) { if (a.getAttribute('data-nav') === page) a.classList.add('actif'); });
   var burger = document.getElementById('burger'), menu = document.getElementById('menu');
   if (burger) burger.onclick = function () { var o = menu.classList.toggle('ouvert'); burger.setAttribute('aria-expanded', o); };
-  document.getElementById('pied').innerHTML = '<div class="int"><div><p class="nom">' + esc(F.nom) + '</p><p>' + esc(F.dates) + ' · ' + esc(F.adresse || F.lieu) + '<br>' + contact() + '</p></div>' +
+  var piedEl = document.getElementById('pied'), listeSp = piedEl.querySelector('.spectaclesPied'); // liste des spectacles écrite dans la page (référencement) : gardée
+  piedEl.innerHTML = '<div class="int"><div><p class="nom">' + esc(F.nom) + '</p><p>' + esc(F.dates) + ' · ' + esc(F.adresse || F.lieu) + '<br>' + contact() + '</p></div>' +
     '<div class="liens"><a href="programme.html">Programme</a><a href="festival.html">Le festival</a><a href="infos.html">Infos pratiques</a>' + (F.theatriculSite ? '<a href="' + esc(F.theatriculSite) + '" rel="noopener">Théâtricul</a>' : '') + '</div></div>';
+  if (listeSp) piedEl.querySelector('.int').appendChild(listeSp);
   function carte(el) {
     if (!el || !F.carte) return;
     el.innerHTML = '<iframe src="' + esc(F.carte) + '" loading="lazy" title="Carte : le Théâtricul" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><span class="legende">' + esc(F.adresse || '') + '</span>';
@@ -249,7 +252,7 @@
     var lt = document.getElementById('festLienTheatricul'); if (F.theatriculSite) lt.href = F.theatriculSite; else lt.parentNode.remove();
     var art = document.getElementById('artistes');
     art.innerHTML = Object.keys(SP).filter(function (k) { return SP[k].court; }).map(function (k) {
-      var s = SP[k]; return '<div class="artiste"><h3>' + esc(s.compagnie || k) + '</h3><p>' + esc(k) + (s.discipline ? ' · ' + esc(s.discipline) : '') + '</p></div>';
+      var s = SP[k]; return '<div class="artiste"><h3>' + esc(s.compagnie || k) + '</h3><p><a href="' + pageSpectacle(k) + '">' + esc(k) + '</a>' + (s.discipline ? ' · ' + esc(s.discipline) : '') + '</p></div>';
     }).join('');
     charger(function () {});
   }
@@ -409,7 +412,7 @@
         (s.long ? '<button class="lire" id="lire" aria-expanded="false">Lire la suite</button><div class="suite" id="suite">' + paras(s.long) + (s.citation ? '<p class="citation">' + esc(s.citation) + '</p>' : '') + '</div>' : '') +
         (s.videos.length ? '<div class="videos"><h2>En vidéo</h2>' + s.videos.map(video).join('') + '</div>' : '') +
         (s.lien ? '<p><a href="' + esc(s.lien) + '" rel="noopener">' + esc(s.lienTitre || 'Le site de la compagnie') + '</a></p>' : '') +
-        (s.distribution ? '<p class="distribution">' + esc(s.distribution) + '</p>' : '') + '</div><div class="colle">';
+        (s.distribution ? '<p class="distribution">' + esc(s.distribution) + '</p>' : '') + '<p class="lienSp"><a href="' + pageSpectacle(e.spectacle || e.titre) + '">Toutes les dates de ce spectacle</a></p></div><div class="colle">';
       if (e.reservable || attente) {
         h += '<form id="resa" novalidate' + (attente ? ' data-attente="1"' : '') + '><h3>' + (attente ? 'Liste d\'attente' : 'Réserver') + '</h3>' + (attente ? '<p class="petit">C\'est complet, mais des places se libèrent souvent : inscrivez-vous, nous vous écrivons dès qu\'il y en a.</p>' : etat(e) ? '<p class="petit">' + etat(e) + '</p>' : '') +
           '<label for="nom">Prénom et nom *</label><input id="nom" name="nom" autocomplete="name" required>' +

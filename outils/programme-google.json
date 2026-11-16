@@ -1,0 +1,31 @@
+{
+  "note": "Copie du programme (feuille Événements) pour le référencement : pages des spectacles, données Google, sitemap. Mise à jour du 16.11.2026. Si une date, une heure ou un tarif change dans l'appli, mettre à jour ce fichier puis relancer node outils/referencement.js.",
+  "representations": [
+    ["Ecc02a18c83","Ma vie tout simplement","2026-12-03","20:00","Environ 1 h","Au chapeau","photos/ma-vie-2.webp"],
+    ["Ee7d6134646","Hurler sous l'eau","2026-12-04","19:45","55 min","Prix libre, 10 francs conseillés","photos/hurler-z3.webp"],
+    ["Ec4b7e19a02","C'est quoi ce cirque","2026-12-04","21:00","30 min","Au chapeau",""],
+    ["Eca02246b36","Hurler sous l'eau","2026-12-05","18:00","55 min","Prix libre, 10 francs conseillés",""],
+    ["E11b68bdc8d","Mise à Mâle","2026-12-05","19:30","30 min","Prix libre, 15 francs conseillés","photos/mise-a-male-1.webp"],
+    ["Eae9d2a1b1d","Pâtes au Ketchup","2026-12-05","20:30","40 min","Au chapeau","photos/pates-ketchup-1.webp"],
+    ["Ec2c8f64445","I.A Ma Chère","2026-12-06","16:00","15 min","Au chapeau","photos/ia-ma-chere-4.webp"],
+    ["E6c56506023","Mise à Mâle","2026-12-06","18:00","30 min","Prix libre, 15 francs conseillés",""],
+    ["Ef565279733","MERCALM","2026-12-06","19:00","45 min","Au chapeau","photos/mercalm.webp"],
+    ["E7e42154642","Pâtes au Ketchup","2026-12-10","18:30","40 min","Au chapeau",""],
+    ["E89c034253d","I.A Ma Chère","2026-12-10","19:30","15 min","Au chapeau","photos/ia-ma-chere-4.webp"],
+    ["Ea5a337cfcd","Les 12 lettres du facteur Cheval","2026-12-10","20:10","48 min","15 francs (tarif réduit 10 francs)","photos/facteur-cheval-6.webp"],
+    ["Ededa7cd531","Hans l'Heureux","2026-12-11","18:00","40 min","15 francs, prix unique","photos/hans-visuel.webp"],
+    ["E87d3b6c419","Corde et cordes","2026-12-11","18:55","15 min","Prix libre, 5 francs conseillés, 10 francs de soutien",""],
+    ["E1fc08fd86c","Les 12 lettres du facteur Cheval","2026-12-11","20:00","48 min","15 francs (tarif réduit 10 francs)","photos/facteur-cheval.webp"],
+    ["E60aa4b9ab9","Ici sont les dragons","2026-12-12","17:00","45 min","Au chapeau, 10 francs conseillés",""],
+    ["Efae76015b2","À la recherche du sourire perdu","2026-12-12","20:00","","Au chapeau",""],
+    ["E5d7c4ff343","À la recherche du sourire perdu","2026-12-13","15:00","","Au chapeau",""],
+    ["E1f9d997496","Sur le rivage de Gaza","2026-12-15","20:30","Environ 1 h","25 francs (tarif réduit 20 francs)",""],
+    ["Eed2f4c8999","Acrobaties littéraires","2026-12-16","19:30","","Plein tarif : 20 francs\nTarif réduit : 15 francs\nSpectacle + livre* : 40 francs\nSpectacle + livre*, tarif réduit : 35 francs\n* Avec un exemplaire du livre « Lettres de gares et trains » (26 francs en librairie).","photos/partir-a.webp"],
+    ["E2589542b3e","Acrobaties littéraires","2026-12-17","19:30","","Plein tarif : 20 francs\nTarif réduit : 15 francs\nSpectacle + livre* : 40 francs\nSpectacle + livre*, tarif réduit : 35 francs\n* Avec un exemplaire du livre « Lettres de gares et trains » (26 francs en librairie).","photos/partir-a.webp"],
+    ["Eec7d133644","Sur le rivage de Gaza","2026-12-18","20:30","Environ 1 h","25 francs (tarif réduit 20 francs)",""],
+    ["Ec98f518113","Ici sont les dragons","2026-12-19","17:00","45 min","Au chapeau, 10 francs conseillés",""],
+    ["E2271827110","Corde et cordes","2026-12-19","18:00","15 min","Prix libre, 5 francs conseillés, 10 francs de soutien",""],
+    ["E3c0f4a6d5c","El Cabaret du festival","2026-12-19","20:00","Environ 1 h 30","Au chapeau",""],
+    ["E78e6f60d13","Ma vie tout simplement","2026-12-20","17:00","Environ 1 h","Au chapeau",""]
+  ]
+}

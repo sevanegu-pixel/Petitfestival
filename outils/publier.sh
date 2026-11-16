@@ -3,14 +3,16 @@
 # L'aperçu reste en place : on continue d'y essayer les changements, puis on relance ce script quand Sévane dit « publie ».
 # Différences avec l'aperçu : pas de noindex, pas de panneau d'options (réglages retenus écrits dans <html>),
 # seulement les polices utilisées. app.js ignore tout seul le programme d'essai hors de /apercu/.
+# Avant : python3 outils/referencement.py (pages des spectacles, données Google, sitemap).
 # Usage : sh outils/publier.sh   puis git add -A, commit et push sur main.
 set -e
 R="$(cd "$(dirname "$0")/.." && pwd)"
 python3 - "$R" <<'PY'
 import sys, os, shutil, re
 R = sys.argv[1]; A = os.path.join(R, 'apercu')
-PAGES = ['index.html', 'programme.html', 'festival.html', 'infos.html']
-FICHIERS = ['app.js', 'festival.js', 'style.css', 'favicon.svg', 'favicon.png', 'partage.png']
+PAGES = ['index.html', 'programme.html', 'festival.html', 'infos.html'] + \
+        sorted('spectacles/' + n for n in os.listdir(os.path.join(A, 'spectacles')) if n.endswith('.html'))  # pages faites par outils/referencement.py
+FICHIERS = ['app.js', 'festival.js', 'style.css', 'favicon.svg', 'favicon.png', 'partage.png', 'sitemap.xml']
 DOSSIERS = ['photos', 'videos']
 # Réglages retenus (valeurs par défaut de apercu/options.js)
 HTML = ('<html lang="fr" data-theme="clair" data-titre="fraunces" data-texte="newsreader" data-prog="grand" '
@@ -40,6 +42,10 @@ for d in DOSSIERS:
     for n in os.listdir(dst):           # fichiers retirés de l'aperçu
         if n not in garder:
             os.remove(os.path.join(dst, n))
+os.makedirs(os.path.join(R, 'spectacles'), exist_ok=True)
+for n in os.listdir(os.path.join(R, 'spectacles')):   # pages de spectacles retirées
+    if 'spectacles/' + n not in pages:
+        os.remove(os.path.join(R, 'spectacles', n))
 for p, s in pages.items():
     open(os.path.join(R, p), 'w', encoding='utf-8').write(s)
     print('publié :', p)
