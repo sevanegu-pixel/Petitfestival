@@ -131,6 +131,15 @@
       var btn = this; (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { btn.textContent = 'Lien copié ✓'; }, function () { prompt('Copiez ce lien :', url); });
     };
   });
+  // Plusieurs spectacles le même jour : on peut venir pour un seul ou pour plusieurs (demande de Sévane, 17.11)
+  function hNorm(h) { return String(h || '').replace(':', ' h ').replace(' h 00', ' h'); }
+  function listeAutres(autres) { return autres.map(function (x) { return '<a href="' + lienFiche(x) + '">' + esc(x.titre) + '</a>' + (x.debut ? ' (' + esc(hNorm(x.debut)) + ')' : ''); }).join(', ').replace(/, ([^,]*)$/, ' et $1'); }
+  function notePlusieurs(e, autres) {
+    if (!autres.length) return '';
+    var n = autres.length + 1, ouverts = memeJour(e).filter(function (x) { return x.reservable; }).length;
+    return '<div class="plusieurs"><p><b>Ce jour-là, ' + n + ' spectacles s\'enchaînent.</b> Il y a aussi ' + listeAutres(autres) + '. Venez pour un seul ou pour plusieurs, comme vous voulez : on se retrouve à la buvette entre deux.</p>' +
+      '<p class="petit">Ce formulaire réserve « ' + esc(e.titre) + ' ».' + (ouverts > 1 ? ' Pour plusieurs spectacles d\'un coup : <a href="' + lienJour(e.date) + '#resaJour">réserver la journée</a>.' : '') + '</p></div>';
+  }
   function lienFiche(e) { return 'programme.html#' + encodeURIComponent(e.id); }
   function lienJour(d) { return 'programme.html#jour-' + d; }
   function memeJour(e) { return evenements.filter(function (x) { return x.date === e.date; }); }
@@ -306,10 +315,10 @@
       var p = parties(d), evs = evenements.filter(function (e) { return e.date === d; });
       var titre = '<span class="nomJour">' + esc(JOURS[p.js] + ' ' + MOIS[p.m - 1]) + '</span><span class="num">' + p.j + '</span>';
       return '<header class="jourTete"><div>' + (lien ? '<a href="' + lienJour(d) + '" style="text-decoration:none;color:inherit">' + titre + '</a>' : titre) + '</div>' +
-        '<p class="resume">' + pluriel(evs.length, 'spectacle') + (evs[0].debut ? ' · dès ' + esc(evs[0].debut) : '') + '</p><div class="jourActions">' + boutonJour(d) + '</div></header>';
+        '<p class="resume">' + pluriel(evs.length, 'spectacle') + (evs.length > 1 ? ' à la suite' : '') + (evs[0].debut ? ' · dès ' + esc(evs[0].debut) : '') + (evs.length > 1 ? '<span class="auChoix">Venez pour un ou plusieurs</span>' : '') + '</p><div class="jourActions">' + boutonJour(d) + '</div></header>';
     }
     function programme() {
-      var h = '<section class="entete"><div class="int large"><p class="sur">Programme</p><h1>Dix-huit jours, tous les genres</h1><p class="chapo">Chaque spectacle a son tarif, souvent au chapeau. Réservez spectacle par spectacle, ou toute une journée d\'un coup : la salle est petite. La programmation peut encore évoluer : revenez voir cette page.</p>';
+      var h = '<section class="entete"><div class="int large"><p class="sur">Programme</p><h1>Dix-huit jours, tous les genres</h1><p class="chapo">Chaque spectacle a son tarif, souvent au chapeau, et la salle est petite : pensez à réserver. La programmation peut encore évoluer : revenez voir cette page.</p><p class="bandeauPlusieurs"><b>Plusieurs spectacles par jour, à la suite.</b> Venez pour un seul ou enchaînez-en plusieurs : chacun se réserve à part, ou toute la journée d\'un coup. Entre deux, on se retrouve à la buvette.</p>';
       if (evenements === null) return h + '</div></section><section class="bande pres"><div class="int large"><p class="vide">Chargement du programme…</p></div></section>';
       if (!evenements.length) return h + '</div></section><section class="bande pres"><div class="int large">' + messageVide() + '</div></section>';
       h += barreJours() + '</div></section><section class="bande pres"><div class="int large">';
@@ -440,7 +449,7 @@
         (s.lien ? '<p><a href="' + esc(s.lien) + '" rel="noopener">' + esc(s.lienTitre || 'Le site de la compagnie') + '</a></p>' : '') +
         (s.distribution ? '<p class="distribution">' + esc(s.distribution) + '</p>' : '') + '<p class="lienSp"><a href="' + pageSpectacle(e.spectacle || e.titre) + '">Toutes les dates de ce spectacle</a></p></div><div class="colle">';
       if (e.reservable || attente) {
-        h += '<form id="resa" novalidate' + (attente ? ' data-attente="1"' : '') + '><h3>' + (attente ? 'Liste d\'attente' : 'Réserver') + '</h3>' + (attente ? '<p class="petit">C\'est complet, mais des places se libèrent souvent : inscrivez-vous, nous vous écrivons dès qu\'il y en a.</p>' : etat(e) ? '<p class="petit">' + etat(e) + '</p>' : '') +
+        h += '<form id="resa" novalidate' + (attente ? ' data-attente="1"' : '') + '><h3>' + (attente ? 'Liste d\'attente' : 'Réserver') + '</h3>' + (attente ? '' : notePlusieurs(e, autres)) + (attente ? '<p class="petit">C\'est complet, mais des places se libèrent souvent : inscrivez-vous, nous vous écrivons dès qu\'il y en a.</p>' : etat(e) ? '<p class="petit">' + etat(e) + '</p>' : '') +
           '<label for="nom">Prénom et nom *</label><input id="nom" name="nom" autocomplete="name" required>' +
           '<label for="email">E-mail *</label><input id="email" name="email" type="email" autocomplete="email" required>' +
           champTel() +
@@ -458,8 +467,8 @@
         h += '<div class="merci"><h3>' + (e.complet ? 'C\'est complet' : e.essai ? 'Réservations bientôt ouvertes' : 'Réservation fermée') + '</h3><p>' +
           (e.essai ? 'Les réservations pour ce spectacle ouvriront prochainement.' : F.contact ? 'Écrivez-nous à ' + contact() + ' : une place se libère parfois.' : 'Une place se libère parfois : revenez voir un peu plus tard.') + '</p></div>';
       }
-      h += '<div class="encadre"><h3>' + (autres.length ? 'Le même jour, ' + esc(dateLongue(e.date)) : 'Ce jour-là : ' + esc(dateLongue(e.date))) + '</h3>' +
-        (autres.length ? '<ul>' + autres.map(function (x) { return '<li><b>' + esc(x.debut || '') + '</b><a href="' + lienFiche(x) + '">' + esc(x.titre) + '</a></li>'; }).join('') + '</ul>' : '<p class="petit">C\'est le seul spectacle de la journée.</p>') +
+      h += '<div class="encadre"><h3>' + (autres.length ? 'À la suite, le même jour (' + esc(dateLongue(e.date)) + ')' : 'Ce jour-là : ' + esc(dateLongue(e.date))) + '</h3>' +
+        (autres.length ? '<ul>' + autres.map(function (x) { return '<li><b>' + esc(x.debut || '') + '</b><a href="' + lienFiche(x) + '">' + esc(x.titre) + '</a></li>'; }).join('') + '</ul><p class="petit">Un ou plusieurs spectacles, au choix : chacun se réserve à part, ou tous ensemble avec « Réserver la journée ».</p>' : '<p class="petit">C\'est le seul spectacle de la journée.</p>') +
         '<div class="liensJour"><a href="' + lienJour(e.date) + '">Voir la journée</a>' + (memeJour(e).some(function (x) { return x.reservable; }) && autres.length ? '<a href="' + lienJour(e.date) + '#resaJour">Réserver la journée</a>' : '') + '</div></div>';
       h += '</div></div>';
       if (prec || suiv) {
@@ -510,7 +519,7 @@
           if (r.attente) f.outerHTML = '<div class="merci"><h3>C\'est noté</h3><p>Vous êtes sur la liste d\'attente pour « ' + esc(e.titre) + ' » (' + esc(d.places) + ' place' + (d.places > 1 ? 's' : '') + '). Dès qu\'une place se libère, nous vous écrivons à <b>' + esc(d.email) + '</b>.</p><p><a href="programme.html">Voir les autres spectacles</a></p></div>';
           else f.outerHTML = '<div class="merci"><h3>Merci !</h3><p>Votre réservation de ' + esc(d.places) + ' place' + (d.places > 1 ? 's' : '') +
             ' pour « ' + esc(e.titre) + ' » est confirmée' + (d.options.length ? ' (' + esc((e.options || []).filter(function (o) { return d.options.indexOf(o.id) >= 0; }).map(function (o) { return o.nom; }).join(', ')) + ')' : '') + '.</p><p>' + (r.mailEnvoye === false ? 'Nous vous écrirons à ' : 'Un e-mail de confirmation vient de partir à ') +
-            '<b>' + esc(d.email) + '</b>.</p><p><a href="programme.html">Voir les autres spectacles</a></p></div>';
+            '<b>' + esc(d.email) + '</b>.</p>' + (function () { var a = memeJour(e).filter(function (x) { return x !== e && x.reservable; }); return a.length ? '<p><b>Vous restez pour la suite ?</b> Le même jour, il y a aussi ' + listeAutres(a) + '.</p>' : ''; })() + '<p><a href="programme.html">Voir les autres spectacles</a></p></div>';
           if (r.restantes != null) { e.restantes = r.restantes; e.complet = r.restantes <= 0; e.reservable = !e.complet; }
         })
         .catch(function () { bt.disabled = false; bt.textContent = libelle; montrer('Problème de connexion. Réessayez dans un instant.'); });

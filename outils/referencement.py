@@ -257,9 +257,11 @@ def page_spectacle(sp):
     if s.get('distribution'): corps += '<p class="distribution">' + esc(s['distribution']) + '</p>'
     corps += '</div><div class="colle"><div class="datesSp"><h2>' + ('Date' if len(reps) == 1 else 'Dates') + '</h2><ul>'
     for r in reps:
-        corps += ('<li><span><b>' + esc(date_longue(r['date']).capitalize()) + '</b> à ' + esc(heure_texte(r['debut'])) + '</span>'
+        aussi = [(x[3], x[1]) for x in PROG if x[2] == r['date'] and x[0] != r['id']]
+        aussi_html = ('<span class="aussi">Aussi ce jour-là : ' + ', '.join(esc(INDEX.get(norm(t), (t, {}))[0]) + ' (' + esc(heure_texte(hh)) + ')' for hh, t in aussi) + '</span>') if aussi else ''
+        corps += ('<li><span><b>' + esc(date_longue(r['date']).capitalize()) + '</b> à ' + esc(heure_texte(r['debut'])) + aussi_html + '</span>'
                   '<a class="btn petitbtn" href="programme.html#' + r['id'] + '">Réserver</a></li>')
-    corps += '</ul><p class="petit">La réservation se fait sur la page de la représentation. Paiement sur place.</p></div></div></div></div></article></main>\n'
+    corps += '</ul><p class="petit">Chaque jour, plusieurs spectacles s’enchaînent : venez pour un seul ou pour plusieurs. Chacun se réserve à part (ou toute la journée d’un coup depuis le programme). Paiement sur place.</p></div></div></div></div></article></main>\n'
     return h + corps + pied_tpl.format(pied=liste_pied(sp['slug']))
 
 
