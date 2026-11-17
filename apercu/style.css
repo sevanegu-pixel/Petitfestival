@@ -603,3 +603,4 @@ footer .spectaclesPied a:hover,footer .spectaclesPied a[aria-current]{text-decor
 .plusieurs p+p{margin-top:8px}
 .resume .auChoix{display:block;font:700 12px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--magenta);margin-top:4px}
 .datesSp .aussi{display:block;font-size:14px;color:var(--doux);margin-top:3px}
+.phrasePlusieurs{margin:-16px 0 28px;font:italic 500 20px/1.4 var(--texteF,inherit);color:var(--doux)}
