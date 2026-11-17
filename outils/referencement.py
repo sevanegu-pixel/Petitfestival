@@ -247,7 +247,7 @@ def page_spectacle(sp):
     if reps[0]['tarif']: infos += '<dt>Tarif' + ('s' if '\n' in reps[0]['tarif'] else '') + '</dt><dd>' + tarif_html(reps[0]['tarif']) + '</dd>'
     corps += '<div class="cols"><div><dl>' + infos + '</dl>'
     texte = s.get('long') or s.get('court') or ''
-    corps += '<div class="texteSp">' + (paras(texte) if texte else '<p class="vide">Présentation à venir.</p>') + (('<p class="citation">' + esc(s['citation']) + '</p>') if s.get('citation') else '') + '</div>'
+    corps += '<div class="texteSp">' + (paras(texte) if texte else '<p class="vide">Présentation à venir.</p>') + (('<p class="citation">' + esc(s['citation']) + '</p>') if s.get('citation') else '') + (('<p class="avertissement">' + esc(s['avertissement']) + '</p>') if s.get('avertissement') else '') + '</div>'
     autres = ph[1:7]
     if autres:
         corps += '<div class="photosSp">' + ''.join(

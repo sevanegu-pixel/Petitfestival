@@ -72,7 +72,7 @@ window.SPECTACLES = {
       { src: "photos/hurler-3.webp", credit: "Photo : Compagnie Sémaphore" },
       { src: "photos/hurler-4.webp", credit: "Photo : Compagnie Sémaphore" }
     ],
-    videos: [{ src: "videos/hurler.mp4", poster: "videos/hurler.webp", titre: "Extraits de la reprise à FriScènes, octobre 2026" }],
+    // Pas de vidéo : la compagnie préfère ne pas dévoiler le spectacle (Zoé, 13.11)
     photo: "photos/hurler-z3.webp",
     credit: "Photo : Compagnie Sémaphore",
     compagnie: "Compagnie Sémaphore",
@@ -81,9 +81,9 @@ window.SPECTACLES = {
     age: "Ados et adultes",
     tarif: "Prix libre, 10 francs conseillés",
     court: "Hurler sous l'eau dit la colère : il la sonde, la pétrit et l'ausculte. Trois comédiennes jouent avec le curseur de la rage, avec humour et sensibilité.",
-    long: "Hurler sous l'eau dit la colère. Il la sonde, la pétrit et l'ausculte sous tous ses aspects ; ce qu'elle fait au corps, à la voix, ce qui arrive quand on la tait ou au contraire quand elle déborde au dehors, au-delà de soi. C'est une exploration intime de la rage et une réappropriation de celle-ci, parce que, socialement, cette émotion a toujours été le lot des hommes.\n\nAvec Hurler sous l'eau, les trois comédiennes jouent avec le curseur de la colère, bousculant ses extrêmes avec humour et sensibilité pour présenter au public toute la beauté et la complexité de cette émotion que nous partageons toustes.\n\nHurler sous l'eau, ce n'est pas une histoire qui se raconte ni des personnages bien écrits que l'on suit tout au long du spectacle. C'est une position sociale et militante prise par trois jeunes femmes artistes polyvalentes. C'est un long cri, tantôt drôle, tantôt émouvant.\n\nCe cri est composé de différents tableaux et alterne monologues, dialogues, moments de chœur et de corps. Il dit la colère. Il la sonde, la pétrit et l'ausculte sous tous ses aspects : ce qu'elle fait au corps, à la voix, ce qui arrive quand on la tait ou au contraire quand elle déborde au dehors, au-delà de soi. C'est une exploration intime de la rage et une réappropriation de celle-ci, parce que, socialement, cette émotion a toujours été le lot des hommes. Les femmes, lorsqu'elles s'énervent, sont bien vite qualifiées d'hystériques et remises à leur place.\n\nAvec Hurler sous l'eau, nous jouons avec le curseur de la colère, bousculant ses extrêmes avec humour et sensibilité pour présenter au public toute la beauté et la complexité de cette émotion que nous partageons toutes et tous.\n\nLa création est née en 2025 au festival Emergence, puis a été reprise à FriScènes en octobre 2026 dans une version plus développée.",
-    distribution: "De et avec Sarah Othenin-Girard, Emilie de Carvalho Ferreira et Zoé Spycher.",
-    citation: "« Tant qu'il me reste ma voix, je continuerai. À crier, à crier, jusqu'à ce que le béton des murs se fissure. »"
+    long: "Hurler sous l'eau dit la colère. Il la sonde, la pétrit et l'ausculte sous tous ses aspects ; ce qu'elle fait au corps, à la voix, ce qui arrive quand on la tait ou au contraire quand elle déborde au dehors, au-delà de soi. C'est une exploration intime de la rage et une réappropriation de celle-ci, parce que, socialement, cette émotion a toujours été le lot des hommes.\n\nAvec Hurler sous l'eau, les trois comédiennes jouent avec le curseur de la colère, bousculant ses extrêmes avec humour et sensibilité pour présenter au public toute la beauté et la complexité de cette émotion que nous partageons toustes.",
+    avertissement: "Certaines scènes du spectacle abordent les thématiques des violences sexistes et sexuelles, des TCA et des violences psychiatriques.",
+    distribution: "De et avec Sarah Othenin-Girard, Emilie de Carvalho Ferreira et Zoé Spycher. Régie : Demetel Martinez."
   },
   "Mise à Mâle": {
     photos: [

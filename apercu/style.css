@@ -604,3 +604,6 @@ footer .spectaclesPied a:hover,footer .spectaclesPied a[aria-current]{text-decor
 .resume .auChoix{display:block;font:700 12px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--magenta);margin-top:4px}
 .datesSp .aussi{display:block;font-size:14px;color:var(--doux);margin-top:3px}
 .phrasePlusieurs{margin:-16px 0 28px;font:italic 500 20px/1.4 var(--texteF,inherit);color:var(--doux)}
+/* Avertissement sur les thèmes d'un spectacle (champ « avertissement » de festival.js) */
+.avertissement{margin:16px 0;padding:10px 14px;border-left:5px solid var(--violet);background:var(--fond2,rgba(107,44,255,.07));font-size:16px;line-height:1.45}
+.avertissement:before{content:"Avertissement · ";font:700 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--violet)}

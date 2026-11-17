@@ -84,7 +84,7 @@
     var videos = (s.videos || []).slice(); if (s.video) videos.push({ url: s.video }); if (e.video) videos.unshift({ url: e.video });
     return {
       compagnie: e.compagnie || s.compagnie || '', discipline: s.discipline || '', duree: e.duree || s.duree || '', age: e.age || s.age || '',
-      court: e.description || s.court || '', long: e.long || s.long || '', tarif: e.tarif || s.tarif || '', banque: s.banque || [], distribution: e.distribution || s.distribution || '', citation: s.citation || '',
+      court: e.description || s.court || '', long: e.long || s.long || '', tarif: e.tarif || s.tarif || '', banque: s.banque || [], distribution: e.distribution || s.distribution || '', citation: s.citation || '', avertissement: e.avertissement || s.avertissement || '',
       photos: photos, photo: photos.length ? photos[0].src : '', credit: photos.length ? photos[0].credit : '', videos: videos, lien: s.lien || '', lienTitre: s.lienTitre || '', entier: !!s.entier
     };
   }
@@ -447,7 +447,8 @@
         '<dt>Lieu</dt><dd>' + esc([e.lieu || 'Théâtricul', e.adresse || F.adresse].filter(Boolean).join(', ')) + '</dd>' +
         (s.tarif ? '<dt>Tarif' + (/\n/.test(s.tarif) ? 's' : '') + '</dt><dd>' + tarifHtml(s.tarif) + '</dd>' : '') + '</dl>' +
         (s.court ? '<div class="desc court">' + enrichir(s.court) + '</div>' : (s.long ? '' : '<p class="vide">Présentation à venir.</p>')) +
-        (s.long ? '<button class="lire" id="lire" aria-expanded="false">Lire la suite</button><div class="suite" id="suite">' + paras(s.long) + (s.citation ? '<p class="citation">' + esc(s.citation) + '</p>' : '') + '</div>' : '') +
+        (s.avertissement ? '<p class="avertissement">' + esc(s.avertissement) + '</p>' : '') +
+        (s.long && norm(s.long) !== norm(s.court) ? '<button class="lire" id="lire" aria-expanded="false">Lire la suite</button><div class="suite" id="suite">' + paras(s.long) + (s.citation ? '<p class="citation">' + esc(s.citation) + '</p>' : '') + '</div>' : '') +
         (s.videos.length ? '<div class="videos"><h2>En vidéo</h2>' + s.videos.map(video).join('') + '</div>' : '') +
         (s.lien ? '<p><a href="' + esc(s.lien) + '" rel="noopener">' + esc(s.lienTitre || 'Le site de la compagnie') + '</a></p>' : '') +
         (s.distribution ? '<p class="distribution">' + esc(s.distribution) + '</p>' : '') + '<p class="lienSp"><a href="' + pageSpectacle(e.spectacle || e.titre) + '">Toutes les dates de ce spectacle</a></p></div><div class="colle">';
