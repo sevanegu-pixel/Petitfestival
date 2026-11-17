@@ -12,9 +12,12 @@
   var FORM = { telephone: 'facultatif', message: 'facultatif', telDes: 0, maxPlaces: 10 };
   function reglerForm(f) {
     if (!f || typeof f !== 'object') return;
-    ['telephone', 'message'].forEach(function (k) { if (/^(facultatif|obligatoire|masque)$/.test(f[k])) FORM[k] = f[k]; });
+    ['message'].forEach(function (k) { if (/^(facultatif|obligatoire|masque)$/.test(f[k])) FORM[k] = f[k]; });
     FORM.telDes = Math.max(0, Math.floor(Number(f.telDes) || 0)); FORM.maxPlaces = Math.max(1, Math.floor(Number(f.maxPlaces) || 10));
   }
+  // Téléphone retiré du formulaire à la demande de Sévane (17.11), quel que soit le réglage de l'appli.
+  function sansTel() { FORM.telephone = 'masque'; FORM.telDes = 0; }
+  sansTel();
   function telObligatoire(places) { return FORM.telephone === 'obligatoire' || (FORM.telephone === 'facultatif' && FORM.telDes > 0 && Number(places) >= FORM.telDes); }
   function champTel() {
     if (FORM.telephone === 'masque') return '';

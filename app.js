@@ -12,9 +12,12 @@
   var FORM = { telephone: 'facultatif', message: 'facultatif', telDes: 0, maxPlaces: 10 };
   function reglerForm(f) {
     if (!f || typeof f !== 'object') return;
-    ['telephone', 'message'].forEach(function (k) { if (/^(facultatif|obligatoire|masque)$/.test(f[k])) FORM[k] = f[k]; });
+    ['message'].forEach(function (k) { if (/^(facultatif|obligatoire|masque)$/.test(f[k])) FORM[k] = f[k]; });
     FORM.telDes = Math.max(0, Math.floor(Number(f.telDes) || 0)); FORM.maxPlaces = Math.max(1, Math.floor(Number(f.maxPlaces) || 10));
   }
+  // Téléphone retiré du formulaire à la demande de Sévane (17.11), quel que soit le réglage de l'appli.
+  function sansTel() { FORM.telephone = 'masque'; FORM.telDes = 0; }
+  sansTel();
   function telObligatoire(places) { return FORM.telephone === 'obligatoire' || (FORM.telephone === 'facultatif' && FORM.telDes > 0 && Number(places) >= FORM.telDes); }
   function champTel() {
     if (FORM.telephone === 'masque') return '';
@@ -275,7 +278,7 @@
     document.getElementById('festAccroche').textContent = F.accroche || '';
     document.getElementById('festTexte').innerHTML = paras((F.presentation || []).join('\n\n'));
     document.getElementById('festLieu').textContent = F.theatricul || '';
-    document.getElementById('festOrga').textContent = F.organisation || '';
+    var fo = document.getElementById('festOrga'); if (F.organisation) fo.textContent = F.organisation; else fo.remove();
     var feu = F.coinDuFeu, zf = document.getElementById('coinFeu');
     if (feu && zf) { document.getElementById('feuSur').textContent = feu.sur || ''; document.getElementById('feuTitre').textContent = feu.titre || ''; document.getElementById('feuTexte').innerHTML = paras((feu.textes || []).join('\n\n')); zf.hidden = false; }
     var hm = F.hommage, secH = document.getElementById('gerard');
