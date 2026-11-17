@@ -36,7 +36,7 @@ for f in FICHIERS:
 for d in DOSSIERS:
     src, dst = os.path.join(A, d), os.path.join(R, d)
     os.makedirs(dst, exist_ok=True)
-    garder = set(os.listdir(src))
+    garder = set(os.listdir(src)) if os.path.isdir(src) else set()   # dossier vidé dans l'aperçu : on vide aussi
     for n in garder:
         shutil.copy2(os.path.join(src, n), os.path.join(dst, n))
     for n in os.listdir(dst):           # fichiers retirés de l'aperçu
