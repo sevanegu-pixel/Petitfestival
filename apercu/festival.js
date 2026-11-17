@@ -16,7 +16,7 @@ window.FESTIVAL = {
   ],
   // Ancienne section « Au coin du feu » : son texte est remonté dans la présentation (comme sur le dépliant)
   coinDuFeu: null,
-  organisation: "Le festival est organisé par Yvette Challande et Sévane Gurunlian, avec l'équipe du Théâtricul.",
+  organisation: "", // phrase « organisé par… » retirée à la demande de Sévane (17.11)
   // Hommage discret à Gérard Challande (bas de la page « Le festival », et une ligne au bas du programme)
   hommage: {
     sur: "En mémoire",
