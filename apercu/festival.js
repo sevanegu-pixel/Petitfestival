@@ -332,7 +332,7 @@ window.SPECTACLES = {
     duree: "30 min",
     age: "Tout public",
     tarif: "Au chapeau",
-    distribution: "De et avec Floriza Flor, seule en scène.",
+    distribution: "De et avec Floriza Flor, seule en scène. Accessoiriste dans la trappe : Mafalda Sambo.",
     court: "Floriza Flor retrace, raconte et rend hommage à des extraits de « C'est quoi ce cirque », le roman autobiographique d'Yvette Challande. Avec une touche d'humour et de sensibilité, sur des airs de Johnny Hallyday, et un clin d'œil à Gérard Challande."
   }
 };
