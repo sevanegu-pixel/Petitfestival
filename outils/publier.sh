@@ -12,7 +12,7 @@ import sys, os, shutil, re
 R = sys.argv[1]; A = os.path.join(R, 'apercu')
 PAGES = ['index.html', 'programme.html', 'festival.html', 'infos.html'] + \
         sorted('spectacles/' + n for n in os.listdir(os.path.join(A, 'spectacles')) if n.endswith('.html'))  # pages faites par outils/referencement.py
-FICHIERS = ['app.js', 'festival.js', 'style.css', 'favicon.svg', 'favicon.png', 'partage.png', 'sitemap.xml']
+FICHIERS = ['app.js', 'festival.js', 'style.css', 'favicon.svg', 'favicon.png', 'favicon.ico', 'favicon-48.png', 'favicon-96.png', 'favicon-192.png', 'favicon-512.png', 'apple-touch-icon.png', 'partage.png', 'sitemap.xml']
 DOSSIERS = ['photos', 'videos', 'partage']
 # Réglages retenus (valeurs par défaut de apercu/options.js)
 HTML = ('<html lang="fr" data-theme="clair" data-titre="fraunces" data-texte="newsreader" data-prog="grand" '
