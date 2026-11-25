@@ -29,7 +29,7 @@ LIEU = {'@type': 'PerformingArtsTheater', '@id': SITE + '/#theatricul', 'name': 
         'address': {'@type': 'PostalAddress', 'streetAddress': 'Rue de Genève 64', 'postalCode': '1225',
                     'addressLocality': 'Chêne-Bourg', 'addressRegion': 'Genève', 'addressCountry': 'CH'}}
 ORGA = {'@type': 'Organization', '@id': SITE + '/#organisation', 'name': F['nom'], 'url': SITE + '/',
-        'logo': SITE + '/favicon.png', 'email': F.get('contact', '')}
+        'logo': SITE + '/favicon-512.png', 'email': F.get('contact', '')}
 
 
 def norm(t):
@@ -157,7 +157,7 @@ def evenement(sp, r, ph):
     return o
 
 
-FESTIVAL_LD = {'@type': 'Festival', '@id': SITE + '/#festival', 'name': F['nom'], 'alternateName': ['Le P’tit Festival', 'Le Petit Festival au Théâtricul'],
+FESTIVAL_LD = {'@type': 'Festival', '@id': SITE + '/#festival', 'name': F['nom'], 'alternateName': ['Le P’tit Festival', 'Le Petit Festival au Théâtricul', 'Petit Festival Chêne-Bourg', 'P’tit Festival Genève'],
                'startDate': '2026-12-03', 'endDate': '2026-12-20', 'url': SITE + '/', 'image': [SITE + '/partage.png', SITE + '/photos/illustration.webp'],
                'description': F.get('accroche', ''), 'location': {'@id': LIEU['@id']}, 'organizer': {'@id': ORGA['@id']},
                'eventStatus': 'https://schema.org/EventScheduled', 'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
